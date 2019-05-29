@@ -1,0 +1,29 @@
+API Structure: 
+[{"id":70, "name":"Cairo to Zanzibar",
+"continent":"Africa", "category":"everything", 
+"weeks":5,"cost":9599.99
+}]
+
+Wave 1
+As a user on the home page with no trips listed, I want to click a button or link, so that I see a list of all trips.
+    ? all trips is ul - add shit as an li item 
+    /click button triggers event
+    /load api for trip num only
+    /index into array for each, interpolate as `trip ${tripid} : ${tripname} `
+    
+Wave 2
+As a user on the home page with trips listed, I want to click on a specific trip, so that I see a new section appear with details of that trip.
+As a user on the home page, after I've selected a specific trip, I want to see the following fields listed in the new section of the page, so that I know the details of that trip:
+    ? trip details is its own ul
+    /click on list triggers show page
+    /build endpoint 
+    /load info for that specific trip
+
+
+Trip ID
+Trip name
+Continent
+Details about the trip
+Category of the trip
+Number of weeks duration of the trip
+Cost of the trip
