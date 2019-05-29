@@ -19,11 +19,10 @@ const loadTrips = () => {
     .then((response) => {
       displayStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
+        tripList.append(`<li><a href="${showTripDetails(trip.id)}"> ${trip.name} </a></li>`);
       });
     })
 }
-
 
 const showTripDetails = (trip) => {
   console.log("showing details for trip", trip);
