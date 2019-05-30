@@ -24,7 +24,6 @@ body {
 }
 
 #current-trips {
-  /* background-color: hotpink; */
   width: 90%;
   margin: auto;
 }
@@ -40,5 +39,4 @@ body {
 li {
   border: black solid 2px;
   list-style: none;
-
 }

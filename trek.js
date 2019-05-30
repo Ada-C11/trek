@@ -1,8 +1,6 @@
 const URL = 'https://trektravel.herokuapp.com/trips'
 
-
-
-
+// html set-up
 const tripsHeader = $('<div>All Trips</div>');
 tripsHeader.addClass('card-header');
 
@@ -11,12 +9,11 @@ tripList.addClass('list-group list-group-flush');
 tripList.attr('id', 'trip-list');
 
 
-  
-const loadTrips = () => {
-  currentTrips = ($'#current-trips');
-  currentTrips.empty();
 
-  // currentTrips.addClass('card');
+// load list of current trips  
+const loadTrips = () => {
+  const currentTrips = $('#current-trips');
+  tripList.empty();
 
   axios.get(URL)
 
@@ -35,6 +32,12 @@ const loadTrips = () => {
     currentTrips.append(tripsHeader, tripList);
 }
 
+
+
+
+
+
+// doing the things!
 $(document).ready(function() {
 
   $('#trips-btn').click(loadTrips);
