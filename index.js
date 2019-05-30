@@ -1,5 +1,5 @@
   const ListURL = 'https://trektravel.herokuapp.com/trips'
-  const DetailURL = 'https://trektravel.herokuapp.com/trips/1'
+  const DetailURL = 'https://trektravel.herokuapp.com/trips'
 
   
   const displayStatus = (message) => {
@@ -15,6 +15,7 @@
     content += "</ul>";
     displayStatus(content);
   };
+  
   const loadTrips = () => {
     displayStatus("loading trips...");
 
@@ -31,7 +32,7 @@
         tripList.append(tripHTML);
   
         tripHTML.click(() => {
-        //   showTripDetail(trip.id);
+            showTripDetails(trip.id);
         })
         });
       })
@@ -40,19 +41,20 @@
         console.log(error);
       });
 };
+
 const showTripDetails = (id) => {
 
-    const tripdetail = $('#trip-detail');
+    const tripdetail = $('#trip-details');
     tripdetail.empty();
     axios.get(DetailURL + "/" + id)
       .then((response) => {
-          let trip = response.data
+          let trip = response.data;
           displayStatus(`Successfully loaded ${response.data}`);
           tripdetail.append(`
           <p>Trip Name: ${trip.name}</p>
           <p>Continent: ${trip.continent}</p>
           <p>Cost: ${trip.cost}</p>
-          <p>Duration: ${trip.weeks}</p>
+          <p>Weeks: ${trip.weeks} week('s)</p>
           <p>About: ${trip.about}</p>
           `);
       })
@@ -61,6 +63,30 @@ const showTripDetails = (id) => {
         console.log(error);
       });
     }
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    const reserveTrip = (trip) => {
+        console.log("reserving trip", trip)
+      
+        // TODO: Wave 2
+        // reserve a spot on the trip when the form is submitted
+      }
+
     
 
 
@@ -71,10 +97,10 @@ const showTripDetails = (id) => {
 
 $(document).ready(() => {
     $('#load').click(loadTrips);
-    $('#trip-list').on('click', 'li', function(event) {
-       let trip = $(this);
-        showTripDetails(trip)
-      });
+    // $('#trip-list').on('click', 'li', function(event) {
+    //    let trip = $(this);
+    //     showTripDetails(trip)
+    //   });
     
 
   });
