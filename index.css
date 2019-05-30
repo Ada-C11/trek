@@ -1,0 +1,32 @@
+body {
+  padding: 1rem;
+}
+
+header {
+  border-bottom: solid 1px black;
+}
+
+#all-trip-button {
+  padding: 1rem;
+}
+
+#detail-page {
+  display: grid;
+  width: 100%;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr, 1fr;
+}
+
+#all-trips {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+#trip-details {
+  grid-column-start: 2;
+}
+
+#reservation {
+  grid-column-start: 2;
+}
