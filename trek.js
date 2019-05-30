@@ -21,6 +21,7 @@ const loadTrips = () => {
       const trips = response.data;
       trips.forEach((trip) => {
         tripList.append(`<li class=list-group-item>${trip.name}</li>`);
+
       });
     })
 
@@ -33,6 +34,10 @@ const loadTrips = () => {
 }
 
 
+const loadDetails = () => {
+  alert('shiiiiit');
+}
+
 
 
 
@@ -42,4 +47,13 @@ $(document).ready(function() {
 
   $('#trips-btn').click(loadTrips);
 
+  $('#my-list').on('click', 'li', function(event) {
+    alert(`Got a click on an <li> containing "${$(this).html()}"`);
+  });
+
+
+  tripList.on('click', 'li', function(event) {
+    loadDetails();
+  });
 });
+
