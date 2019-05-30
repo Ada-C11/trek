@@ -1,5 +1,6 @@
   const ListURL = 'https://trektravel.herokuapp.com/trips'
   const DetailURL = 'https://trektravel.herokuapp.com/trips'
+  const ReserveURL = 'POST https://trektravel.herokuapp.com/trips/1/reservations'
 
   
   const displayStatus = (message) => {
@@ -63,6 +64,26 @@ const showTripDetails = (id) => {
         console.log(error);
       });
     }
+    const readFormData = () => {
+        const parsedFormData = {};
+      
+        const nameFromForm = $(`#reserve-form input[name="name"]`).val();
+        parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+      
+        const emailFromForm = $(`#reserve-form input[name="email"]`).val();
+        parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+      
+        return parsedFormData;
+      };
+      
+      const clearForm = () => {
+        $(`#reserve-form input[name="name"]`).val('');
+        $(`#reserve-form input[name="email"]`).val('');
+      
+      }
+
+
+      
 
 
    
@@ -81,11 +102,34 @@ const showTripDetails = (id) => {
    
    
     const reserveTrip = (trip) => {
-        console.log("reserving trip", trip)
+        // console.log("reserving trip", trip)
+        event.preventDefault();
+
+        const userData = readFormData();
+        console.log(userData);
       
-        // TODO: Wave 2
-        // reserve a spot on the trip when the form is submitted
-      }
+        displayStatus('Sending user data...');
+
+        axios.post(ReserveURL, userData)
+        .then((response) => {
+          reportStatus(`Successfully added a pet with ID ${response.data.id}!`);
+          clearForm();
+        })
+        .catch((error) => {
+          console.log(error.response);
+          if (error.response.data && error.response.data.errors) {
+            reportError(
+              `Encountered an error: ${error.message}`,
+              error.response.data.errors
+            );
+          } else {
+            reportStatus(`Encountered an error: ${error.message}`);
+          }
+        });
+    };
+      
+   
+
 
     
 
