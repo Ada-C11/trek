@@ -12,20 +12,30 @@ const handleApiError = (error) => {
 const loadTrips = () => {
   displayStatus("loading trips...");
 
-  const tripList = $('.trip-list');
+  const tripList = $('#trip-list');
   tripList.empty();
 
   axios.get(baseURL)
     .then((response) => {
       displayStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li><a href="${showTripDetails(trip.id)}"> ${trip.name} </a></li>`);
+        tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
+      $(`#trip-list li`).click(showTripDetails);
     })
 }
 
-const showTripDetails = (trip) => {
-  console.log("showing details for trip", trip);
+
+const showTripDetails = (event) => {
+  event.preventDefault();
+  console.log("showing details for trip", $(event.target).html());
+  let byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
+  console.log(byIdUrl)
+
+  axios.get(byIdUrl)
+    .then((response) => {
+      $('#trip-list').append(response.data.id);
+    })
 
   // TODO: Wave 2
   // display trip details and the trip reservation form
@@ -40,4 +50,10 @@ const reserveTrip = (trip) => {
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
+
+  // $('#trip-list').on('click', 'li', function () {
+  //   // let id = $(this).attr("id");
+  //   console.log(this.id)
+  //   showTripDetails(this.id);
+  // });
 });
