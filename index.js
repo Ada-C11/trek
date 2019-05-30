@@ -1,5 +1,11 @@
-const displayStatus = (message) => {
-    $('#status').html(message);
+const URL = 'https://trektravel.herokuapp.com/trips/';
+const allTrips = $('section.trip-list');
+
+
+const reportStatus = (message) => {
+  const statusContainer = $('#status').html(message);
+  statusContainer.empty();
+  statusContainer.append(`<p>${message}</p>`)
   }
   
   const handleApiError = (error) => {
@@ -8,8 +14,27 @@ const displayStatus = (message) => {
   }
   
   const loadTrips = () => {
-    displayStatus("loading trips...");
-  
+    reportStatus("loading trips...");
+
+    const tripList = $('#trip-list');
+    tripList.empty();
+
+    axios.get(URL)
+      .then((response) => {
+        reportStatus(`Successfully loaded ${response.data.length} trips`, 'success');
+
+        const trips = response.data;
+        
+        trips.forEach((trip) => {
+          tripList.append(`<p>${trip.name}</p>`)
+        });
+          
+      })
+      .catch((error) => {
+        reportStatus(`Encountered an error while loading trips: ${error.message}`, 'danger');
+        console.log(error);
+      });
+      
     // TODO: Wave 1
     // make an axios call to the trips index and display the results
   }
