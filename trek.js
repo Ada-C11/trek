@@ -1,21 +1,29 @@
 const BASE_URL = 'https://trektravel.herokuapp.com/trips'
 const ID_URL = 'https://trektravel.herokuapp.com/trips/'
+
+const displayStatus = (message) => {
+    $('#status').html(message);
+}
+
 const loadTrips = () => {
     axios.get(BASE_URL)
     .then((response) => {
+        displayStatus(`Successfully loaded ${response.data.length} trips`);
         response.data.forEach((trek) => {
-            $('#trek-list').append(`<li class="trip__name">${trek.id}: ${trek.name}</li>`);  
+            $('#trek-list').append(`<li><a href="#" data-trek-id=${trek.id}> ${trek.name} </a></li>`);  
         });
+        $('#trek-list li').click(showTrip);
     })
+
     .catch((error) => {
         console.log(error);
     });
 };
 
-const loadTrip = (id) => {
-    axios.get(`${ID_URL}${id}`)
+const showTrip = (event) => {
+    axios.get(ID_URL + $(event.target).data("trek-id"))
     .then((response) => {
-        console.log(response);
+        console.log("showing details for trip", response);
         $('#trek-details').html(`<p><strong>Name:</strong> ${response.data.name}</p><p><strong>ID:</strong> ${response.data.id}</p>
         <p><strong>Continent:</strong> ${response.data.continent}</p><p><strong>Category:</strong> ${response.data.category}</p>
         <p><strong>Weeks:</strong> ${response.data.weeks}</p><p><strong>Cost:</strong> $${response.data.cost}</p>
@@ -61,12 +69,13 @@ const loadTrip = (id) => {
 //   };
 
 $(document).ready(() => {
+    
     $('.reservation').hide();
     $('.trips__button').click(loadTrips);
-    $('#trek-list').on('click', 'li', function() {
-        let trekId = parseInt(this.innerHTML);
-        loadTrip(trekId);
-    });
+    // $('#trek-list').on('click', 'li', function() {
+    //     // let trekId = parseInt(this.innerHTML);
+    //     showTrip(trekId);
+    // });
 });
   
 
