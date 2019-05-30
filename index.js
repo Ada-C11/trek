@@ -8,17 +8,19 @@ const loadTrips = () => {
   tripList = $('#trip-list');
   tripList.empty();
 
+
   axios.get(URL)
     .then((response) => {
       response.data.forEach((trip) => {
         tripList.append(`<li id="${trip.id}">${trip.name}</li>`);
-        tripIDs.push("trip.id")
-        $("#" + trip.id).click(loadDetails(trip.id));
+        tripIDs.push(trip.id)
+        // $("#" + trip.id).on('click',loadDetails(trip.id))
       });
     })
     .catch((error) => {
       console.log(error);
     });
+
 };
 
 
@@ -26,7 +28,7 @@ const loadDetails = (id) => {
   const tripDetails = $('#detail-list');
   tripDetails.empty()
 
-  axios.get(URL+"/"+id)
+  axios.get(URL+"/"+ id)
   .then((response) => {
       let titles = ["name", "continent", "about", "category", "weeks", "cost"]
       titles.forEach((title) => {
@@ -41,7 +43,10 @@ const loadDetails = (id) => {
 };
 
 $(document).ready(() => {
-  $('#load').click(loadTrips);
+
+
+  $('#load').on('click', loadTrips);
+  $("#detail-list").on('click', "li", loadDetails(trip.id))
 });
 
 
