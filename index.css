@@ -1,0 +1,31 @@
+main {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+}
+
+.all-trips {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    /* border: 1px solid black; */
+}
+.all-trips h1 {
+    text-align: center;
+}
+.all-trips ul {
+    padding-left: 0;
+}
+.all-trips li {
+    list-style: none;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.trip-details {
+    margin-left: 50px;
+    /* border: 1px solid black; */
+}
+.reserve-trip {
+    /* border: 1px solid black; */
+}
