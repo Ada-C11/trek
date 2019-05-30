@@ -7,6 +7,7 @@ const reservationForm = `<form id="reservationForm">
 															<label for="email">Email</label>
 															<input type="email" class="form-control" id="email" placeholder="you@example.com">
 														</div>
+														<button type="submit" class="btn btn-primary">Reserve</button>
 												<form>`;
 
 const onClick = function(action, listener) {
@@ -22,6 +23,13 @@ const postReservation = trip => {
   reservation.empty();
   reservation.append(`<h2>Reserve a Spot on ${trip.name}</h2>`);
   reservation.append(reservationForm);
+  console.log($('form').serializeArray());
+  $('form').submit(function(event) {
+    // for (let i = 0; i < 1000000000000; i += 1) {
+    console.log(event);
+    // console.log($(this).serializeArray());
+    // }
+  });
 };
 
 const getTrip = event => {
