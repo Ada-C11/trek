@@ -1,20 +1,22 @@
-const allTripsURL = 'https://trektravel.herokuapp.com/trips'
-const tripDetailURL = 'https://trektravel.herokuapp.com/trips/'
+const URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
-  $('#status-message').html(message).hide(3000);
+  console.log(message);
+  $('#status-message').html(message);
 };
 
-const reportError = (message, errors) => {
-  let content = `<p>${message}</p><ul>`;
-  for (const field in errors) {
-    for (const problem of errors[field]) {
-      content += `<li>${field}: ${problem}</li>`;
-    }
+const reportApiError = (error) => {
+  console.log("encountered error when posting", error);
+  let errors = Object.values(error)[2].data.errors;
+  let errorHtml = `<p>${error.message}</p><ul>`;
+
+  for (let [field, problem] of Object.entries(errors)) {
+    errorHtml += `<li>${field}: ${problem}</li>`;
   }
-  content += "</ul>";
-  reportStatus(content);
-};
+  errorHtml += '</ul>';
+  console.log(errorHtml);
+  reportStatus(errorHtml);
+}
 
 const loadTripForm = (tripName) => {
   const tripForm = $('#trip-form');
@@ -45,11 +47,11 @@ const loadTripDetail = (response) => {
     `<h4 class="card-header">Trip Details</h4>
     <div class="card-body">
       <h5 class="card-title">Name: ${response.data.name}</h5>
-      <p>Continent: ${response.data.continent}</p>
-      <p>Category: ${response.data.category}</p>
-      <p>Weeks: ${response.data.weeks}</p>
-      <p>Cost: ${response.data.cost}</p>
-      <p>About</p>
+      <p><strong>Continent:</strong> ${response.data.continent}</p>
+      <p><strong>Category:</strong> ${response.data.category}</p>
+      <p><strong>Weeks:</strong> ${response.data.weeks}</p>
+      <p><strong>Cost:</strong> $${response.data.cost}</p>
+      <p><strong>About:</strong></p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi congue euismod libero, 
       et dapibus sapien maximus in. Nunc suscipit velit lectus, quis vestibulum dui consequat tincidunt. 
       Maecenas enim massa, pellentesque a scelerisque euismod, scelerisque volutpat orci. Suspendisse 
@@ -64,7 +66,7 @@ const loadTrips = () => {
   const tripList = $('#trip-list');
   tripList.empty();
 
-  axios.get(allTripsURL)
+  axios.get(URL)
     .then((response) => {
       tripList.addClass('card');
       tripList.append(`<h4 class="card-header">All Trips</h4>`);
@@ -78,6 +80,10 @@ const loadTrips = () => {
           tripDetails($(this).attr('id'));
           $('#trip-form').empty();
           loadTripForm(trip.name);
+          $('#trip-form').submit((event) => {
+            event.preventDefault();
+            reserveTrip(trip.id);
+          });
         })
       });
     })
@@ -88,7 +94,7 @@ const loadTrips = () => {
 }
 
 const tripDetails = (tripId) => {
-  const temp = tripDetailURL + tripId;
+  const temp = URL + '/' + tripId;
   axios.get(temp)
   .then((response) => {
     loadTripDetail(response);
@@ -102,10 +108,23 @@ const readTripForm = () => {
   return new FormData(document.querySelector('#trip-form'));
 }
 
-const addTrip = () => {
+const reserveTrip = (tripId) => {
+  const tripData = readTripForm();
+  const temp = URL + '/' + tripId + '/reservations' 
+  
+  axios.post(temp, tripData)
+    .then((response) => {
+      console.log("successfully posted trip data", response);
 
+      const tripId = response.data.id;
+      reportStatus(`Successfully reserved a trip with ID ${tripId}`);
+    })
+    .catch((error) => {
+      reportApiError(error);
+    })
 }
 
 $(document).ready( function() {
   $('.all-trips').click(loadTrips);
+  
 });
