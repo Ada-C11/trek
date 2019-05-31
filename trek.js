@@ -17,51 +17,48 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-//
-// Loading Pets
+
+const displayTrips = (tripList) => {
+  const target = $(`#trip-list`);
+  target.empty();
+  tripList.forEach(trip => {
+    target.append(`<li><a class='trip-item' href='#'>${trip.name}</a></li>`);
+  })
+}
+
+const showTrip = (trip) => {
+  $('body').on('click', '.trip-item', function(event) {
+    $('#trip-details').append(tripDetails);
+  });
+};
+
+// const tripDetails = $(
+//   `<li>ID: ${trip.id}</li>
+//   <li>Category: ${trip.category}</li>
+//   <li>Continent: ${trip.continent}</li>
+//   <li>Cost: ${trip.cost}</li>
+//   <li>Name: ${trip.name}</li>
+//   <li>Duration: ${trip.weeks}</li>`
+//   )
+
+
+
 //
 const loadTrips = () => {
   reportStatus('Loading trips...');
 
-  const tripList = $('#trip-list');
-  tripList.empty();
-
-  const tripDetails = $('.trip-details');
-  // tripDetails.empty();
-
   axios.get(tripsURL)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach((trip) => {
-        tripList.append(`<li><a class='trip-item' href='#trip-details'>${trip.name}</a></li>`);
-        const details = {
-          id: `ID: ${trip.id}`,
-          category: `Category: ${trip.category}`,
-          continent: `Continent: ${trip.continent}`,
-          cost: `Cost: ${trip.cost}`,
-          name: `Name: ${trip.name}`,
-          dutation: `Duration: ${trip.weeks}`,
-        }
-        // $('.body').on('click', '.trip-item', () => {
-        //   tripDetails.append(`<li>${trip.id}</li>`);
-        //   console.log('GOT CALLED');
-        // });
-      });
-    })
+  .then((response) => {
+    const trips = response.data;
+    displayTrips(trips);
+    reportStatus(`Successfully loaded ${response.data.length} trips`);
+  })
 
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
-      console.log(error);
-    });
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
+  });
 };
-
-$('.trip-details').on('click', '.trip-item', function(event) {
-  tripDetails.append(`<li>${details.id}</li>`);
-  console.log(id);
-});
-
-// const tripDetails = $('#trip-details');
-// tripDetails.empty();
 
 
 $(document).ready(() => {
