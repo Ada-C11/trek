@@ -1,5 +1,4 @@
-// const URL = 'https://trektravel.herokuapp.com';
-axios.defaults.baseURL = 'https://trektravel.herokuapp.com';
+axios.defaults.baseURL = 'https://trektravel.herokuapp.com/trips';
 //
 // Status Management
 //
@@ -28,18 +27,16 @@ const loadTrips = () => {
 
   const tripList = $('#trip-list');
   tripList.empty();
+  $('h2').removeClass('hidden')
 
-  axios.get('/trips')
+  axios.get()
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        // tripList.append(`<li><a href='${trip.id}'>${trip.name}</a></li>`);
-        // const listItem = $(`<li data-trip-id='${trip.id}'>${trip.name}</li>`);
         const listItem = $(`<li>${trip.name}</li>`);
         tripList.append(listItem);
         listItem.click(showTripDetails(trip.id));
       });
-      // $('#trip-list li').click(loadTripDetails);
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -49,17 +46,14 @@ const loadTrips = () => {
 
 //Load Trip Details
 const showTripDetails = (tripId) => {
-  const loadTripDetails = (e) => {
+  const loadTripDetails = () => {
     reportStatus('Loading trip details...');
     $('.details').removeClass('hidden')
     
     const tripDetail = $('#trip-detail');
     tripDetail.empty();
 
-    // const tripId = $(e.target).data('trip-id');
-    // $("#reservation-form").attr('data-trip-id', tripId)
-    
-    axios.get(`trips/${tripId}`)
+    axios.get(`${tripId}`)
     
     .then((response) => {
       console.log(response);
@@ -80,7 +74,6 @@ const showTripDetails = (tripId) => {
       console.log(error);
     });
   };
-
   return loadTripDetails;
 };
 
@@ -114,8 +107,7 @@ const reservationHandler = (tripId) => {
 
     reportStatus('Sending pet data...');
 
-    // axios.post(`trips/${$(e.target).data('trip-id')}/reservations`, tripData)
-    axios.post(`trips/${tripId}/reservations`, tripData)
+    axios.post(`${tripId}/reservations`, tripData)
       .then((response) => {
         reportStatus(`Successfully created a reservation with ID ${response.data.id}!`);
         clearForm();
@@ -133,12 +125,8 @@ const reservationHandler = (tripId) => {
       });
   };
   return reserveTrip;
-
 };
-
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  // $('#trip-list li').click(loadTripDetails);
-  // $('#reservation-form').submit(reserveTrip);
 });
