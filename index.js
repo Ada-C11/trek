@@ -51,7 +51,7 @@ const loadTrips = () => {
 $(document).ready(() => {
     $('#load').click(loadTrips);
     $('#trip-list').on('click', 'li', function() {
-        // $('#details-list').empty();
+        $('.details').empty();
         const tripId = parseInt($(this).attr("id"));
         $('section.details').append('<h2>Details</h2>');
         const detailsWindow = '<ul id="details-list"></ul>';
