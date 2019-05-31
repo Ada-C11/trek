@@ -4,18 +4,22 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
+const displayTripList = (tripList) => {
+  const target = $('#trip-list');
+  target.empty();
+  tripList.forEach((trip) => {
+    target.append(`<li>${trip.name}</li>`);
+  });
+}
+
 const loadTrips = () => {
   reportStatus('Loading trips...');
-
-  const tripList = $('#trip-list');
-  tripList.empty();
-
+  
   axios.get(URL)
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
-      response.data.forEach((trip) => {
-        tripList.append(`<li>${trip.name}</li>`);
-      });
+      const trips = response.data;
+      displayTripList(trips);
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
