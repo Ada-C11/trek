@@ -1,6 +1,6 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 const tripDetailsURL = 'https://trektravel.herokuapp.com/trips/';
-
+const reserve = $('#section.reserve-trip')
 
 const reportStatus = (message) => {
   const statusContainer = $('#status').html(message);
@@ -36,13 +36,13 @@ const reportStatus = (message) => {
 
                 deets.html(
                 `<h1>Trek Trip Details<h1> 
-                  <h2>Trip Name: ${response.data.name}</h2>
-                  <h3>Continent: ${response.data.continent}</h3>
-                  <h3>Category: ${response.data.category}</h3>
-                  <h3>Weeks: ${response.data.weeks}</h3>
-                  <h3>Cost: $${response.data.cost}</h3>
+                  <h2>Trip Name: ${trip.name}</h2>
+                  <h3>Continent: ${trip.continent}</h3>
+                  <h3>Category: ${trip.category}</h3>
+                  <h3>Weeks: ${trip.weeks}</h3>
+                  <h3>Cost: $${trip.cost}</h3>
                   <h3>About: </h3>
-                  <p>${response.data.about}</p>`
+                  <p>${trip.about}</p>`
                 )
               })
               
@@ -62,21 +62,19 @@ const reportStatus = (message) => {
         reportStatus(`Encountered an error while loading trips: ${error.message}`, 'danger');
         console.log(error);
       });
-      
   }
-  
-  // const showTripDetails = (event) => {
-  //   const tripID = $(event.target).data("trek-id")
-  //   axios.get(tripDetailsURL + tripID)
-  //   .then((response) => {
-   
-  //   })
-  //   .catch((error) => {
-  //       console.log(error);
-  //   });
-  
-  // };
 
+  const readFormData = () => {    
+    const parsedFormData = {};
+
+    const nameFromForm = $(`#new-reservation input[name="name]`).val();
+    parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+    const emailFromForm = $(`#new-reservation input[name="email"]`).val();
+    parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+    return parsedFormData;
+  };
 
   const reserveTrip = (trip) => {
     console.log("reserving trip", trip)
