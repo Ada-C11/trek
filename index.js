@@ -24,26 +24,27 @@ const loadTrips = () => {
 
   reportStatus("loading trips...");
   
-    let tripsList = $('#trips-list');
-    // tripsList.empty();
+  let tripsList = $('#trips-list');
+  tripsList.empty();
   
-    axios.get(URL)
-    .then((response) => {
-      let responseArr = response.data
-
-      reportStatus(`Successfully loaded ${responseArr.length} trips`);
-  
-      responseArr.forEach(trip => {
-        tripsList.append(`<li>${trip.name}</li>`);
-      });
-    })
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading wonder: ${error.message}`);
-      console.log(error);
+  axios.get(URL)
+  .then((response) => {
+    let responseArr = response.data
+    
+    reportStatus(`Successfully loaded ${responseArr.length} trips`);
+    
+    responseArr.forEach(trip => {
+      tripsList.append(`<li>${trip.name}</li>`);
     });
+  })
+  .catch((error) => {
+    reportStatus(`Encountered an error while loading wonder: ${error.message}`);
+    console.log(error);
+  });
 }
 
 const showTripDetails = (trip) => {
+  // $(this.Attr([id]))
   console.log("showing details for trip", trip);
 
   // DONT FORGET TO START AT TRIP 70
