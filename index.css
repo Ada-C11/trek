@@ -3,12 +3,14 @@
 body {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 2em;
-  /* background-image: url("vintage-travel.jpg"); */
-}
-
-img {
-  opacity: 0.5;
+  grid-column-gap: 2em;
+  grid-row-gap: 0;
+  /* background-image: url("https://www.featurepics.com/StockImage/20130217/vintage-travel-background-stock-illustration-2613536.jpg"); */
+  background-image: url("images/erwan-hesry-166245-unsplash.jpg");
+  font-weight: bold;
+  color: aliceblue;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
 }
 
  #main {
@@ -31,10 +33,31 @@ button#load-trips{
  color: whitesmoke;
 }
 
-#trips, #trip-details{
+#trips{
+  grid-column: 1;
+  grid-row: 2 / span 2;
+} 
+
+#trip-details {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#reservation{
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: -450px;
+  
+}
+
+#trips, #trip-details, #reservation{
   border: dotted burlywood;
   overflow: scroll;
   text-align: center;
+}
+
+#details-border{
+  height: auto;
 }
 
 .hide-details{
@@ -51,4 +74,9 @@ button#load-trips{
 
 #trips-list {
   list-style: none;
+}
+
+li{
+  padding-top: 1em;
+  border-bottom: solid coral;
 }

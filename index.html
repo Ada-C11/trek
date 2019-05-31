@@ -10,6 +10,8 @@
   </head>
 
   <body>
+    <!-- <img src="https://www.featurepics.com/StockImage/20130217/vintage-travel-background-stock-illustration-2613536.jpg" alt="vintage-map-image"> -->
+
     <main id="main">
       <h1 id="title"> Come Trek With Me! </h1>
       <button id="load-trips"> See All Trips!</button>
@@ -26,14 +28,30 @@
     </section>
 
     <!-- TRIP DETAILS -->
-    <section id="trip-details" class="hide-details">
-      <h3 class="list-name"> TRIP DETAILS </h3>
-      <section id="trip-info"></section>
-    </section>
+    <div class="details-border">
+      <section id="trip-details" class="hide-details">
+        <h3 class="list-name"> TRIP DETAILS </h3>
+        <section id="trip-info"></section>
+      </section>
+    </div>
 
-    <!-- RESERVE TRIP -->
+    <!-- RESERVE TRIP (got from Ada Pets)-->
+    <div class="details-border">
     <section id="reservation" class="hide-details">
-      <h1> RESERVE TRIP  </h1>
+      <h3 class="reservation"> RESERVE A TRIP  </h3>
+      <form id="reservation-form">
+        <div>
+          <label for="name">Name:</label>
+          <input type="text" name="name" />
+        </div>
+        <br/>
+        <div>
+          <label for="email">Email:</label>
+          <input type="text" name="email" />
+        </div>
+        <br />
+        <input type="submit" name="reserve-trip" value="Reserve Trip"/>
+      </form>
     </section>
   </body>
 </html>

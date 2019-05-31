@@ -1,7 +1,7 @@
 const ALL_TRIPS = 'https://trektravel.herokuapp.com/trips';
 
  
-// ERROR & STATUS REPORTING
+// ~~~~~~~~ERROR & STATUS REPORTING~~~~~~~~
 const reportStatus = (message) => {
   const statusContainer = $('#status-message');
   statusContainer.empty();
@@ -19,7 +19,7 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-// LOAD ALL TRIPS
+// ~~~~~~~~LOAD ALL TRIPS (got from Ada Pets)~~~~~~~~
 const loadTrips = () => {
   reportStatus('Loading trips...');
 
@@ -32,7 +32,7 @@ const loadTrips = () => {
     
 
     response.data.forEach((trip) => {
-      tripList.append(`<li><button class='${trip.id}'> ${trip.name}</button></li>`);
+      tripList.append(`<li class='${trip.id}'> ${trip.name}</li>`);
     })
   })
   .catch((error) => {
@@ -42,7 +42,7 @@ const loadTrips = () => {
   });
 }
 
-//TRIP DETAILS
+//~~~~~~~~TRIP DETAILS~~~~~~~~
 const tripDetails = (id) => {
   reportStatus('Loading trip details...');
 
@@ -68,18 +68,57 @@ const tripDetails = (id) => {
   });
 }
 
+//~~~~~~~~TRIP RESERVATION (Ada Pets)~~~~~~~~
+const readFormData = () => {
+  const parsedFormData = {};
+
+  const nameFromForm = $(`#reservation-form input[name="name"]`).val();
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+  const emailFromForm = $(`#reservation-form input[email="email"]`).val();
+  parsedFormData['age'] = emailFromForm ? emailFromForm : undefined;
+
+  return parsedFormData;
+};
+
+const clearForm = () => {
+  $(`#reservation-form input[name="name]`).val('');
+  $(`#reservation-form input[name="email]`).val('');
+}
+
+const reserveTrip = (event) => {
+  event.preventDefault();
+
+  const tripData = readFormData();
+  console.log(tripData);
+
+  reportStatus('Sending trip data...');
+
+  axios.post(ALL_TRIPS, tripData)
+    .then((response) => {
+      reportStatus(`Successfully reserved trip ${response.data.id}`);
+      clearForm();
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if(error.response.data && error.response.data.errors){
+        reportError(`Encountered an error: ${error.message}`, error.response.data.errors);
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+};
+
 $(document).ready(() => {
-  $('#load-trips').click(() => {
-    // Load all trips
+  $('#load-trips').on('click', function(){
     loadTrips();
     $('#trips').show();
   });
-
   // load details about specific trip
-  $('ul').on('click', 'button', function() {
-
+  $('ul').on('click', 'li', function() {
     let tripId = this.className;
     tripDetails(tripId);
     $('#trip-details').show();
+    $('#reservation').show();
   });
 });
