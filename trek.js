@@ -1,4 +1,5 @@
 const baseURL = "https://trektravel.herokuapp.com/trips";
+const axios = require('axios')
 
 const displayStatus = (message) => {
   $('#status').html(message);
@@ -21,31 +22,28 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
-      $(`#trip-list li`).click(showTripDetails);
-      // $(`#trip-list li`).click(function () {
-      //   $('.reserve-trip').toggle();
-      // })
-    })
+      $(`#trip-list li`).on('click', showTripDetails);
+    });
 }
+
+const displayTripDetails = (tripDetails) => {
+  const target = $('#trip-details');
+  target.empty();
+  Object.keys(tripDetails).forEach(function (detail) {
+    target.append(`<li><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
+  });
+}
+
 
 const showTripDetails = (event) => {
   event.preventDefault();
 
   console.log("showing details for trip", $(event.target).html());
-  let byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
+  const byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
 
   axios.get(byIdUrl)
     .then((response) => {
-      $('#trip-details').html("<li>Name: " + response.data.name + "</li>");
-      $('#trip-details').append("<li>ID: " + response.data.id + "</li>");
-      $('#trip-details').append("<li>Continent: " + response.data.continent + "</li>");
-      $('#trip-details').append("<li>Category: " + response.data.category + "</li>");
-      $('#trip-details').append("<li>Weeks: " + response.data.weeks + "</li>");
-      $('#trip-details').append("<li>Cost: $" + response.data.cost + "</li>");
-      $('#trip-details').append("<li>About: " + response.data.about + "</li>");
-    })
-    .catch((error) => {
-      displayStatus(`Encountered an error while loading trips: ${error.message}`);
+      displayTripDetails(response.data);
     });
 };
 
@@ -68,5 +66,4 @@ const reserveTrip = (trip) => {
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-  // $('#trip-details').hide();
 });
