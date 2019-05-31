@@ -4,6 +4,10 @@ const reportStatus = (message) => {
     $('#status-message').html(message);
 };
 
+const detailsBuilder = () => {
+
+};
+
 const loadTrips = () => {
 
     const tripsList = $('#trip-list');
@@ -13,7 +17,10 @@ const loadTrips = () => {
     .then(function (response) {
         const trips = response.data;
         for (let i = 0; i <= trips.length-1; i += 1) {
-            tripsList.append(`<li>${response.data[i].name}</li>`)
+            const idNum = response.data[i].id;
+            const tripId = `${idNum}`;
+            const element = `<li id="${tripId}">${response.data[i].name}</li>`;
+            tripsList.append(element);
         }
         // tripsList.append(`<li>${response.data[0]}</li>`);
     })
@@ -28,7 +35,8 @@ $(document).ready(() => {
     $('#load').click(loadTrips);
     $('#trip-list').on('click', 'li', function(event) {
         $('.details').empty();
-        const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()}</li>` + '</ul>'
+        const tripId = parseInt($(this).attr("id"));
+        const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
         $('.details').append(detailsWindow);
         alert(`Woohoo!  That sure is a ${$(this).html()}`);
     });
