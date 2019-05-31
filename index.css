@@ -3,20 +3,36 @@
 body {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
 }
 
  #main {
   min-height: 20px;
   grid-column-start: 1;
   grid-column-end: 3;
+  text-align: center;
 }
 
 #title{
   font-family: 'Fascinate Inline', cursive;
-  text-align: center;
+}
+
+button#load-trips{
+ border: solid;
+ margin: 0 auto 1em auto;
+ font-size: 1em;
+ padding: 5px 30px;
+ background-color: rgb(247, 126, 146);
+ color: whitesmoke;
+}
+
+#trips, #trip-details{
+  border: dotted burlywood;
+  overflow: scroll;
 }
 
 .hide-details{
   display: none;
+  
 }
 
