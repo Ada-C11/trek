@@ -44,7 +44,7 @@ const getTrips = () => {
 };
 
 // This gets the trip details given the id as a parameter
-const detailsTrips = const detailsTrips = (id) => {
+const detailsTrips = id => {
   reportStatus("Loading details...");
 
   const tripDetailsList = $("#trip-details");
@@ -55,11 +55,11 @@ const detailsTrips = const detailsTrips = (id) => {
     .then(response => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       // callback function which takes the id passed to it and finds the trip associated with that id
-      const trip = response.data.find((item) => {
+      const trip = response.data.find(item => {
         // returns true when that id matches the id passed to this method
         return item.id.toString() === id;
       });
-      loadForm(trip.name);
+      loadForm(trip);
       tripDetailsList.append(
         `<h2>TRIP DETAILS</h2>`,
         `<li>ID: ${trip.id}</li>`,
@@ -80,76 +80,72 @@ const detailsTrips = const detailsTrips = (id) => {
 };
 
 // Loads the form and calls the submit fuction
-const loadForm = (trip) => {
+const loadForm = trip => {
   reportStatus("Loading details...");
   const tripReservation = $(".reserve-trip-area");
   tripReservation.empty();
 
   tripReservation.append(
-    `<h2>Reserve a Spot on ${trip}</h2>
+    `<h2>Reserve a Spot on ${trip.name}</h2>
     <form class="reservation-form"> Name:<br />
       <input class="text-input" type="text" name="name" value="Mickey" />
       <br />
       Email:<br />
       <input class="email-input" type="text" name="email" value="mickey@mouse.com" />
       <br /><br />
-      <input class="submit-click" type="button" value="Submit" />
+      <input class="submit-click" type="submit" value="Submit" />
     </form>`
   );
   setUpFormSubmission(trip);
-}
+};
 
-const postURL = "https://trektravel.herokuapp.com/trips/1/reservations";
-
-// Posts the data submitted in the form
 const postForm = (name, email, id) => {
   event.preventDefault();
   axios({
     method: "post",
-    url: postURL,
+    url: `https://trektravel.herokuapp.com/trips/${id}/reservations`,
     data: {
       name: name,
       email: email
     }
-  }).catch(error => {
-    if (error.response.data && error.response.data.errors) {
-      reportError(
-        `Encountered an error while loading trips: ${error.message}`,
-        error.response.data.errors
-      );
-    } else {
-      reportStatus(`Encountered an error: ${error.message}`);
-    }
-  });
-}
+  })
+    .then(() => {
+      reportStatus(`Successfully submitted reservation`);
+    })
+    .catch(error => {
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error while loading trips: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+};
 
-// Loads all available trips on click
 const listTrips = () => {
   $("#load").click(getTrips);
-}
+};
 
-// On clicking a specific trip give the details of that trip
 const loadTripDetails = () => {
-  $("#trip-list").click((event) => {
+  $("#trip-list").click(event => {
     const selected = event.target;
     const tripId = selected.classList[0];
-    // Id is passed to the details function
     detailsTrips(tripId);
   });
-}
+};
 
-// Submits the form with your input on click
-const setUpFormSubmission = (trip) => {
-  $(".reservation-form").submit((event) => {
+const setUpFormSubmission = trip => {
+  $(".reservation-form").submit(event => {
     event.preventDefault();
     const name = $(`.text-input`).val();
     const email = $(`.email-input`).val();
     postForm(name, email, trip.id);
     clearForm();
   });
-}
+};
 
-// Clears the form after submission
 const clearForm = () => {
   $(`.text-input`).val(" ");
   $(`.email-input`).val(" ");
