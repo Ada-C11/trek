@@ -26,4 +26,10 @@ const loadTrips = () => {
 
 $(document).ready(() => {
     $('#load').click(loadTrips);
+    $('#trip-list').on('click', 'li', function(event) {
+        $('.details').empty();
+        const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()}</li>` + '</ul>'
+        $('.details').append(detailsWindow);
+        alert(`Woohoo!  That sure is a ${$(this).html()}`);
+    });
 })
