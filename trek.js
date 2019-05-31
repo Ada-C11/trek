@@ -25,20 +25,35 @@ const loadTrips = () => {
     })
 }
 
-
 const showTripDetails = (event) => {
   event.preventDefault();
+
   console.log("showing details for trip", $(event.target).html());
   let byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
-  console.log(byIdUrl)
 
   axios.get(byIdUrl)
     .then((response) => {
-      $('#trip-list').append(response.data.id);
+      $('#trip-details').html("<li>Name: " + response.data.name + "</li>");
+      $('#trip-details').append("<li>ID: " + response.data.id + "</li>");
+      $('#trip-details').append("<li>Continent: " + response.data.continent + "</li>");
+      $('#trip-details').append("<li>Category: " + response.data.category + "</li>");
+      $('#trip-details').append("<li>Weeks: " + response.data.weeks + "</li>");
+      $('#trip-details').append("<li>Cost: $" + response.data.cost + "</li>");
+      $('#trip-details').append("<li>About: " + response.data.about + "</li>");
     })
+    .catch((error) => {
+      displayStatus(`Encountered an error while loading trips: ${error.message}`);
+    });
+};
 
-  // TODO: Wave 2
-  // display trip details and the trip reservation form
+const readFormData = () => {
+  const parsedFormData = {};
+
+  const nameFromForm = $(`#reserve-trip-form input[name="name"]`).val();
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+  const emailFromForm = $(`#reserve-trip-form input[name="email"]`).val();
+  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
 }
 
 const reserveTrip = (trip) => {
