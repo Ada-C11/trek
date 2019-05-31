@@ -18,7 +18,7 @@ const loadTrips = () => {
               const URL = `https://trektravel.herokuapp.com/trips/${trip.id}` 
               axios.get(URL)
               .then((response) => {
-                $(`#${trip.id}`).append(`<ul id="info"><li>Name: ${trip.name}</li><li>Continent: ${trip.continent}</li><li>Category: ${trip.category}</li><li>Weeks: ${trip.weeks}</li><li>Cost: $${trip.cost}</li><li>About: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</li></ul>`);
+                $(`#${trip.id}`).append(`<table class="info"><tr><td>Name: ${trip.name}</td></tr><tr><td>Continent: ${trip.continent}</td></tr><tr><td>Category: ${trip.category}</td></tr><tr><td>Weeks: ${trip.weeks}</td></tr><tr><td>Cost: $${trip.cost}</td></tr><tr><td>About: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</td></tr></table>`);
                 // $(`#${trip.id}`).unbind('click', loadOneTrip);
               })
               .catch((error) => {
@@ -29,9 +29,9 @@ const loadTrips = () => {
         $('#trips').append(`<tr><td id='${trip.id}'>${trip.name}</td></tr>`);
 
         $(`#${trip.id}`).hover(() => {
-          $(`#${trip.id}`).css('color', '#ff4949').css('font-weight', 'bold');
+          $(`#${trip.id}`).css({'color': '#ff4949', 'font-weight': 'bold'});
         }, () => {
-          $(`#${trip.id}`).css('color', 'black').css('font-weight', 'normal');
+          $(`#${trip.id}`).css({'color': 'black', 'font-weight': 'normal'});
         });
         $(`#${trip.id}`).one('click', loadOneTrip);
       });
