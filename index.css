@@ -46,7 +46,7 @@ button#load-trips{
 #reservation{
   grid-column: 2;
   grid-row: 3;
-  margin-top: -450px;
+  /* margin-top: -450px; */
   
 }
 
@@ -58,6 +58,10 @@ button#load-trips{
 
 #details-border{
   height: auto;
+}
+
+#reservation{
+  padding-bottom: 15px;
 }
 
 .hide-details{
