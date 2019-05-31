@@ -70,7 +70,8 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         tripList.append(`<button id=${trip.id}>${trip.name}</button>`);
         $(`#${trip.id}`).addClass('btn btn-light btn-block');
-        $(`#${trip.id}`).click(function() {
+        $(`#${trip.id}`).click( function() {
+          $('#status-message').empty();
           tripDetails($(this).attr('id'));
           $('#trip-form').empty();
           loadTripForm(trip.name);
