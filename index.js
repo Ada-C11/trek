@@ -54,27 +54,37 @@ const tripDetails = (id) => {
         console.log(response.data[key]);
         tripDetails.append(`<li>${key}: ${response.data[key]}</li>`)
       });
-      // console.log(field);
-      //   tripDetails.append(`<li>${field.name}: ${field.value}</li>`);
-
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
       console.log(error);
     });
-
-
-  // let id = $(this).attr('id');
-  // let id = target.id;
-  console.log(id);
-  console.log("inside trip details ")
 }
+
+const reserveTrip = (event) => {
+  console.log("inside reserve trip")
+  const url = baseURL + 'trips' + '/75' + '/reservations';
+  event.preventDefault();
+  // const tripDetails = readFormData();
+  reportStatus('Sending pet data...');
+  const tripDetails = {
+    name: "Mudkip",
+    email: "kats>dogs@cat4life.com"
+  };
+
+  axios.post(url, tripDetails)
+    .then((response) => {
+      reportStatus(`Successfully added a trip to ${response.data}!`)
+    })
+    .catch((error) => {
+      console.log(error.response);
+      reportStatus(`Encountered an error while reserving trip: ${error.message}`)
+    });
+}
+
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-  // $('#trip-list').on('click', 'li', function (event) {
-  //   let id = $(this).attr('id');
-  //   console.log("trip pressed");
-  //   tripDetails(id);
-  // });
+  $('#trip-form').submit(reserveTrip);
+
 });

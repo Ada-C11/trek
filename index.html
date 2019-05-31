@@ -14,10 +14,11 @@
 
 <body>
   <header class="header">
-    <section id="status-message"></section>
+    <h1>Trek</h1>
   </header>
 
   <main>
+    <section id="status-message"></section>
     <section class="Trips">
       <div class="box card">
         <h1>List of Trips</h1>
@@ -28,14 +29,35 @@
       </div>
     </section>
 
-    <section class="trip-details ">
-      <div class="box card">
-        <h1>Trip Details</h1>
-        <ul id="trip-info-list">
+    <div class="right-col">
 
-        </ul>
-      </div>
-    </section>
+      <section class="trip-details ">
+        <div class="box card">
+          <h1>Trip Details</h1>
+          <ul id="trip-info-list">
+
+          </ul>
+        </div>
+      </section>
+
+      <section class="trip-form card">
+        <h1>Reserve A Trip</h1>
+        <form id="trip-form">
+
+          <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" />
+          </div>
+
+
+          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+      </section>
+    </div>
   </main>
 </body>
 
