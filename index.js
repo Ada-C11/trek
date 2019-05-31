@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
   listTrips();
   loadTripDetails();
 });
@@ -44,7 +44,7 @@ const getTrips = () => {
 };
 
 // This gets the trip details given the id as a parameter
-const detailsTrips = function detailsTrips(id) {
+const detailsTrips = const detailsTrips = (id) => {
   reportStatus("Loading details...");
 
   const tripDetailsList = $("#trip-details");
@@ -55,7 +55,7 @@ const detailsTrips = function detailsTrips(id) {
     .then(response => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       // callback function which takes the id passed to it and finds the trip associated with that id
-      const trip = response.data.find(function(item) {
+      const trip = response.data.find((item) => {
         // returns true when that id matches the id passed to this method
         return item.id.toString() === id;
       });
@@ -80,7 +80,7 @@ const detailsTrips = function detailsTrips(id) {
 };
 
 // Loads the form and calls the submit fuction
-function loadForm(trip) {
+const loadForm = (trip) => {
   reportStatus("Loading details...");
   const tripReservation = $(".reserve-trip-area");
   tripReservation.empty();
@@ -102,7 +102,7 @@ function loadForm(trip) {
 const postURL = "https://trektravel.herokuapp.com/trips/1/reservations";
 
 // Posts the data submitted in the form
-function postForm(name, email, id) {
+const postForm = (name, email, id) => {
   event.preventDefault();
   axios({
     method: "post",
@@ -124,13 +124,13 @@ function postForm(name, email, id) {
 }
 
 // Loads all available trips on click
-function listTrips() {
+const listTrips = () => {
   $("#load").click(getTrips);
 }
 
 // On clicking a specific trip give the details of that trip
-function loadTripDetails() {
-  $("#trip-list").click(function(event) {
+const loadTripDetails = () => {
+  $("#trip-list").click((event) => {
     const selected = event.target;
     const tripId = selected.classList[0];
     // Id is passed to the details function
@@ -139,8 +139,9 @@ function loadTripDetails() {
 }
 
 // Submits the form with your input on click
-function setUpFormSubmission(trip) {
-  $(".reservation-form").submit(function() {
+const setUpFormSubmission = (trip) => {
+  $(".reservation-form").submit((event) => {
+    event.preventDefault();
     const name = $(`.text-input`).val();
     const email = $(`.email-input`).val();
     postForm(name, email, trip.id);
