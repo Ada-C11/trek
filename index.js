@@ -1,6 +1,5 @@
 const ListURL = 'https://trektravel.herokuapp.com/trips';
 const DetailURL = 'https://trektravel.herokuapp.com/trips';
-// const ReserveURL = 'https://trektravel.herokuapp.com/trips/1/reservations';
 
 const reserveHTML = $(`<h1>Reserve a spot on the Trip</h1>
 <form id="reserve-form">
@@ -80,7 +79,6 @@ const showTripDetails = (id) => {
         .then((response) => {
             const trip = response.data
             loadDetail(trip);
-            // let trip = response.data;
             displayStatus(`Successfully loaded ${response.data.name}`);
 
         })
@@ -132,72 +130,6 @@ const reserveTrip = (id) => {
         });
 
 }
-
-
-
-
-
-
-
-
-
-
-
-// const readFormData = () => {
-//     const parsedFormData = {};
-
-//     const nameFromForm = $(`#reserve-form input[name="name"]`).val();
-//     parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
-
-//     const emailFromForm = $(`#reserve-form input[name="email"]`).val();
-//     parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
-
-//     return parsedFormData;
-// };
-
-// const clearForm = () => {
-//     $(`#reserve-form input[name="name"]`).val('');
-//     $(`#reserve-form input[name="email"]`).val('');
-
-// }
-
-
-
-// const reserveTrip = (event) => {
-//     // console.log("reserving trip", trip)
-//     event.preventDefault();
-
-//     const userData = readFormData();
-//     console.log(userData);
-
-//     displayStatus('Sending user data...');
-
-//     axios.post(reserveURL, userData)
-//         .then((response) => {
-//             displayStatus(`Successfully reserve a spot with Name: ${response.data.name}!`);
-//             clearForm();
-//         })
-//         .catch((error) => {
-//             console.log(error.response);
-//             if (error.response.data && error.response.data.errors) {
-//                 handleApiError(
-//                     `Encountered an error: ${error.message}`,
-//                     error.response.data.errors
-//                 );
-//             } else {
-//                 displayStatus(`Encountered an error: ${error.message}`);
-//             }
-//         });
-// };
-
-
-
-
-
-
-
-
-
 
 
 
