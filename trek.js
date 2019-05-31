@@ -8,38 +8,51 @@ const tripList = $('<ul>');
 tripList.addClass('list-group list-group-flush');
 tripList.attr('id', 'trip-list');
 
+// const tripDetailsHeader
 
+// const tripDetailsBody
+
+
+const requestTrips = () => {
+  return axios.get(URL);
+}
 
 // load list of current trips  
 const loadTrips = () => {
   const currentTrips = $('#current-trips');
   tripList.empty();
 
-  axios.get(URL)
-
+  requestTrips()
     .then((response) => {
       const trips = response.data;
       trips.forEach((trip) => {
         tripList.append(`<li class=list-group-item>${trip.name}</li>`);
-
       });
     })
-
     .catch((error) => {
       console.log(error);
     });
 
-    currentTrips.addClass('card');
-    currentTrips.append(tripsHeader, tripList);
+  currentTrips.addClass('card');
+  currentTrips.append(tripsHeader, tripList);
 }
 
 
-const loadDetails = () => {
-  alert('shiiiiit');
-}
+const loadDetails = (function(tripName) {
+  // console.log(tripName);
 
-
-
+  requestTrips()
+    .then((response) => {
+      const trips = response.data;
+      const clickedTrip = trips.find((trip) => {
+        return trip['name'] === tripName;
+      });
+      console.log(clickedTrip);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 
 
 // doing the things!
@@ -47,13 +60,8 @@ $(document).ready(function() {
 
   $('#trips-btn').click(loadTrips);
 
-  $('#my-list').on('click', 'li', function(event) {
-    alert(`Got a click on an <li> containing "${$(this).html()}"`);
-  });
-
-
   tripList.on('click', 'li', function(event) {
-    loadDetails();
+    loadDetails(this.innerHTML);
   });
 });
 

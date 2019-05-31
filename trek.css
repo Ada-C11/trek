@@ -28,7 +28,7 @@ body {
   margin: auto;
 }
 
-#current-trips h1 {
+.card-header {
   text-align: center;
 }
 
@@ -39,4 +39,6 @@ body {
 li {
   border: black solid 2px;
   list-style: none;
+  cursor: pointer;
+  text-align: center;
 }
