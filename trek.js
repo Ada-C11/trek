@@ -1,6 +1,4 @@
 const BASE_URL = 'https://trektravel.herokuapp.com/trips'
-const ID_URL = 'https://trektravel.herokuapp.com/trips/'
-const URL = 'https://trektravel.herokuapp.com/trips/1/reservations'
 
 const reportStatus = (message) => {
     $('#status').html(message);
@@ -25,7 +23,7 @@ const reportApiError = (error) => {
 }
 
 const loadTrips = () => {
-    reportStatus('Loading pets...');
+    reportStatus('Loading trips...');
     
     axios.get(BASE_URL)
     .then((response) => {
@@ -34,7 +32,6 @@ const loadTrips = () => {
             $('#trek-list').append(`<li><a href="#" data-trek-id=${trek.id}> ${trek.name} </a></li>`);  
         });
         $('#trek-list li').click(showTrip);
-        $('#reservation-form').submit(addRes);
     })
 
     .catch((error) => {
@@ -43,6 +40,7 @@ const loadTrips = () => {
 };
 
 const showTrip = (event) => {
+    // create an inner function here that's returned?
     axios.get(BASE_URL + '/' + $(event.target).data("trek-id"))
     .then((response) => {
         $('#trek-details').html(
@@ -50,7 +48,9 @@ const showTrip = (event) => {
         <p><strong>Continent:</strong> ${response.data.continent}</p><p><strong>Category:</strong> ${response.data.category}</p>
         <p><strong>Weeks:</strong> ${response.data.weeks}</p><p><strong>Cost:</strong> $${response.data.cost}</p>
         <p><strong>About:</strong> ${response.data.about}</p>`);
-        $('.reservation').removeClass().addClass(`${response.data.id}`).show();
+        $('#reservation').show();
+        $('#reservation-form').removeClass().addClass(`${response.data.id}`).submit(addRes);
+
     })
     .catch((error) => {
         console.log(error);
@@ -71,13 +71,13 @@ const readResForm = () => {
   
   const addRes = (event) => {
     const resData = readResForm();
-    let id = $('#trek-id').text();
+    let id = parseInt($('#reservation-form').attr('class'));
     event.preventDefault();
     axios.post(BASE_URL + '/' + id + '/reservations', resData)
       .then((response) => {
-        console.log("successfully posted pet data", response);
+        console.log("successfully posted reservation data", response);
         const resId = response.data.id;
-        reportStatus(`Successfully created a new pet with ID ${resId}`);
+        reportStatus(`Successfully created a new reservation with ID ${resId}`);
       })
       .catch((error) => {
         reportApiError(error);
@@ -85,6 +85,6 @@ const readResForm = () => {
   };
 
 $(document).ready(() => {
-    $('.reservation').hide();
+    $('#reservation').hide();
     $('.trips__button').click(loadTrips);
 });
