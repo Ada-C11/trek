@@ -47,23 +47,25 @@ const tripDetails = (id) => {
   reportStatus('Loading trip details...');
 
   const tripInfo = $('#trip-info');
-  const details = $('#details');
-
   tripInfo.empty();
-  details.empty();
 
-  axios.get(ALL_TRIPS + `/${id}`)
+  axios.get(ALL_TRIPS + '/' + id)
   .then((response) => {
     reportStatus(`Successfully loaded details about trip #${id}.`);
 
     let trip = response.data;
 
-    tripInfo.append(`<li>Name: ${trip.id}: ${trip.name}</li>,
-    <li>${trip.continent}</li>,
-    <li>${trip.category}</li>,
-    <li>${trip.weeks}</li>,
-    <li>${trip.cost}</li>`).hide();
-    details.append(`<li>Details: ${trip.about}</li>`).hide();
+    $('#trip-info').append(`
+        <h3>Name: ${trip.name}</h3>
+        <div>
+        <p><strong>Continent: </strong>${trip.continent}</p>
+        <p><strong>Category: </strong>${trip.category}</p>
+        <p><strong>Weeks: </strong>${trip.weeks}</p>
+        <p><strong>Cost: </strong>$${trip.cost}</p></div>
+        `);
+    $('#about-trip').html(`        <strong>About: </strong><p>${trip.about}</p>`);
+    $('#trip').append(`<span>${id}</span>`);
+    $('span').hide();
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -80,10 +82,8 @@ $(document).ready(() => {
   // load details about specific trip
   $('ul').on('click', 'li', function() {
 
-    let tripId = $(this).html();
+    let tripId = $(this).next().text();
     tripDetails(tripId);
-
-    $('#trip-info').show();
-    $('#details').show();
+    $('#trip-details').show();
   });
 });

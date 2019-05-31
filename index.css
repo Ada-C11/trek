@@ -1,3 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline&display=swap');
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+ #main {
+  min-height: 20px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#title{
+  font-family: 'Fascinate Inline', cursive;
+  text-align: center;
+}
+
 .hide-details{
   display: none;
 }
