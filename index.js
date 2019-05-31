@@ -17,7 +17,7 @@ const loadTrips = () => {
         .then((response) => {
             reportStatus(`Successfully loaded ${response.data.length} trips`);
             console.log('successfully loaded trips');
-            $('.all-trips p').append('All Trips:');
+            $('.all-trips h4').append('All Trips:');
             response.data.forEach((trip) => {
                 let tripListItem = $(`<li>${trip.name}</li>`);
                 tripListItem.addClass(`${trip.id}`);
@@ -33,6 +33,8 @@ const loadTrips = () => {
 
 const loadIndividualTrip = (event) => {
     // alert('working...');
+    const tripInfo = $('.trip-details');
+    tripInfo.empty();
 
     let tripId = event.target.className;
     let tripUrl = url + `/${tripId}`;
@@ -40,6 +42,16 @@ const loadIndividualTrip = (event) => {
     axios.get(tripUrl)
         .then((response) => {
             reportStatus(`Successfully loaded trip ${tripId}`);
+            console.log('successfully loaded trip!');
+                
+            tripInfo.append($(`<h4>Trip Details (id: ${tripId})</h4>`));
+            tripInfo.append($(`<p>Name: ${response.data.name}</p>`));
+            tripInfo.append($(`<p>Continent: ${response.data.continent}</p>`));
+            tripInfo.append($(`<p>Category: ${response.data.category}</p>`));
+            tripInfo.append($(`<p>Duration: ${response.data.weeks} weeks</p>`));
+            tripInfo.append($(`<p>Cost: $${response.data.cost}</p>`));
+            tripInfo.append($(`<p>Details:</p>`));
+            tripInfo.append($(`<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>`));
         })
     // axios.get(URL, {
     //     params: {
