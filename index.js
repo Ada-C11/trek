@@ -1,12 +1,10 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
 const reportStatus = (message) => {
-  console.log(message);
   $('#status-message').html(message);
 };
 
 const reportApiError = (error) => {
-  console.log("encountered error when posting", error);
   let errors = Object.values(error)[2].data.errors;
   let errorHtml = `<p>${error.message}</p><ul>`;
 
@@ -14,7 +12,6 @@ const reportApiError = (error) => {
     errorHtml += `<li>${field}: ${problem}</li>`;
   }
   errorHtml += '</ul>';
-  console.log(errorHtml);
   reportStatus(errorHtml);
 }
 
@@ -126,5 +123,4 @@ const reserveTrip = (tripId) => {
 
 $(document).ready( function() {
   $('.all-trips').click(loadTrips);
-  
 });
