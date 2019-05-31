@@ -87,7 +87,7 @@ function loadForm(trip) {
 
   tripReservation.append(
     `<h2>Reserve a Spot on ${trip}</h2>
-    <form> Name:<br />
+    <form class="reservation-form"> Name:<br />
       <input class="text-input" type="text" name="name" value="Mickey" />
       <br />
       Email:<br />
@@ -96,13 +96,13 @@ function loadForm(trip) {
       <input class="submit-click" type="button" value="Submit" />
     </form>`
   );
-  submitForm();
+  setUpFormSubmission(trip);
 }
 
 const postURL = "https://trektravel.herokuapp.com/trips/1/reservations";
 
 // Posts the data submitted in the form
-function postForm(name, email) {
+function postForm(name, email, id) {
   event.preventDefault();
   axios({
     method: "post",
@@ -132,17 +132,18 @@ function listTrips() {
 function loadTripDetails() {
   $("#trip-list").click(function(event) {
     const selected = event.target;
-    const trip = selected.classList[0];
-    detailsTrips(trip);
+    const tripId = selected.classList[0];
+    // Id is passed to the details function
+    detailsTrips(tripId);
   });
 }
 
 // Submits the form with your input on click
-function submitForm() {
-  $(".submit-click").click(function() {
+function setUpFormSubmission(trip) {
+  $(".reservation-form").submit(function() {
     const name = $(`.text-input`).val();
     const email = $(`.email-input`).val();
-    postForm(name, email);
+    postForm(name, email, trip.id);
     clearForm();
   });
 }
