@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 body {
   padding: 1rem;
 }
@@ -6,8 +11,15 @@ header {
   border-bottom: solid 1px black;
 }
 
-#all-trip-button {
+li {
+  border: solid 1px black;
   padding: 1rem;
+  text-align: center;
+  list-style: none;
+}
+
+.all-trips {
+  margin: 1rem;
 }
 
 #detail-page {
@@ -18,15 +30,27 @@ header {
   grid-template-rows: 1fr, 1fr;
 }
 
-#all-trips {
+#trip-list {
   grid-row-start: 1;
-  grid-row-end: 2;
+  grid-row-end: 3;
+  overflow-y: scroll;
 }
 
 #trip-details {
   grid-column-start: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
 }
 
 #reservation {
+  margin-top: 1rem;
+  margin-left: 1rem;
   grid-column-start: 2;
+  grid-row-start: 2;
+  grid-row-end: 2;
 }
+
+#trip-details {
+  margin-left: 1rem;
+}
+
