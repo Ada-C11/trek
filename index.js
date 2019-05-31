@@ -26,6 +26,10 @@ const loadTrips = () => {
       console.log(response.data);
       response.data.forEach(trip => {
         tripList.append(`<li id="${trip.id}" class="trip">${trip.name}</li>`);
+        const element = $(`#${trip.id}`);
+
+        element.click(() => tripDetails(trip.id));
+
       });
     })
     .catch(error => {
@@ -68,9 +72,9 @@ const tripDetails = (id) => {
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-  $('#trip-list').on('click', 'li', function (event) {
-    let id = $(this).attr('id');
-    console.log("trip pressed");
-    tripDetails(id);
-  });
+  // $('#trip-list').on('click', 'li', function (event) {
+  //   let id = $(this).attr('id');
+  //   console.log("trip pressed");
+  //   tripDetails(id);
+  // });
 });
