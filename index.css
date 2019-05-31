@@ -1,5 +1,6 @@
 ul {
   list-style-type: none;
+  padding: 0;
 }
 
 #container {
@@ -27,4 +28,12 @@ ul {
 
 #trip-list li:nth-child(odd){
   background-color: lightgray;
+}
+
+span{
+  font-weight: bold;
+}
+
+.trip-details {
+  border-bottom: 5px  gray solid;
 }
