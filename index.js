@@ -29,7 +29,7 @@ const reportStatus = (message) => {
           // show individual trips details with access to trip from loop
           const showTripDetails = (trip) => {
             const tripDetail = () => {
-              axios.get(tripDetailsURL + `${trip.id}`)
+              axios.get(tripDetailsURL + trip.id)
               .then((response) => {
                 const deets = $('#trip-details');
                 deets.empty();
