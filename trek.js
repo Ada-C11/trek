@@ -1,5 +1,4 @@
 const baseURL = "https://trektravel.herokuapp.com/trips";
-const axios = require('axios')
 
 const displayStatus = (message) => {
   $('#status').html(message);
@@ -22,12 +21,12 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
-      $(`#trip-list li`).on('click', showTripDetails);
+      $("#trip-list li").on('click', showTripDetails);
     });
 }
 
 const displayTripDetails = (tripDetails) => {
-  const target = $('#trip-details');
+  const target = $('#trip-details-list');
   target.empty();
   Object.keys(tripDetails).forEach(function (detail) {
     target.append(`<li><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
@@ -44,6 +43,7 @@ const showTripDetails = (event) => {
   axios.get(byIdUrl)
     .then((response) => {
       displayTripDetails(response.data);
+      $("#reserve-trip").show();
     });
 };
 
@@ -66,4 +66,5 @@ const reserveTrip = (trip) => {
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
+  $(`#reserve-trip`).hide();
 });
