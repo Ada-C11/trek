@@ -1,7 +1,6 @@
 // index.js
 const URL = "https://trektravel.herokuapp.com/trips"
 
-let tripIDs = []
 
 const loadTrips = () => {
 
@@ -13,8 +12,11 @@ const loadTrips = () => {
     .then((response) => {
       response.data.forEach((trip) => {
         tripList.append(`<li id="${trip.id}"><a href="#">${trip.name}</a></li>`);
-        // tripIDs.push(trip.id)
-        $("#" + trip.id).click( () => {loadDetails(trip.id)})
+        $("#" + trip.id).click( () => {
+          loadDetails(trip.id);
+          createForm(trip.id) })
+
+
         })
     })
     .catch((error) => {
@@ -34,6 +36,7 @@ const loadDetails = (id) => {
       titles.forEach((title) => {
         tripDetails.append(`<li>${title}: ${response["data"][title]}</li>`);
       })
+      tripDetails.prepend(`<h1>Trip Details</h1>`)
 
   })
   .catch((error) => {
@@ -42,39 +45,63 @@ const loadDetails = (id) => {
   
 };
 
-$(document).ready(() => {
-  // $("#current-trips").on('click', "li", function(event) {
-  //   alert(`Got a click on an <li> containing "${$(this).html()}"`);
-  // })
-  $('#load').click(loadTrips);
 
+const createForm = (id) => {
+  const form = $('#form');
+  form.empty()
+  const buildFormHtml = `<h1>Reserve a Spot</h1>
+  <div>Name: <input type="text" name="name"></div>
+  <div>Email: <input type="text" name="email"></div>
+  <button id="reserve">Reserve</button>`
+
+  form.html(buildFormHtml)
+
+}
+
+
+const createReservation = (event) => {
+  event.preventDefault();
+
+  const reservationData = readFormData();
+
+  reportStatus('Sending reservation data...');
+
+  axios.post(URL, reservationData)
+    .then((response) => {
+      console.log(response);
+      reportStatus('Successfully added a reservation!');
+    })
+    .catch((error) => {
+      console.log(error.response);
+      reportStatus(`Encountered an error: ${error.message}`);
+    });
+};
+
+
+const readFormData = () => {
+  const parsedFormData = {};
+
+  const nameFromForm = $(`#form input[name="name"]`).val();
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+  const ageFromForm = $(`#form input[name="age"]`).val();
+  parsedFormData['email'] = emailFromForm ? ageFromForm : undefined;
+
+
+  return parsedFormData;
+};
+
+const clearForm = () => {
+  $(`#form input[name="name"]`).val('');
+  $(`#form input[name="email"]`).val('');
+}
+
+
+
+
+
+$(document).ready(() => {
+  $('#load').click(loadTrips);
+  $('#form').submit(createReservation)
 });
 
-
-  // tripIDs.forEach((id) => {
-  //   $("#" + id).click(loadDetails);
-  // })
-
-
-  // $("#detail-button").click(loadDetails);
-
-
-// tripList.forEach((trip) => {
-//   $("#view-trip").click(loadTrips);
-// })
-
-// const loadDetails = (id) => {
-//   console.log("made it")
-//   const tripDetails = $('detail-list');
-//   tripDetails.empty()
-//   tripDetails.append(`<li>made it</li>`)
-
-//   axios.get(URL+"id")
-//   .then((response) => {
-//       tripDetails.append(`<li>made it</li>`);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-  
-// };
