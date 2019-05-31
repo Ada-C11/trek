@@ -1,0 +1,30 @@
+ul {
+  list-style-type: none;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+}
+.all-trips {
+  width: 50%;
+ 
+}
+
+.details {
+  width: 50%;
+  padding: 20px;
+}
+.details.hidden {
+  display: none;
+}
+
+#trip-list {
+  cursor: pointer;
+  text-align: center;
+}
+
+#trip-list li:nth-child(odd){
+  background-color: lightgray;
+}
