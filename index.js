@@ -14,10 +14,13 @@ const loadDetails = (id) => {
     .then(function (response) {
       const details = response.data;
       detailsList.append(`<li>${details.name}</li>`);
-      console.log(details);
+      detailsList.append(`<li>${details.continent}</li>`);
+      detailsList.append(`<li>${details.category}</li>`);
+      detailsList.append(`<li>${details.weeks}</li>`);
+      detailsList.append(`<li>${details.cost}</li>`);
     })
     .catch((error) => {
-      reportStatus(`Whoops!  Something went wrong while loading trips: ${error.message}`);
+      reportStatus(`Whoops!  Something went wrong while loading trip details: ${error.message}`);
       console.log(error);
     });
     }
@@ -48,12 +51,13 @@ const loadTrips = () => {
 $(document).ready(() => {
     $('#load').click(loadTrips);
     $('#trip-list').on('click', 'li', function() {
-        $('#details-list').empty();
+        // $('#details-list').empty();
         const tripId = parseInt($(this).attr("id"));
-        // const detailsWindow = '<ul class="details-list"></ul>';
+        $('section.details').append('<h2>Details</h2>');
+        const detailsWindow = '<ul id="details-list"></ul>';
 
         // const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
-        // $('.details').append(detailsWindow);
+        $('section.details').append(detailsWindow);
         loadDetails(tripId);
         alert(`Woohoo!  That sure is a ${$(this).html()}`);
     });
