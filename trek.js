@@ -44,13 +44,15 @@ const showTrip = (event) => {
     axios.get(BASE_URL + '/' + $(event.target).data("trek-id"))
     .then((response) => {
         $('#trek-details').html(
-        `<p><strong>Name:</strong> ${response.data.name}</p><p id="trek-id"><strong>ID:</strong> ${response.data.id}</p>
-        <p><strong>Continent:</strong> ${response.data.continent}</p><p><strong>Category:</strong> ${response.data.category}</p>
-        <p><strong>Weeks:</strong> ${response.data.weeks}</p><p><strong>Cost:</strong> $${response.data.cost}</p>
+        `<p><strong>Name:</strong> ${response.data.name}</p>
+        <p id="trek-id"><strong>ID:</strong> ${response.data.id}</p>
+        <p><strong>Continent:</strong> ${response.data.continent}</p>
+        <p><strong>Category:</strong> ${response.data.category}</p>
+        <p><strong>Weeks:</strong> ${response.data.weeks}</p>
+        <p><strong>Cost:</strong> $${response.data.cost}</p>
         <p><strong>About:</strong> ${response.data.about}</p>`);
         $('#reservation').show();
         $('#reservation-form').removeClass().addClass(`${response.data.id}`).submit(addRes);
-
     })
     .catch((error) => {
         console.log(error);
@@ -69,7 +71,7 @@ const readResForm = () => {
     return parsedFormData;
   };
   
-  const addRes = (event) => {
+const addRes = (event) => {
     const resData = readResForm();
     let id = parseInt($('#reservation-form').attr('class'));
     event.preventDefault();
@@ -81,8 +83,9 @@ const readResForm = () => {
       })
       .catch((error) => {
         reportApiError(error);
-      })
-  };
+      })    
+    $('#reservation-form')[0].reset();
+};
 
 $(document).ready(() => {
     $('#reservation').hide();
