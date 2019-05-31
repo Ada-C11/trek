@@ -12,10 +12,10 @@ const loadTrips = () => {
   axios.get(URL)
     .then((response) => {
       response.data.forEach((trip) => {
-        tripList.append(`<li id="${trip.id}">${trip.name}</li>`);
-        tripIDs.push(trip.id)
-        // $("#" + trip.id).on('click',loadDetails(trip.id))
-      });
+        tripList.append(`<li id="${trip.id}"><a href="#">${trip.name}</a></li>`);
+        // tripIDs.push(trip.id)
+        $("#" + trip.id).click( () => {loadDetails(trip.id)})
+        })
     })
     .catch((error) => {
       console.log(error);
@@ -43,10 +43,11 @@ const loadDetails = (id) => {
 };
 
 $(document).ready(() => {
+  // $("#current-trips").on('click', "li", function(event) {
+  //   alert(`Got a click on an <li> containing "${$(this).html()}"`);
+  // })
+  $('#load').click(loadTrips);
 
-
-  $('#load').on('click', loadTrips);
-  $("#detail-list").on('click', "li", loadDetails(trip.id))
 });
 
 
