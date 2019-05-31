@@ -16,8 +16,8 @@ const loadTrips = () => {
             console.log('successfully loaded trips');
             $('.all-trips p').append('All Trips:');
             response.data.forEach((trip) => {
-                let tripListItem = $(`<li class='trip-name'>${trip.name}</li>`);
-                tripListItem.addClass(`trip-name ${trip.id}`);
+                let tripListItem = $(`<li>${trip.name}</li>`);
+                tripListItem.addClass(`${trip.id}`);
                 
                 tripList.append(tripListItem);
             })
@@ -28,14 +28,17 @@ const loadTrips = () => {
         })
 }
 
-const loadIndividualTrip = () => {
+const loadIndividualTrip = (event) => {
+
+    let tripId = event.target.className;
+
     // reportStatus(`...Loading trip...`);
 
     // const tripInfo = $('.trip-details');
     // tripInfo.empty();
-
+    console.log(tripId);
     // console.log(`${event.target}`);
-    alert('this worked!');
+    
 
 }
 
