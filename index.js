@@ -5,7 +5,6 @@ const reportStatus = (message) => {
 };
 
 
-
 const loadDetails = (id) => {
     const detailsList = $('#details-list');
     const tripUrl = URL + `/${id}`;
@@ -13,11 +12,12 @@ const loadDetails = (id) => {
     axios.get(tripUrl)
     .then(function (response) {
       const details = response.data;
-      detailsList.append(`<li>${details.name}</li>`);
-      detailsList.append(`<li>${details.continent}</li>`);
-      detailsList.append(`<li>${details.category}</li>`);
-      detailsList.append(`<li>${details.weeks}</li>`);
-      detailsList.append(`<li>${details.cost}</li>`);
+      detailsList.append(`<li>ID: ${details.id}</li>`);
+      detailsList.append(`<li>Name: ${details.name}</li>`);
+      detailsList.append(`<li>Continent: ${details.continent}</li>`);
+      detailsList.append(`<li>Category: ${details.category}</li>`);
+      detailsList.append(`<li>Weeks: ${details.weeks}</li>`);
+      detailsList.append(`<li>Cost: ${details.cost}</li>`);
     })
     .catch((error) => {
       reportStatus(`Whoops!  Something went wrong while loading trip details: ${error.message}`);
@@ -59,6 +59,5 @@ $(document).ready(() => {
         // const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
         $('section.details').append(detailsWindow);
         loadDetails(tripId);
-        alert(`Woohoo!  That sure is a ${$(this).html()}`);
     });
 })
