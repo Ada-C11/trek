@@ -26,38 +26,39 @@ const loadTrips = () => {
             reportStatus(`We're sorry, we encountered an error while loading all trips: ${error.message}`);
             console.log('there was an issue loading some or all of the trips');
         })
-}
 
-const loadIndividualTrip = (event) => {
-    const tripInfo = $('#trip-details');
-    tripInfo.empty();
-
-    let tripId = event.target.className;
-    let tripUrl = url + `/${tripId}`;
+        const loadIndividualTrip = (event) => {
+            const tripInfo = $('#trip-details');
+            tripInfo.empty();
+        
+            let tripId = event.target.className;
+            let tripUrl = url + `/${tripId}`;
+            
+            axios.get(tripUrl)
+                .then((response) => {
+                    reportStatus(`Successfully loaded trip ${tripId}`);
+                    console.log('successfully loaded trip!');
+                        
+                    tripInfo.append($(`<h4>Trip Details (id: ${tripId})</h4>`));
+                    tripInfo.append($(`<p>Name: ${response.data.name}</p>`));
+                    tripInfo.append($(`<p>Continent: ${response.data.continent}</p>`));
+                    tripInfo.append($(`<p>Category: ${response.data.category}</p>`));
+                    tripInfo.append($(`<p>Duration: ${response.data.weeks} weeks</p>`));
+                    tripInfo.append($(`<p>Cost: $${response.data.cost}</p>`));
+                    tripInfo.append($(`<p>Details:</p>`));
+                    tripInfo.append($(`<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>`));
+        
+                    $('#reserve-trip').show();
+                })
+          
+            console.log(tripId);
+        }
     
-    axios.get(tripUrl)
-        .then((response) => {
-            reportStatus(`Successfully loaded trip ${tripId}`);
-            console.log('successfully loaded trip!');
-                
-            tripInfo.append($(`<h4>Trip Details (id: ${tripId})</h4>`));
-            tripInfo.append($(`<p>Name: ${response.data.name}</p>`));
-            tripInfo.append($(`<p>Continent: ${response.data.continent}</p>`));
-            tripInfo.append($(`<p>Category: ${response.data.category}</p>`));
-            tripInfo.append($(`<p>Duration: ${response.data.weeks} weeks</p>`));
-            tripInfo.append($(`<p>Cost: $${response.data.cost}</p>`));
-            tripInfo.append($(`<p>Details:</p>`));
-            tripInfo.append($(`<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>`));
-
-            $('#reserve-trip').show();
-        })
-  
-    console.log(tripId);
+    $('#trip-list').on('click', 'li', loadIndividualTrip);
 }
-
 
 $(document).ready(() => {
     $('#load-trips').click(loadTrips);
-    $('body').on('click', 'li', loadIndividualTrip);
+    // $('body').on('click', 'li', loadIndividualTrip);
 });
 
