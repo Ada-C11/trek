@@ -1,4 +1,9 @@
 const URL = "https://trektravel.herokuapp.com/trips";
+
+const reportStatus = (message) => {
+    $('#status-message').html(message);
+};
+
 const loadTrips = () => {
 
     const tripsList = $('#trip-list');
@@ -13,6 +18,7 @@ const loadTrips = () => {
         // tripsList.append(`<li>${response.data[0]}</li>`);
     })
     .catch((error) => {
+        reportStatus(`Whoops!  Something went wrong while loading trips: ${error.message}`);
         console.log(error);
     });
 
