@@ -1,7 +1,4 @@
 const url = 'https://trektravel.herokuapp.com/trips';
-// const bodyParameters = {
-//     id: 'id'
-//  };
 
 const reportStatus = (message) => {
     $('#status-message').html(message);
@@ -32,7 +29,6 @@ const loadTrips = () => {
 }
 
 const loadIndividualTrip = (event) => {
-    // alert('working...');
     const tripInfo = $('.trip-details');
     tripInfo.empty();
 
@@ -52,23 +48,16 @@ const loadIndividualTrip = (event) => {
             tripInfo.append($(`<p>Cost: $${response.data.cost}</p>`));
             tripInfo.append($(`<p>Details:</p>`));
             tripInfo.append($(`<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>`));
+
+            $('#reserve-trip').show();
         })
-    // axios.get(URL, {
-    //     params: {
-    //         id: tripId
-    //      };
-    //   })
-    // reportStatus(`...Loading trip...`);
-
-    // const tripInfo = $('.trip-details');
-    // tripInfo.empty();
+  
     console.log(tripId);
-    // console.log(`${event.target}`);
-    
-
 }
+
 
 $(document).ready(() => {
     $('#load-trips').click(loadTrips);
     $('body').on('click', 'li', loadIndividualTrip);
 });
+
