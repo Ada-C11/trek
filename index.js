@@ -1,3 +1,4 @@
+
 const baseURL = "https://trektravel.herokuapp.com/"
 
 const reportStatus = (message) => {
@@ -54,6 +55,7 @@ const tripDetails = (id) => {
         console.log(response.data[key]);
         tripDetails.append(`<li>${key}: ${response.data[key]}</li>`)
       });
+      $('#trip-form').submit(() => reserveTrip(id));
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -61,16 +63,18 @@ const tripDetails = (id) => {
     });
 }
 
-const reserveTrip = (event) => {
+const reserveTrip = (id) => {
   console.log("inside reserve trip")
-  const url = baseURL + 'trips' + '/75' + '/reservations';
+  const url = baseURL + 'trips/' + id + '/reservations';
   event.preventDefault();
-  // const tripDetails = readFormData();
-  reportStatus('Sending pet data...');
-  const tripDetails = {
-    name: "Mudkip",
-    email: "kats>dogs@cat4life.com"
-  };
+  const tripDetails = readFormData();
+  reportStatus('Sending trip data...');
+  // const tripDetails = {
+  //   name: "Mudkip",
+  //   email: "kats>dogs@cat4life.com"
+  // };
+  console.log("reset trip form");
+  $('#trip-form').trigger('reset');
 
   axios.post(url, tripDetails)
     .then((response) => {
@@ -80,11 +84,25 @@ const reserveTrip = (event) => {
       console.log(error.response);
       reportStatus(`Encountered an error while reserving trip: ${error.message}`)
     });
+  console.log("reset trip form")
+  // $('#trip-form').reset();
 }
 
 
+const readFormData = () => {
+  const tripData = $('#trip-form').serializeArray();
+  const parsedFormData = {};
+  console.log(tripData);
+  for (let field in tripData) {
+    console.log(field.name)
+    parsedFormData[tripData[field].name] = tripData[field].value
+  }
+  console.log(parsedFormData);
+  return parsedFormData;
+};
+
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-  $('#trip-form').submit(reserveTrip);
+  // $('#trip-form').submit(reserveTrip);
 
 });
