@@ -1,9 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Fascinate+Inline&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Barrio|Fascinate+Inline&display=swap');
 
 body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2em;
+  /* background-image: url("vintage-travel.jpg"); */
+}
+
+img {
+  opacity: 0.5;
 }
 
  #main {
@@ -29,10 +34,21 @@ button#load-trips{
 #trips, #trip-details{
   border: dotted burlywood;
   overflow: scroll;
+  text-align: center;
 }
 
 .hide-details{
   display: none;
-  
 }
 
+#list{
+  text-align: center;
+}
+
+.list-name {
+  font-family: 'Barrio', cursive;
+}
+
+#trips-list {
+  list-style: none;
+}

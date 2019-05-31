@@ -32,8 +32,8 @@ const loadTrips = () => {
     
 
     response.data.forEach((trip) => {
-      tripList.append(`<li>Trip #${trip.id}: ${trip.name}</li>`);
-    });
+      tripList.append(`<li><button class='${trip.id}'> ${trip.name}</button></li>`);
+    })
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -51,21 +51,16 @@ const tripDetails = (id) => {
 
   axios.get(ALL_TRIPS + '/' + id)
   .then((response) => {
-    reportStatus(`Successfully loaded details about trip #${id}.`);
+    reportStatus(`Successfully loaded details about ${id}.`);
 
     let trip = response.data;
 
-    $('#trip-info').append(`
-        <h3>Name: ${trip.name}</h3>
-        <div>
-        <p><strong>Continent: </strong>${trip.continent}</p>
-        <p><strong>Category: </strong>${trip.category}</p>
-        <p><strong>Weeks: </strong>${trip.weeks}</p>
-        <p><strong>Cost: </strong>$${trip.cost}</p></div>
-        `);
-    $('#about-trip').html(`        <strong>About: </strong><p>${trip.about}</p>`);
-    $('#trip').append(`<span>${id}</span>`);
-    $('span').hide();
+    tripInfo.append(`<h3>Name: ${trip.name}</h3>`);
+    tripInfo.append(`<p><strong>Continent: </strong>${trip.continent}</p>`);
+    tripInfo.append(`<p><strong>Category: </strong>${trip.category}</p>`);
+    tripInfo.append(`<p><strong>Weeks: </strong>${trip.weeks}</p>`);
+    tripInfo.append(`<p><strong>Cost: </strong>$${trip.cost}</p>`);
+    tripInfo.append(`<p><strong>About:</strong> ${trip.about}</p>`);
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -77,12 +72,13 @@ $(document).ready(() => {
   $('#load-trips').click(() => {
     // Load all trips
     loadTrips();
+    $('#trips').show();
   });
 
   // load details about specific trip
-  $('ul').on('click', 'li', function() {
+  $('ul').on('click', 'button', function() {
 
-    let tripId = $(this).next().text();
+    let tripId = this.className;
     tripDetails(tripId);
     $('#trip-details').show();
   });
