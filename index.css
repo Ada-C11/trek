@@ -1,0 +1,14 @@
+main {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 20px auto auto;
+}
+.current-trips {
+    grid-column: 1 /  1;
+}
+#trip-details {
+    grid-column: 2 / 1;
+}
+reserve-trip {
+    grid-column: 2 / 2;
+}
