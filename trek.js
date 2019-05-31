@@ -22,6 +22,9 @@ const loadTrips = () => {
         tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
       $(`#trip-list li`).click(showTripDetails);
+      // $(`#trip-list li`).click(function () {
+      //   $('.reserve-trip').toggle();
+      // })
     })
 }
 
@@ -65,10 +68,5 @@ const reserveTrip = (trip) => {
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-
-  // $('#trip-list').on('click', 'li', function () {
-  //   // let id = $(this).attr("id");
-  //   console.log(this.id)
-  //   showTripDetails(this.id);
-  // });
+  // $('#trip-details').hide();
 });
