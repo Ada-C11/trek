@@ -4,9 +4,23 @@ const reportStatus = (message) => {
     $('#status-message').html(message);
 };
 
-const detailsBuilder = () => {
 
-};
+
+const loadDetails = (id) => {
+    const detailsList = $('#details-list');
+    const tripUrl = URL + `/${id}`;
+
+    axios.get(tripUrl)
+    .then(function (response) {
+      const details = response.data;
+      detailsList.append(`<li>${details.name}</li>`);
+      console.log(details);
+    })
+    .catch((error) => {
+      reportStatus(`Whoops!  Something went wrong while loading trips: ${error.message}`);
+      console.log(error);
+    });
+    }
 
 const loadTrips = () => {
 
@@ -33,11 +47,14 @@ const loadTrips = () => {
 
 $(document).ready(() => {
     $('#load').click(loadTrips);
-    $('#trip-list').on('click', 'li', function(event) {
-        $('.details').empty();
+    $('#trip-list').on('click', 'li', function() {
+        $('#details-list').empty();
         const tripId = parseInt($(this).attr("id"));
-        const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
-        $('.details').append(detailsWindow);
+        // const detailsWindow = '<ul class="details-list"></ul>';
+
+        // const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
+        // $('.details').append(detailsWindow);
+        loadDetails(tripId);
         alert(`Woohoo!  That sure is a ${$(this).html()}`);
     });
 })
