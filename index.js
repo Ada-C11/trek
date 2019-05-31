@@ -49,10 +49,7 @@ const loadTripDetail = (response) => {
       <p><strong>Weeks:</strong> ${response.data.weeks}</p>
       <p><strong>Cost:</strong> $${response.data.cost}</p>
       <p><strong>About:</strong></p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi congue euismod libero, 
-      et dapibus sapien maximus in. Nunc suscipit velit lectus, quis vestibulum dui consequat tincidunt. 
-      Maecenas enim massa, pellentesque a scelerisque euismod, scelerisque volutpat orci. Suspendisse 
-      pulvinar sapien ut vulputate semper. Nunc ultricies efficitur risus. Cras cursus vel arcu.</p>
+      <p>${response.data.about}</p>
     </div>`
   );
 }
