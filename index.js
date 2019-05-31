@@ -16,7 +16,10 @@ const loadTrips = () => {
             console.log('successfully loaded trips');
             $('.all-trips p').append('All Trips:');
             response.data.forEach((trip) => {
-                tripList.append(`<li class='trip-name'>${trip.name}</li>`)
+                let tripListItem = $(`<li class='trip-name'>${trip.name}</li>`);
+                tripListItem.addClass(`trip-name ${trip.id}`);
+                
+                tripList.append(tripListItem);
             })
         })
         .catch((error) => {
