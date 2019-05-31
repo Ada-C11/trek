@@ -21,7 +21,7 @@ const loadTrips = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
-        tripList.append(`<li>${trip-list}</li>`);
+        tripList.append(`<li>${trip.name}</li>`);
       });
     })
     .catch((error) => {
