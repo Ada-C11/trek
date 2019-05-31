@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Trek</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="trek.js"></script>
+    <link rel="stylesheet" href="trek.css"> 
+  </head>
+  <body>
+    <header>
+      <h1>Trek</h1>
+    </header>
+
+    <section id="status-message"></section>
+
+  <main>
+    <section class="current-trips">
+      <h1>List of Trips</h1>
+      <button id="load">Get trips!</button>
+      <ul id="trip-list"></ul>
+    </section>
+
+    <section>
+      <h1>Trip Details</h1>
+      <ul class='trip-details'></ul>
+    </section>
+
+  </body>
+</html>
