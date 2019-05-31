@@ -32,13 +32,24 @@ body {
   text-align: center;
 }
 
-.details {
+.trip-details {
+  width: 90%;
+  height: 350px;
   background-color: purple;
 }
 
+.reservation-form {
+  width: 90%;
+  margin-top: 20px;
+  height: 200px;
+}
+
 li {
-  border: black solid 2px;
   list-style: none;
   cursor: pointer;
   text-align: center;
+}
+
+li:hover {
+  background-color: hotpink;
 }
