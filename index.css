@@ -1,0 +1,36 @@
+main {
+  display: grid;
+  grid-template: 75px 100% / 1fr 1fr  ;
+}
+
+.Trips {
+  grid-row: 2;
+  grid-column: 1 ;
+}
+
+.trip-details {
+  grid-row: 2;
+  grid-column: 2 ;
+}
+
+.card {
+
+  height: auto;
+  padding: 3rem;
+  width: 90%;
+
+  /* margin: 0 auto; Added */
+
+  margin: 2rem;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.header {
+  /* grid-row: 1; */
+  min-height: 100px;
+
+  /* background-color: rgb(8, 83, 88); */
+  background-color: rgb(101, 192, 199);
+}

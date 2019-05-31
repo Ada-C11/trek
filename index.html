@@ -6,27 +6,35 @@
   <title>Trek</title>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <script type="text/javascript" src="index.js"></script>
   <link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
-  <section id="status-message"></section>
+  <header class="header">
+    <section id="status-message"></section>
+  </header>
 
   <main>
     <section class="Trips">
-      <h1>List of Trips</h1>
-      <button id="load-trips">Get Trips!</button>
-      <ul id="trip-list">
-        <li id="1" class="trip">baseline</li>
-      </ul>
+      <div class="box card">
+        <h1>List of Trips</h1>
+        <button id="load-trips">Get Trips!</button>
+        <ul id="trip-list">
+          <li id="1" class="trip">baseline</li>
+        </ul>
+      </div>
     </section>
 
-    <section class="trip-details">
-      <h1>Trip Details</h1>
-      <ul id="trip-info-list">
+    <section class="trip-details ">
+      <div class="box card">
+        <h1>Trip Details</h1>
+        <ul id="trip-info-list">
 
-      </ul>
+        </ul>
+      </div>
     </section>
   </main>
 </body>

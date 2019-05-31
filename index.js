@@ -18,6 +18,7 @@ const reportError = (message, errors) => {
 const loadTrips = () => {
   const url = baseURL + 'trips';
   const tripList = $('#trip-list')
+  tripList.empty();
 
   axios.get(url)
     .then(response => {
@@ -37,10 +38,10 @@ const tripDetails = (id) => {
   const url = baseURL + 'trips/';
 
   const tripDetails = $('#trip-info-list');
-
+  tripDetails.empty();
   axios.get(url + id)
     .then((response) => {
-      // reportStatus(`Successfully loaded ${response.data.length} pets`);
+      reportStatus(`Successfully loaded trip ${id}`);
       console.log(response.data);
       const keys = Object.keys(response.data);
       console.log(keys);
