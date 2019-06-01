@@ -18,11 +18,18 @@ const displayStatus = (message) => {
         .then((response) => {
           displayStatus(`Successfully loaded ${response.data.length} trips`);
           response.data.forEach((trip) => {
-            tripList.append(`<li id = ${trip.id}>${trip.name}</li>`);
+            tripList.append(`<p><button id = ${trip.id}>${trip.name}</button></p>`);
             
             $(`#${trip.id}`).click(function() {
+              $('#status').empty()
               showTripDetails(this.id);
-              reserveTrip(this.id);
+              $("#res-form").empty();
+              displayForm(trip.name);
+              $('#res-form').submit((event) => {
+                event.preventDefault();
+                reserveTrip(trip.id);
+              });
+              
             }
             );
           });
@@ -68,11 +75,9 @@ const displayStatus = (message) => {
     )
   }
   
-  const reserveTrip = (tripId) => {
-    $("#reservation").empty();
-    displayForm(tripId);
-    // const resURL = URL + "/" + tripId + "/" + "reservations";
-    // axios.post(resURL)
+  const reserveTrip = (tripName) => {
+   
+   // I will come back to work on this after the interview week :)
     
   }
   
