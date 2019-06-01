@@ -13,32 +13,17 @@ main {
   grid-column: 2 ;
 }
 
-/* .trip-details {
-  grid-row: 3;
-  grid-column: 2 ;
-}
-.trip-form {
-  grid-row: 4;
-  grid-column: 2 ;
-} */
-
 .card {
-
   height: auto;
   padding: 3rem;
   width: 90%;
-
-  /* margin: 0 auto; Added */
   margin: 2rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .header {
   grid-row: 1;
   min-height: 100px;
-
-  /* background-color: rgb(8, 83, 88); */
   background-color: rgb(101, 192, 199);
 }
 #status-message {
@@ -48,3 +33,33 @@ main {
 .trip-form {
   display: none;
 }
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+}
+li {
+  margin-top: .3rem;
+}
+.trip:hover {
+  background-color: rgb(247, 231, 189);
+
+}
+.trip {
+  cursor: pointer ;
+}
+
+#status-message, .title {
+  padding-left: 2rem;
+
+
+}
+.title {
+  padding-top: 1rem;
+  font-size: 4rem;
+}
+h1 {
+  font-family: 'Righteous', cursive;
+}
+

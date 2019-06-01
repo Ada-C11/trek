@@ -46,13 +46,10 @@ const tripDetails = (id) => {
       reportStatus(`Successfully loaded trip ${id}`);
       const keys = Object.keys(response.data);
       keys.forEach(key => {
-        tripDetails.append(`<li>${key}: ${response.data[key]}</li>`)
+        if (key !== 'id') tripDetails.append(`<li><strong>${key}:</strong> ${response.data[key]}</li>`)
       });
-      const reserve = () => reserveTrip(id)
       $('#trip-form').off('submit');
-      $('#trip-form').submit(reserve);
-      // $('#trip-form').submit(() => reserveTrip(id));
-      console.log("inside get trip details");
+      $('#trip-form').submit(() => reserveTrip(id));
     })
     .catch((error) => {
       reportError(`Encountered an error while loading trips: ${error.message}`, error.response.data.errors);
@@ -60,22 +57,17 @@ const tripDetails = (id) => {
 }
 
 const reserveTrip = (id) => {
-  console.log("inside reserve trip");
   const url = baseURL + 'trips/' + id + '/reservations';
   event.preventDefault();
   const tripDetails = readFormData();
   reportStatus('Sending trip data...');
-  // $('#trip-form').trigger('reset');
 
   axios.post(url, tripDetails)
     .then((response) => {
-      console.log(response)
       reportStatus(`Successfully reserved trip! Your trip confirmation number is ${response.data.id}!`)
 
     })
     .catch((error) => {
-      console.log(error);
-      console.log(error.message)
       reportError(`Encountered an error while reserving trip: ${error.message}`, error.response.data.errors)
     });
   $('#trip-form').trigger('reset');
@@ -93,6 +85,5 @@ const readFormData = () => {
 };
 
 $(document).ready(() => {
-
   $('#load-trips').click(loadTrips);
 });
