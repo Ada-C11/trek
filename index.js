@@ -18,6 +18,8 @@ const loadDetails = (id) => {
       detailsList.append(`<li>Category: ${details.category}</li>`);
       detailsList.append(`<li>Weeks: ${details.weeks}</li>`);
       detailsList.append(`<li>Cost: ${details.cost}</li>`);
+
+      $('.reservations').append(`<p>Hey howdy hey</p>`);
     })
     .catch((error) => {
       reportStatus(`Whoops!  Something went wrong while loading trip details: ${error.message}`);
@@ -52,8 +54,10 @@ $(document).ready(() => {
     $('#load').click(loadTrips);
     $('#trip-list').on('click', 'li', function() {
         $('.details').empty();
-        const tripId = parseInt($(this).attr("id"));
+        $('.reservations').empty();
         $('section.details').append('<h2>Details</h2>');
+
+        const tripId = parseInt($(this).attr("id"));
         const detailsWindow = '<ul id="details-list"></ul>';
 
         // const detailsWindow = '<ul class="details-list">' + `<li>${$(this).html()} number ${tripId}</li>` + '</ul>'
