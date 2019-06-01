@@ -85,17 +85,15 @@ const clearForm = () => {
 }
 
 const reserveTrip = (event) => {
-  event.preventDefault();
-
   const tripID = parseInt($('#reserve-trip-form').attr('class'));
-
-  const reservationParams = readFormData();
 
   displayStatus('Reserving your spot...');
 
   const reservationUrl = (baseURL + '/' + tripID + '/reservations');
+  const reservationParams = readFormData();
+  event.preventDefault();
 
-  axios.post(reservationUrl, { params: reservationParams })
+  axios.post(reservationUrl, reservationParams)
     .then((response) => {
       const resId = response.data.id;
       displayStatus(`Successfully reserved your spot! Your reference number is ${resId}!`);
@@ -104,15 +102,9 @@ const reserveTrip = (event) => {
     .catch((error) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
-        handleApiError(
-          `Encountered an error: ${error.message}`,
-          error.response.data.errors
-        );
-      } else {
-        displayStatus(`Encountered an error: ${error.message}`);
+        handleApiError(error);
       }
     });
-  $("#reserve-trip-form")[0].reset();
 }
 
 $(document).ready(() => {
