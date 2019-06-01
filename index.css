@@ -1,4 +1,4 @@
-#reservation-form, .card {
+.card {
     display: none;
 }
 
@@ -9,3 +9,7 @@ header {
 .card .list-group-item:hover {
     background-color: rgba(0,0,0,.04);
 }    
+
+#about-text {
+    padding: 0 15px;
+}

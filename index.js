@@ -55,7 +55,7 @@ const showTripDetails = (trip) => {
       const reserve = reserveTrip(trip)
       $('#reservation-header').text(`Reserve a Spot on ${tripInfo.name}`)
       const target = $('#reservation-form');
-      target.show();
+      target.removeClass('d-none');
       target.submit(reserve)
     })
     .catch((error) => {
@@ -69,14 +69,15 @@ const showTripDetails = (trip) => {
 const displayTripDetails = (tripInfo) => {
   const target = $('#trip-details');
   target.empty();
-  target.append(`<h2>Trip Details</h2>`)
-  target.append(`<li>ID: ${tripInfo.id}</li>`);
-  target.append(`<li>Name: ${tripInfo.name}</li>`);
-  target.append(`<li>Continent: ${tripInfo.continent}</li>`);
-  target.append(`<li>About: ${tripInfo.about}</li>`);
-  target.append(`<li>Category: ${tripInfo.category}</li>`);
-  target.append(`<li>Weeks: ${tripInfo.weeks}</li>`);
-  target.append(`<li>Cost: ${tripInfo.cost}</li>`);
+  target.removeClass('d-none');
+  target.append(`<h2 class="card-header mb-2">Trip Details</h2>`)
+  target.append(`<span class="font-weight-bold m-3">Name:</span> ${tripInfo.name}<br>`);
+  target.append(`<span class="font-weight-bold m-3">ID:</span> ${tripInfo.id}<br>`);
+  target.append(`<span class="font-weight-bold m-3">Continent:</span> ${tripInfo.continent}<br>`);
+  target.append(`<span class="font-weight-bold m-3">Category:</span> ${tripInfo.category}<br>`);
+  target.append(`<span class="font-weight-bold m-3">Weeks:</span> ${tripInfo.weeks}<br>`);
+  target.append(`<span class="font-weight-bold m-3">Cost:</span> $${tripInfo.cost}<br>`);
+  target.append(`<div class="font-weight-bold ml-3">About:</div><div id="about-text">${tripInfo.about}</div><br>`);
 }
 
 const readFormData = () => {
