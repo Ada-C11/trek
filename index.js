@@ -49,27 +49,32 @@ const loadDetails = (id) => {
 const createForm = (id) => {
   const form = $('#form');
   form.empty()
-  const buildFormHtml = `<h1>Reserve a Spot</h1>
-  <div>Name: <input type="text" name="name"></div>
+  const buildFormHtml = `<h1>Reserve a Spot </h1>
+  <div >Name: <input type="text" name="name"></div>
   <div>Email: <input type="text" name="email"></div>
-  <button id="reserve">Reserve</button>`
+  <input type="submit" name="reserve" value="Reserve" />`
 
   form.html(buildFormHtml)
 
+  $('#form').submit( () => {
+    // event.preventDefault();
+    createReservation(id)
+})
 }
 
 
-const createReservation = (event) => {
-  event.preventDefault();
+const createReservation = (id) => {
+  // event.preventDefault();
 
   const reservationData = readFormData();
 
   reportStatus('Sending reservation data...');
 
-  axios.post(URL, reservationData)
+  axios.post(URL+"/"+ id + "/reservations", reservationData)
     .then((response) => {
       console.log(response);
       reportStatus('Successfully added a reservation!');
+      clearForm();
     })
     .catch((error) => {
       console.log(error.response);
@@ -84,24 +89,38 @@ const readFormData = () => {
   const nameFromForm = $(`#form input[name="name"]`).val();
   parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
-  const ageFromForm = $(`#form input[name="age"]`).val();
-  parsedFormData['email'] = emailFromForm ? ageFromForm : undefined;
+  const emailFromForm = $(`#form input[name="email"]`).val();
+  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
 
 
   return parsedFormData;
 };
+
+
 
 const clearForm = () => {
   $(`#form input[name="name"]`).val('');
   $(`#form input[name="email"]`).val('');
 }
 
+const reportStatus = (message) => {
+  $('#status-message').html(message);
+};
 
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p><ul>`;
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  reportStatus(content);
+};
 
 
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  $('#form').submit(createReservation)
+  // $('#form').submit(createReservation)
 });
-
