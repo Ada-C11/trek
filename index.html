@@ -16,12 +16,12 @@
     <section id="status-message"></section>
 
     <section id="trips">
-            <h1>TREK</h1>
-            <button id="load">Show All Trips</button>
-            <ul id="trips-list"></ul>
+        <h1>TREK</h1>
+        <button id="load">Show All Trips</button>
+        <ul id="trips-list"></ul>
     </section>
 
-    <section id="trip-details" class= "hidden">
+    <section id="trip-details" class="hidden">
         <h1>Trip Details</h1>
         <h2 id="name"></h2>
         <p id="continent"></p>
@@ -31,7 +31,29 @@
         <p id="about"></p>
     </section>
 
-    <section id="trip-form"></section>
+    <section id="form-section" class="hidden">
+        <h1></h1>
+        <form id="trip-form">
+            <div id="name-div">
+                <label for="name">Name (required): </label>
+                <input type="text" id="name"></input>
+            </div>
+            <div id="age-div">
+                <label for="age">Age: </label>
+                <input type="text" id="age"></input>
+            </div>
+            <div id="email-div">
+                <label for="name">Email (required): </label>
+                <input type="text" id="email"></input>
+            </div>
+            <div id="hidden-input-div">
+                <input type="hidden" id="tripID"></input>
+            </div>
+            <div id="submit-div">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </section>
 </body>
 
 </html>
