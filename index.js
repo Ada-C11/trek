@@ -18,8 +18,7 @@ const loadTrips = () => {
               const URL = `https://trektravel.herokuapp.com/trips/${trip.id}` 
               axios.get(URL)
               .then((response) => {
-                $(`#trip`).append(`<table><tr><td>Name: ${trip.name}</td></tr><tr><td>Continent: ${trip.continent}</td></tr><tr><td>Category: ${trip.category}</td></tr><tr><td>Weeks: ${trip.weeks}</td></tr><tr><td>Cost: $${trip.cost}</td></tr><tr><td>About: Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</td></tr></table>`);
-                $(`#trip`).css({'color': '#c10000', 'font-weight': 'bold'});
+                $(`#trip`).append(`<table><tr><th>Trip Details</th></tr><tr><td><b>Name:</b> ${trip.name}</td></tr><tr><td><b>Continent:</b> ${trip.continent}</td></tr><tr><td><b>Category:</b> ${trip.category}</td></tr><tr><td><b>Weeks:</b> ${trip.weeks}</td></tr><tr><td><b>Cost:</b> $${trip.cost}</td></tr><tr><td><b>About:</b> Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...</td></tr></table>`);
               })
               .catch((error) => {
                 reportStatus(`Encountered an error while loading pets: ${error.message}`);
