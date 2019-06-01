@@ -24,85 +24,75 @@ const loadTrips = () => {
   axios.get(url)
     .then(response => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
-      console.log(response.data);
       response.data.forEach(trip => {
         tripList.append(`<li id="${trip.id}" class="trip">${trip.name}</li>`);
         const element = $(`#${trip.id}`);
-
         element.click(() => tripDetails(trip.id));
-
       });
     })
     .catch(error => {
-      console.log(error);
-      reportStatus(`Encountered an error: ${error.message}`);
+      reportError(`Encountered an error: ${error.message}`);
     });
 }
 
 const tripDetails = (id) => {
+  $('.trip-form').show();
   const url = baseURL + 'trips/';
-
   const tripDetails = $('#trip-info-list');
   tripDetails.empty();
+
   axios.get(url + id)
     .then((response) => {
       reportStatus(`Successfully loaded trip ${id}`);
-      console.log(response.data);
       const keys = Object.keys(response.data);
-      console.log(keys);
       keys.forEach(key => {
-        console.log(key);
-        console.log(response.data[key]);
         tripDetails.append(`<li>${key}: ${response.data[key]}</li>`)
       });
-      $('#trip-form').submit(() => reserveTrip(id));
+      const reserve = () => reserveTrip(id)
+      $('#trip-form').off('submit');
+      $('#trip-form').submit(reserve);
+      // $('#trip-form').submit(() => reserveTrip(id));
+      console.log("inside get trip details");
     })
     .catch((error) => {
-      reportStatus(`Encountered an error while loading trips: ${error.message}`);
-      console.log(error);
+      reportError(`Encountered an error while loading trips: ${error.message}`, error.response.data.errors);
     });
 }
 
 const reserveTrip = (id) => {
-  console.log("inside reserve trip")
+  console.log("inside reserve trip");
   const url = baseURL + 'trips/' + id + '/reservations';
   event.preventDefault();
   const tripDetails = readFormData();
   reportStatus('Sending trip data...');
-  // const tripDetails = {
-  //   name: "Mudkip",
-  //   email: "kats>dogs@cat4life.com"
-  // };
-  console.log("reset trip form");
-  $('#trip-form').trigger('reset');
+  // $('#trip-form').trigger('reset');
 
   axios.post(url, tripDetails)
     .then((response) => {
-      reportStatus(`Successfully added a trip to ${response.data}!`)
+      console.log(response)
+      reportStatus(`Successfully reserved trip! Your trip confirmation number is ${response.data.id}!`)
+
     })
     .catch((error) => {
-      console.log(error.response);
-      reportStatus(`Encountered an error while reserving trip: ${error.message}`)
+      console.log(error);
+      console.log(error.message)
+      reportError(`Encountered an error while reserving trip: ${error.message}`, error.response.data.errors)
     });
-  console.log("reset trip form")
-  // $('#trip-form').reset();
+  $('#trip-form').trigger('reset');
+
 }
 
 
 const readFormData = () => {
   const tripData = $('#trip-form').serializeArray();
   const parsedFormData = {};
-  console.log(tripData);
   for (let field in tripData) {
-    console.log(field.name)
     parsedFormData[tripData[field].name] = tripData[field].value
   }
-  console.log(parsedFormData);
   return parsedFormData;
 };
 
 $(document).ready(() => {
-  $('#load-trips').click(loadTrips);
-  // $('#trip-form').submit(reserveTrip);
 
+  $('#load-trips').click(loadTrips);
 });
