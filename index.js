@@ -23,3 +23,6 @@ const listTrips = () => {
         });
 };
 
+$(document).ready(() => {
+    $('#load').click(listTrips);
+});

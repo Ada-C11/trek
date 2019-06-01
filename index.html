@@ -4,22 +4,24 @@
     <title>Trekking</title>
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
-    <section>
-      <button id='show_all'></button>
-    </section>
+    <section id="status-message"></section>
+  
+    <main>
+      <section class="current-trips">
+        <h1>All Trips</h1>
+        <button id="load">See all Trips</button>
+        <ul id="trip-list"></ul>
+      </section>
+    </main>
   </body>
 </html>
 
 
-
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<link href="styles.css" media="screen" rel="stylesheet" type="text/css"/>
 
