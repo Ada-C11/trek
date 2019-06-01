@@ -62,23 +62,26 @@ const loadTrips = () => {
 
     $('#trip-list').on('click', 'li', oneTrip);
 
+  
+
 }
+
+
 
 
 
 const reservationData = () => {
     // return new FormData(document.querySelector('#reservation form'));
     const reservationTripId = $('#reservation form').attr('class');
-      return {
-    trip_id: `${reservationTripId}`,
-    name: "stinker",
-    email: "test@test"
-  };
+    return {
+        trip_id: `${reservationTripId}`,
+        name: "stinker",
+        email: "test@test"
+    };
 }
 
 const makeReservation = function makeReservation() {
 
-    console.log(reservationData());
     const pfeiffer = reservationData();
     console.log(pfeiffer)
 
@@ -115,6 +118,12 @@ $(document).ready(() => {
         makeReservation();
     });
 
+    $('#trip-details').click(function(){
+        $('section').empty();
+    })
 
-
-});
+    // $('#trip-details').on('click', 'section')
+    
+   
+   
+    })

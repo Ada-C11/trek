@@ -10,16 +10,19 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <section id="status-message"></section>
+    
+    <main class="container">
+        <header>
+            <h1>Treks</h1>
+        </header> 
+        
+        <section class="trips">
+            <button id="load">Get Trips</button>
+            <div id="status-message"></div>
+            <ul id="trip-list"></ul>
+        </section>
 
-  <main class="container">
-    <section class="trips">
-      <h1>Trek</h1>
-      <button id="load">Get Trips</button>
-      <ul id="trip-list"></ul>
-    </section>
-
-    <section id="trip-details">
+    <section type='hidden' id="trip-details">
         <h2>Trip Details</h2>
         <ul></ul>
     </section>

@@ -1,21 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|Permanent+Marker&display=swap');
+
+
+body {
+    background-image: url('assets/42945.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+header {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    text-align: center;
+    font-size: 30pt;
+}
+
+h1 {
+    font-family: 'Permanent Marker', cursive;
+}
+
+
 .container {
     display: grid;
+    height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 2fr 2fr 1fr;
     border-color :black;
 }
 
 .trips {
-    grid-row: 1 / 4;
+    grid-row: 2 / 4;
+    padding-left: 40px;
 }
 
 #trip-details {
-    border-color: black;
+    font-family: 'Lato', sans-serif;
+    color: white;
     grid-column: 2;
+    grid-row: 2;
+    padding-right: 50px;
+}
+
+#trip-details h2 {
+    font-family: 'Permanent Marker', cursive;
 }
 
 #reservation {
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
 
+}
+
+#reservation h3 {
+    font-family: 'Permanent Marker', cursive;
 }
