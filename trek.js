@@ -70,7 +70,29 @@ const loadTrips = () => {
                           <input type="submit" name="add-trek" value="Add Trek" />
                         </form>`)
 
-                
+
+                        const addTrek = (event) => {
+
+                          event.preventDefault();
+                        
+                          const trekData = readFormData();
+                        
+                          reportStatus("About to book your trip!");
+                          
+                          axios.post(`${TRIP_URL}${trip.id}/reservations`, trekData)
+                            .then((response) => {
+                              console.log("Congrats! Your trip has been booked.", response);
+                        
+                              const trekID = response.data.id;
+                              reportStatus(`Successfully booked a new trip with ID ${trekID}`);
+                              clearForm();
+                            })
+                            .catch((error) => {
+                              reportApiError(error);
+                            })
+                        };
+
+                        $('#trek-form').submit(addTrek);
           })
           .catch((error) => {
             reportStatus(`Encountered an error while loading treks: ${error.message}`);
@@ -84,6 +106,7 @@ const loadTrips = () => {
         const selectedTrip = showDetails(trip);
        
         $('li:last').click(selectedTrip);
+
 
         
         
@@ -115,30 +138,30 @@ const clearForm = () => {
 }
 
 
-const addTrek = (event) => {
+// const addTrek = (event) => {
 
-  event.preventDefault();
+//   event.preventDefault();
 
-  const trekData = readFormData();
+//   const trekData = readFormData();
 
-  reportStatus("About to book your trip!");
-  // console.log("About to book your trip!", trekData);
+//   reportStatus("About to book your trip!");
+//   // console.log("About to book your trip!", trekData);
 
-  axios.post(TRIP_URL, trekData)
-    .then((response) => {
-      console.log("Congrats! Your trip has been booked.", response);
+//   // need to get trip id and append it to the url
+//   axios.post(TRIP_URL, trekData)
+//     .then((response) => {
+//       console.log("Congrats! Your trip has been booked.", response);
 
-      const trekID = response.data.id;
-      reportStatus(`Successfully booked a new trip with ID ${trekID}`);
-    })
-    .catch((error) => {
-      reportApiError(error);
-    })
-};
+//       const trekID = response.data.id;
+//       reportStatus(`Successfully booked a new trip with ID ${trekID}`);
+//     })
+//     .catch((error) => {
+//       reportApiError(error);
+//     })
+// };
 
 
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
-  $('#trek-form').submit(addTrek);
 });
