@@ -32,10 +32,12 @@ const loadTrips = () => {
 };
 
 const displayTripList = (tripList) => {
+  $(".card").show();
   const target = $('#trip-list');
   target.empty();
+  target.before(`<h2 class="card-header">All Trips</h2>`)
   tripList.forEach((trip) => {
-    target.append(`<li id="${trip.id}">${trip.name}</li>`);
+    target.append(`<a href="#" id="${trip.id}" class="list-group-item list-group-item-action">${trip.name}</a>`);
     const getDetails = showTripDetails(trip)
     $(`#${trip.id}`).click(getDetails);
   });

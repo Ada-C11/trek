@@ -1,7 +1,11 @@
-#reservation-form {
+#reservation-form, .card {
     display: none;
 }
 
 header {
     border-bottom: 2px solid black !important; 
 }
+
+.card .list-group-item:hover {
+    background-color: rgba(0,0,0,.04);
+}    
