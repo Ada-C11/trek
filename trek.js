@@ -5,8 +5,21 @@ const displayStatus = (message) => {
 }
 
 const handleApiError = (error) => {
-  console.log(error);
-  // TODO: politely report this error to the user
+  console.log("Encountered error when posting:", error);
+
+  let content = `<p>${error.message}</p><ul>`;
+
+  const fieldProblems = error.response.data.errors;
+
+  Object.keys(fieldProblems).forEach(field => {
+    const problems = fieldProblems[field];
+    problems.forEach(problem => {
+      content += `<li><strong>${field}:</strong> ${problem}</li>`;
+    });
+  });
+  content += '</ul>';
+  displayStatus(content);
+
 }
 
 const loadTrips = () => {
@@ -22,30 +35,37 @@ const loadTrips = () => {
         tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
       $("#trip-list li").on('click', showTripDetails);
+    })
+    .catch((error) => {
+      displayStatus(`Encountered an error while loading trips: ${error.message}`);
+      console.log(error);
     });
 }
 
-const displayTripDetails = (tripDetails) => {
+const formatTripDetails = (tripDetails) => {
   const target = $('#trip-details-list');
   target.empty();
+
   Object.keys(tripDetails).forEach(function (detail) {
-    target.append(`<li><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
+    target.append(`<li id="${detail}"><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
   });
 }
 
+// const showTripDetails = (event) => {
+//   event.preventDefault();
 
-const showTripDetails = (event) => {
-  event.preventDefault();
+//   console.log("showing details for trip", $(event.target).html());
+//   const byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
 
-  console.log("showing details for trip", $(event.target).html());
-  const byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
-
-  axios.get(byIdUrl)
-    .then((response) => {
-      displayTripDetails(response.data);
-      $("#reserve-trip").show();
-    });
-};
+// axios.get(byIdUrl)
+//   .then((response) => {
+//     formatTripDetails(response.data);
+//     $("#reserve-trip").show();
+//     $('#reserve-trip-form').addClass(`${response.data.id}`).submit(reserveTrip);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 const readFormData = () => {
   const parsedFormData = {};
@@ -55,16 +75,49 @@ const readFormData = () => {
 
   const emailFromForm = $(`#reserve-trip-form input[name="email"]`).val();
   parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+  return parsedFormData;
+};
+
+const clearForm = () => {
+  $(`#reserve-trip-form input[name="name"]`).val('');
+  $(`#reserve-trip-form input[name="email"]`).val('');
 }
 
-const reserveTrip = (trip) => {
-  console.log("reserving trip", trip)
+const reserveTrip = (event) => {
+  event.preventDefault();
 
-  // TODO: Wave 2
-  // reserve a spot on the trip when the form is submitted
+  const tripID = parseInt($('#reserve-trip-form').attr('class'));
+
+  const reservationParams = readFormData();
+
+  displayStatus('Reserving your spot...');
+
+  const reservationUrl = (baseURL + '/' + tripID + '/reservations');
+
+  axios.post(reservationUrl, { params: reservationParams })
+    .then((response) => {
+      const resId = response.data.id;
+      displayStatus(`Successfully reserved your spot! Your reference number is ${resId}!`);
+      clearForm();
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        handleApiError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        displayStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+  $("#reserve-trip-form")[0].reset();
 }
 
 $(document).ready(() => {
   $('#load-trips').click(loadTrips);
   $(`#reserve-trip`).hide();
+  $(`#submitRes`).submit(reserveTrip);
 });
+// }
