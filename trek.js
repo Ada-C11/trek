@@ -27,12 +27,16 @@ const loadTrips = () => {
   const tripList = $("#trip-list");
   tripList.empty();
 
+  let loadTripHtml = "<h2>All Trips</h2><ul>"
+
   axios.get(baseURL)
     .then((response) => {
       displayStatus(`Successfully loaded ${response.data.length} trips`, "#status");
       response.data.forEach((trip) => {
-        tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
+        loadTripHtml += `<li class="list-group-item"><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`;
       });
+      loadTripHtml += "</ul>";
+      tripList.append(loadTripHtml);
       $(`#trip-list li`).click(showTripDetails);
     })
     .catch((error) => {
@@ -44,9 +48,13 @@ const formatTripDetails = (tripDetails) => {
   const target = $("#trip-details-list");
   target.empty();
 
+  let tripDetailsHtml = "<h2>Trip Details</h2><ul>"
+
   Object.keys(tripDetails).forEach(function (detail) {
-    target.append(`<li id="capitalize"><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
+    tripDetailsHtml += `<li id="${detail}"><strong>${detail}:</strong> ${tripDetails[detail]}</li>`;
   });
+  tripDetailsHtml += "</ul>"
+  target.append(tripDetailsHtml);
 };
 
 const showTripDetails = (event) => {
@@ -71,10 +79,10 @@ const readFormData = () => {
   const parsedFormData = {};
 
   const nameFromForm = $(`#reserve-trip-form input[name="name"]`).val();
-  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+  parsedFormData["name"] = nameFromForm ? nameFromForm : undefined;
 
   const emailFromForm = $(`#reserve-trip-form input[name="email"]`).val();
-  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+  parsedFormData["email"] = emailFromForm ? emailFromForm : undefined;
 
   return parsedFormData;
 };
@@ -85,13 +93,13 @@ const clearForm = () => {
 }
 
 const reserveTrip = (event) => {
+  event.preventDefault();
+
+  displayStatus("Reserving your spot...", "#reservation-status");
+
   const tripID = parseInt($("#reserve-trip-form").attr("class"));
-
-  displayStatus("Reserving your spot...", "#status");
-
   const reservationUrl = (baseURL + "/" + tripID + "/reservations");
   const reservationParams = readFormData();
-  event.preventDefault();
 
   axios.post(reservationUrl, reservationParams)
     .then((response) => {
