@@ -19,7 +19,6 @@ const handleApiError = (error) => {
   });
   content += '</ul>';
   displayStatus(content);
-
 }
 
 const loadTrips = () => {
@@ -34,10 +33,9 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         tripList.append(`<li><a href="#" data-trip-id=${trip.id}> ${trip.name}</a></li>`);
       });
-      $("#trip-list li").on('click', showTripDetails);
+      $(`#trip-list li`).click(showTripDetails);
     })
     .catch((error) => {
-      displayStatus(`Encountered an error while loading trips: ${error.message}`);
       console.log(error);
     });
 }
@@ -47,25 +45,27 @@ const formatTripDetails = (tripDetails) => {
   target.empty();
 
   Object.keys(tripDetails).forEach(function (detail) {
-    target.append(`<li id="${detail}"><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
+    target.append(`<li><strong>${detail}:</strong> ${tripDetails[detail]}</li>`);
   });
+};
+
+const showTripDetails = (event) => {
+  event.preventDefault();
+
+  console.log("showing details for trip", $(event.target).html());
+  const byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
+
+  axios.get(byIdUrl)
+    .then((response) => {
+      formatTripDetails(response.data);
+      $('#reserve-trip-form').addClass(`${response.data.id}`)
+        .submit(reserveTrip);
+      $("#reserve-trip").show();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
-
-// const showTripDetails = (event) => {
-//   event.preventDefault();
-
-//   console.log("showing details for trip", $(event.target).html());
-//   const byIdUrl = (baseURL + '/' + `${$(event.target).data("trip-id")}`);
-
-// axios.get(byIdUrl)
-//   .then((response) => {
-//     formatTripDetails(response.data);
-//     $("#reserve-trip").show();
-//     $('#reserve-trip-form').addClass(`${response.data.id}`).submit(reserveTrip);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
 
 const readFormData = () => {
   const parsedFormData = {};
@@ -116,8 +116,7 @@ const reserveTrip = (event) => {
 }
 
 $(document).ready(() => {
-  $('#load-trips').click(loadTrips);
   $(`#reserve-trip`).hide();
+  $(`#load-trips`).click(loadTrips);
   $(`#submitRes`).submit(reserveTrip);
 });
-// }
