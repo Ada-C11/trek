@@ -12,7 +12,7 @@
 <body>
   <section id="status-message"></section>
 
-  <main>
+  <main class="container">
     <section class="trips">
       <h1>Trek</h1>
       <button id="load">Get Trips</button>
@@ -22,6 +22,17 @@
     <section id="trip-details">
         <h2>Trip Details</h2>
         <ul></ul>
+    </section>
+
+    <section id="reservation">
+        <h3>Reserve a spot on this trip</h3>
+        <form>
+            <label for="name">Name</label>
+            <input type="text" name="name"/>
+
+            <label for="email">Email</label>
+            <input type="text" name="email"/>
+        </form>
     </section>
 
   </main>

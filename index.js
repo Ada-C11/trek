@@ -35,9 +35,10 @@ const loadTrips = () => {
         const showTrip = $('#trip-details ul');
         showTrip.empty();
         const tripId = $(event.currentTarget).attr('data-id');
-        axios.get(`https://trektravel.herokuapp.com/trips/${tripId}`)
+    
+        axios.get(ALL_URL + `/${tripId}`)
             .then((response) => {
-                reportStatus('Retrieving trip details.');
+                reportStatus('See details for your selected trip.');
 
                 const singleTrip = response.data;
                 
@@ -47,7 +48,7 @@ const loadTrips = () => {
                 showTrip.append(`<li>Category: ${singleTrip['category']}</li>`);
                 showTrip.append(`<li>
                 Duration (weeks): ${singleTrip['weeks']}</li>`);
-                showTrip.append(`<li>Cost: $${singleTrip['cost']}</li>`);
+                showTrip.append(`<li>Cost: $${singleTrip['cost'].toFixed(2)}</li>`);
 
             })
             .catch((error) => {
@@ -66,7 +67,4 @@ $(document).ready(() => {
         loadTrips();
     });
 
-    // $('button#load').click(function () {
-    //     $(this).hide();
-    // });
 });

@@ -1,0 +1,21 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border-color :black;
+}
+
+.trips {
+    grid-row: 1 / 4;
+}
+
+#trip-details {
+    border-color: black;
+    grid-column: 2;
+}
+
+#reservation {
+    grid-column: 2;
+    grid-row: 2;
+
+}
