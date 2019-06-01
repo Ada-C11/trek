@@ -19,6 +19,7 @@ const loadTrips = () => {
 
         })
         tripList.prepend("<h2>All Trips</h2>")
+        $(".current-trips").css("border-style", "solid");
     })
     .catch((error) => {
       console.log(error);
@@ -38,6 +39,7 @@ const loadDetails = (id) => {
         tripDetails.append(`<li><b>${title}:</b> ${response["data"][title]}</li>`);
       })
       tripDetails.prepend(`<h2>Trip Details</h2>`)
+      $(".details").css("border-style", "solid");
 
   })
   .catch((error) => {
@@ -56,6 +58,7 @@ const createForm = (id) => {
   <input type="submit" name="reserve" value="Reserve" />`
 
   form.html(buildFormHtml)
+  $(".reservation-form").css("border-style", "solid");
 
   $('#form').submit( () => {
     // event.preventDefault();
