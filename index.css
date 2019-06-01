@@ -1,0 +1,46 @@
+* {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  list-style-type: none;
+}
+
+main {
+  display: grid;
+  grid-template: 1fr 1fr/ 1fr 1fr
+}
+
+header {
+  color: black;
+  margin-bottom: 25px;
+  /* grid-column-start: 1;
+  grid-column-end: 3; */
+}
+
+header div {
+  border-bottom-style: solid;
+  margin-bottom: 25px;
+  border-width: 1 rem;
+}
+
+#load {
+  background-color: gray;
+  color: white
+}
+
+.current-trips {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  border-style: solid;
+
+}
+
+.details {
+  border-style: solid;
+  margin: 25px;
+}
+
+.reservation-form {
+  margin: 25px;
+  padding: 25px;
+  border-style: solid;
+  text-align: center
+}

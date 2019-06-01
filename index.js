@@ -18,6 +18,7 @@ const loadTrips = () => {
 
 
         })
+        tripList.prepend("<h2>All Trips</h2>")
     })
     .catch((error) => {
       console.log(error);
@@ -32,11 +33,11 @@ const loadDetails = (id) => {
 
   axios.get(URL+"/"+ id)
   .then((response) => {
-      let titles = ["name", "continent", "about", "category", "weeks", "cost"]
+      let titles = ["name", "continent", "category", "weeks", "cost", "about"]
       titles.forEach((title) => {
-        tripDetails.append(`<li>${title}: ${response["data"][title]}</li>`);
+        tripDetails.append(`<li><b>${title}:</b> ${response["data"][title]}</li>`);
       })
-      tripDetails.prepend(`<h1>Trip Details</h1>`)
+      tripDetails.prepend(`<h2>Trip Details</h2>`)
 
   })
   .catch((error) => {
