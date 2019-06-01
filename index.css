@@ -1,7 +1,6 @@
 * {
   margin: 0px;
   padding: 0px;
-  /* box-sizing: border-box; */
 }
 
 body {
@@ -20,6 +19,7 @@ header {
 
 #status {
   margin-left: 10px;
+  margin-top: 5px;
   grid-row: 2;
   grid-column: 1 / span 2;
 }
@@ -40,21 +40,38 @@ button:hover {
   background-color: #dedede;
 }
 
-#trips, #trips th, #trips td {
+#trips {
   margin: 10px;
   border: 1px solid black;
+  border-collapse: collapse;
   padding: 5px;
   grid-row: 4 / span 1;
   grid-column: 1;
+}
+#trips th, #trips td {
+  border-bottom: 1px solid black;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #trip {
   grid-row: 4;
   grid-column: 2;
   margin: 10px;
-  /* padding-top: 10px; */
+  padding: 10px;
 }
 
-#trip > * {
+#trip > table {
   border: 1px solid #000000;
+  border-collapse: collapse;
+}
+
+#trip th {
+  border-bottom: 1px solid black;
+}
+
+footer {
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
