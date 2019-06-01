@@ -7,6 +7,7 @@ const reportStatus = (message) => {
     statusContainer.append(`<p>${message}</p>`);
 };
 
+
 const loadTrips = () => {
     reportStatus('Loading trips...');
 
@@ -35,13 +36,13 @@ const loadTrips = () => {
         const showTrip = $('#trip-details ul');
         showTrip.empty();
         const tripId = $(event.currentTarget).attr('data-id');
-    
+
         axios.get(ALL_URL + `/${tripId}`)
             .then((response) => {
                 reportStatus('See details for your selected trip.');
 
                 const singleTrip = response.data;
-                
+
                 showTrip.append(`<li>Name: ${singleTrip['name']}</li>`);
                 showTrip.append(`<li>Continent: ${singleTrip['continent']}</li>`);
                 showTrip.append(`<li>About: ${singleTrip['about']}</li>`);
@@ -55,10 +56,52 @@ const loadTrips = () => {
                 reportStatus('Details for this trip are not currently avialable.');
             });
 
+        $('#reservation form').addClass(`${tripId}`);
+
     }
 
-    $('#trip-list').on('click', 'li', oneTrip)
+    $('#trip-list').on('click', 'li', oneTrip);
+
 }
+
+
+
+const reservationData = () => {
+    // return new FormData(document.querySelector('#reservation form'));
+    const reservationTripId = $('#reservation form').attr('class');
+      return {
+    trip_id: `${reservationTripId}`,
+    name: "stinker",
+    email: "test@test"
+  };
+}
+
+const makeReservation = function makeReservation() {
+
+    console.log(reservationData());
+    const pfeiffer = reservationData();
+    console.log(pfeiffer)
+
+    const reservationTripId = $('#reservation form').attr('class');
+
+    axios.post(ALL_URL + `/${reservationTripId}/reservations`, pfeiffer)
+
+        .then((response) => {
+            console.log("successfully posted reservation", response);
+
+            const reservationId = response.data.id;
+            reportStatus(`Successfully reserved spot ${reservationId}`);
+        })
+        .catch((error) => {
+            console.log("there has been a reservation error")
+            // reportApiError(error);
+        })
+
+}
+
+
+
+$('#reservation').on('click', 'input', makeReservation);
 
 
 $(document).ready(() => {
@@ -66,5 +109,12 @@ $(document).ready(() => {
     $('#load').click(() => {
         loadTrips();
     });
+
+    $('#reservation form').submit(() => {
+        event.preventDefault();
+        makeReservation();
+    });
+
+
 
 });
