@@ -21,10 +21,20 @@
                 </hgroup>
         </header>
         <main>
-            <button class="centered"></button>
-            <section id="trips"></section>
-            <details id="trips-list"></details>
-            <form id="trip-reservation"></form>
+            <button class="centered">See All Trips</button>
+            <section id="trips-list"></section>
+            <aside id="trips-details"></aside>
+            <section id="reserve-trip">
+                <h3 id="reserve-heading"></h3>
+                <form id="trip-reservation" class="hidden">
+                    <label name="name">Name</label>
+                    <input type="text" name="name">
+                    <label name="email">Email</label>
+                    <input type="text" name="email">
+                    <input type="submit">
+                </form>
+            </section>
+            
         </main>
         <footer></footer>
     </body>

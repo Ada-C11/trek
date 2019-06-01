@@ -1,0 +1,12 @@
+header {
+    text-align:center;
+}
+
+.hidden {
+    visibility:hidden;
+}
+
+.centered {
+    display:block;
+    margin: 20% auto;
+}
