@@ -4,6 +4,18 @@ const reportStatus = (message) => {
     $('#status-message').html(message);
 };
 
+const loadReservationForm = () => {
+  $('.reservations').append('<form id="reservation-form"></form>')
+    // $('.reservations').append(`<p>Hey howdy hey</p>`);
+    const nameField = '<div>' + '<label for="name">Name:</label>' + 
+    '<input type="text" id="name" name="user_name">' + '</div>'
+
+    const emailField = '<div>' + '<label for="email">Email:</label>' + 
+    '<input type="text" id="email" name="user_email">' + '</div>'
+
+    $('#reservation-form').append(nameField);
+    $('#reservation-form').append(emailField);
+};
 
 const loadDetails = (id) => {
     const detailsList = $('#details-list');
@@ -19,7 +31,7 @@ const loadDetails = (id) => {
       detailsList.append(`<li>Weeks: ${details.weeks}</li>`);
       detailsList.append(`<li>Cost: ${details.cost}</li>`);
 
-      $('.reservations').append(`<p>Hey howdy hey</p>`);
+      loadReservationForm();
     })
     .catch((error) => {
       reportStatus(`Whoops!  Something went wrong while loading trip details: ${error.message}`);
