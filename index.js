@@ -6,15 +6,19 @@ const reportStatus = (message) => {
 
 const loadReservationForm = () => {
   $('.reservations').append('<form id="reservation-form"></form>')
-    // $('.reservations').append(`<p>Hey howdy hey</p>`);
+  
     const nameField = '<div>' + '<label for="name">Name:</label>' + 
     '<input type="text" id="name" name="user_name">' + '</div>'
 
     const emailField = '<div>' + '<label for="email">Email:</label>' + 
     '<input type="text" id="email" name="user_email">' + '</div>'
 
+    const submitButton = '<div class="button">' + 
+    '<button type="submit">Reserve</button>' + '</div>'
+  
     $('#reservation-form').append(nameField);
     $('#reservation-form').append(emailField);
+    $('#reservation-form').append(submitButton);
 };
 
 const loadDetails = (id) => {
