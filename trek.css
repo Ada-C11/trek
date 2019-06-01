@@ -10,3 +10,7 @@ header {
     display:block;
     margin: 20% auto;
 }
+
+.selected {
+    color:blue;
+}
