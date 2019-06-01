@@ -1,12 +1,12 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
-const reportStatus = (message) => {
+function reportStatus(message) {
   $('#status-message').html(message);
-};
+}
 
 let trips = {};
 
-const loadTrips = () => {
+function loadTrips() {
   reportStatus('Loading trips...');
 
   const tripList = $('#trip-list');
@@ -18,7 +18,7 @@ const loadTrips = () => {
       response.data.forEach((trip) => {
         const listItem = $(`<li>${trip.name}</li>`).appendTo(tripList);
         listItem.click(() => {
-          showTripDetails(trip.name);
+          clickTrip(trip.name);
         })
         trips[trip.name] = trip;
       });
@@ -27,47 +27,62 @@ const loadTrips = () => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
       console.log(error);
     });
-};
+}
 
-function showTripDetails(tripName) {
+function clickTrip(tripName) {
   const trip = trips[tripName];
   const details = $('#details');
+  details.show();
+  details.empty();
   details.append(`<p><b>Name</b>: ${trip.name}</p>`);
   details.append(`<p>Continent: ${trip.continent}</p>`);
   details.append(`<p>Category: ${trip.category}</p>`);
   details.append(`<p>Weeks: ${trip.weeks}</p>`);
   details.append(`<p>Cost: $${trip.cost}</p>`);
   details.append(`<p>About:</p>`);
-  details.append(`<p>I wish I worked at Google.</p>`);
+  details.append(`<p>This is the trip of your dreams!</p>`);
+
+  const form = $('#registration');
+  form.show();
+  $('#registration-submit').click((event) => {
+    reserveTrip(event, trip.id);
+  });
 }
 
-const createTrip = (event) => {
+// function createTrip(event) {
+//   event.preventDefault();
+
+//   reportStatus('Sending trip data...');
+
+//   axios.post(URL, tripData)
+//     .then((response) => {
+//       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
+//       clearForm();
+//     })
+//     .catch((error) => {
+//       console.log(error.response);
+//       reportStatus(`Encountered an error while loading trips: ${error.message}`)
+//     });
+// }
+
+function reserveTrip(event, tripId) {
+  //prevents page from reloading
   event.preventDefault();
+  //https://developer.mozilla.org/en-US/docs/Web/API/FormData
+  const reservationData = new FormData($('#registration')[0]);
 
-  reportStatus('Sending trip data...');
+  reportStatus('Reserving trip...');
+  const URL = `https://trektravel.herokuapp.com/trips/${tripId}/reservations`;
 
-  axios.post(URL, tripData)
-    .then((response) => {
-      reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
-      clearForm();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      reportStatus(`Encountered an error while loading trips: ${error.message}`)
-    });
-};
-
-
-// const details.html(
-//   <h2>Trip Details</h2>
-//   <h1>Trip ID</h1>
-//   <h1>Trip Name</h1>
-//   <h1>Continent</h1>
-//   <h1>Details about the trip</h1>
-//   <h1>Category of the trip</h1>
-//   <h1>Number of weeks duration of the trip</h1>
-//   <h1>Cost of the trip</h1>
-// )
+  axios.post(URL, reservationData)
+  .then((response) => {
+    reportStatus(`Successfully reserved a trip with ID ${response.data.id}!`);
+  })
+  .catch((error) => {
+    console.log(error.response);
+    reportStatus(`Encountered an error while reserving trips: ${error.message}`)
+  });
+}
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
