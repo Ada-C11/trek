@@ -11,15 +11,15 @@
     </head>
     <body>
         <main>
-            <section id="status-message"></section>
-            
             <header>
                 <h1>Trek</h1>
                 <h3>Find Your Dream Adventure!</h3>
             </header>
 
+            <section id="status-message"></section>
+
             <section id="all-trips">
-                <button id="load-trips">See All Trips</button>
+                <button id="load-trips" type="button" class="btn btn-default">See All Trips</button>
                 <h4></h4>
                 <ul id="trip-list"></ul>
             </section>
@@ -28,6 +28,7 @@
 
             <section class="hide" id="reserve-trip">
                 <form id="reservation-form">
+                    <h4>Reserve Spot on Trip</h4>
                     <div>
                         <label for="name">Name</label>
                         <input type="text" name="name" />
@@ -39,8 +40,9 @@
                     </div>
 
                     <input type="submit" 
+                    class="btn btn-default"
                     name="add-reservation" 
-                    value="Reserve a spot on this trip!" />
+                    value="Reserve spot!" />
                 </form>
             </section>
         </main>

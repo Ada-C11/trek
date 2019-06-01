@@ -50,6 +50,10 @@ const loadTrips = () => {
         
                     $('#reserve-trip').show();
                 })
+                .catch((error) => {
+                    reportStatus(`Something went wrong with loading trip ${tripId}: ${error}`);
+                    console.log(`Something went wrong with loading trip ${tripId}: ${error}`);
+                })
           
             console.log(tripId);
         }
