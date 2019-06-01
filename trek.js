@@ -30,6 +30,7 @@ const loadTrips = () => {
     axios.get(BASE_URL)
     .then((response) => {
         reportStatus(`Successfully loaded ${response.data.length} trips`);
+        $('#trek-list').append(`<h2>Trip List:</h2>`);
         response.data.forEach((trek) => {
             $('#trek-list').append(`<li><a href="#" data-trek-id=${trek.id}> ${trek.name} </a></li>`);  
         });
@@ -42,11 +43,11 @@ const loadTrips = () => {
 };
 
 const showTrip = (event) => {
-    // create an inner function here that's returned?
     axios.get(BASE_URL + '/' + $(event.target).data("trek-id"))
     .then((response) => {
         $('#trek-details').html(
-        `<p><strong>Name:</strong> ${response.data.name}</p>
+        `<h2>Trip details:</h2>
+        <p><strong>Name:</strong> ${response.data.name}</p>
         <p id="trek-id"><strong>ID:</strong> ${response.data.id}</p>
         <p><strong>Continent:</strong> ${response.data.continent}</p>
         <p><strong>Category:</strong> ${response.data.category}</p>
@@ -94,7 +95,8 @@ $(document).ready(() => {
     $('.trips__button').click(loadTrips);
 });
 
-// attempt at closures - very buggy still
+// attempt at closures - still very buggy 
+// won't show single trip, iterates through many.
 
 // const BASE_URL = 'https://trektravel.herokuapp.com/trips'
 

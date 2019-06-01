@@ -8,20 +8,26 @@
     <script type="text/javascript" src="trek.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="index.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
   </head>
   <body>
-    <div>
-        <button type="button" class="btn btn-light trips__button">View Trips</button>
-    </div>
-    <div id="status"></div>
-    <div>
+    <header>
+      <h1>Trekkie</h1>
+    </header>
+    <section id="button">
+      <div>
+        <button type="button" class="btn btn-outline-info trips__button">View Trips</button>
+      </div>
+      <div id="status"></div>
+    </section>
+    <section id="list">
         <ul id="trek-list"></ul>
-    </div>
-    <div>
+    </section>
+    <section id="details">
         <p id="trek-details"></p>
-    </div>
+    </section>
     <section id="reservation">
-      <h1>Act now! Reserve your spot:</h1>
+      <h2>Reserve your spot!</h2>
       <form id="reservation-form">
         <div>
           <label for="name">Name</label>
@@ -36,5 +42,6 @@
         <input type="submit" name="add-reservation" value="Add Reservation" />
       </form>
     </section>
+    <footer>© 2019 Trekkie, LLC</footer>
   </body>
 </html>
