@@ -51,7 +51,10 @@ const showTripDetails = (trip) => {
       reportStatus(`Successfully loaded trip ${tripInfo.name}`);
       displayTripDetails(tripInfo)
       const reserve = reserveTrip(trip)
-      $('#reservation-form').submit(reserve)
+      $('#reservation-header').text(`Reserve a Spot on ${tripInfo.name}`)
+      const target = $('#reservation-form');
+      target.show();
+      target.submit(reserve)
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -72,9 +75,6 @@ const displayTripDetails = (tripInfo) => {
   target.append(`<li>Category: ${tripInfo.category}</li>`);
   target.append(`<li>Weeks: ${tripInfo.weeks}</li>`);
   target.append(`<li>Cost: ${tripInfo.cost}</li>`);
-  const target2 = $('#reservation-form');
-  target2.before(`<h2>Reserve a Spot on ${tripInfo.name}</h2>`)
-  target2.show();
 }
 
 const readFormData = () => {
