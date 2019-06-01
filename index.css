@@ -1,0 +1,18 @@
+body {
+    display: grid;  
+    grid-template-columns: 50% 50%;
+}
+
+#trip-list , #load-trips {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    list-style-type: none;
+}
+    
+#trip-details {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    list-style-type: none;
+
+}
+
