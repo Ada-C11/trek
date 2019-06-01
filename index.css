@@ -11,8 +11,6 @@ main {
 header {
   color: black;
   margin-bottom: 25px;
-  /* grid-column-start: 1;
-  grid-column-end: 3; */
 }
 
 header div {
@@ -40,4 +38,9 @@ header div {
   margin: 25px;
   padding: 25px;
   text-align: center
+}
+
+#status-message {
+  text-align: center;
+  padding: 25px;
 }

@@ -1,4 +1,4 @@
-// index.js
+
 const URL = "https://trektravel.herokuapp.com/trips"
 
 
@@ -14,7 +14,7 @@ const loadTrips = () => {
         tripList.append(`<li id="${trip.id}"><a href="#">${trip.name}</a></li>`);
         $("#" + trip.id).click( () => {
           loadDetails(trip.id);
-          createForm(trip.id) })
+          createForm(trip.id, trip.name) })
 
 
         })
@@ -49,10 +49,10 @@ const loadDetails = (id) => {
 };
 
 
-const createForm = (id) => {
+const createForm = (id, name) => {
   const form = $('#form');
   form.empty()
-  const buildFormHtml = `<h1>Reserve a Spot </h1>
+  const buildFormHtml = `<h2>Reserve a Spot on ${name} </h2>
   <div >Name: <input type="text" name="name"></div>
   <div>Email: <input type="text" name="email"></div>
   <input type="submit" name="reserve" value="Reserve" />`
@@ -60,15 +60,14 @@ const createForm = (id) => {
   form.html(buildFormHtml)
   $(".reservation-form").css("border-style", "solid");
 
-  $('#form').submit( () => {
-    // event.preventDefault();
-    createReservation(id)
+  $('#form').submit( (event) => {
+    event.preventDefault();
+    createReservation(id, name)
 })
 }
 
 
-const createReservation = (id) => {
-  // event.preventDefault();
+const createReservation = (id, name) => {
 
   const reservationData = readFormData();
 
@@ -77,7 +76,7 @@ const createReservation = (id) => {
   axios.post(URL+"/"+ id + "/reservations", reservationData)
     .then((response) => {
       console.log(response);
-      reportStatus('Successfully added a reservation!');
+      reportStatus(`Successfully added a reservation for ${name} !`);
       clearForm();
     })
     .catch((error) => {
@@ -109,6 +108,8 @@ const clearForm = () => {
 
 const reportStatus = (message) => {
   $('#status-message').html(message);
+  $("#status-message").css("background-color", "lightgray");
+
 };
 
 const reportError = (message, errors) => {
@@ -126,5 +127,4 @@ const reportError = (message, errors) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  // $('#form').submit(createReservation)
 });
