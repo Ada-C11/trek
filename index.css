@@ -1,0 +1,20 @@
+ul {
+  list-style: none;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+#all-trips-list {
+  grid-column: 1;
+}
+
+#trip-details {
+  grid-column: 2;
+}
+
+#all-trips-list li button {
+  color: red;
+}
