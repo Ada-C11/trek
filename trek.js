@@ -118,5 +118,5 @@ const reserveTrip = (event) => {
 $(document).ready(() => {
   $(`#reserve-trip`).hide();
   $(`#load-trips`).click(loadTrips);
-  $(`#submitRes`).submit(reserveTrip);
+  $(`#submitRes`).click(reserveTrip);
 });
