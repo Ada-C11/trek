@@ -7,7 +7,7 @@ body {
   background-color: #eeeeee;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   display: grid;
-  grid-template: 70px 20px 40px auto / auto auto;
+  grid-template: 70px 20px 40px repeat(2, auto) 10px / auto auto;
 }
 
 header {
@@ -45,7 +45,7 @@ button:hover {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 5px;
-  grid-row: 4 / span 1;
+  grid-row: 4 / 6;
   grid-column: 1;
 }
 #trips th, #trips td {
@@ -56,7 +56,7 @@ button:hover {
 }
 
 #trip {
-  grid-row: 4;
+  grid-row: 4 / 5;
   grid-column: 2;
   margin: 10px;
 }
@@ -70,7 +70,15 @@ button:hover {
   border-bottom: 1px solid black;
 }
 
+#form {
+  grid-row: 5 / 6;
+  grid-column: 2;
+  margin: 10px;
+}
+
 footer {
   margin-left: 10px;
   margin-bottom: 10px;
+  grid-row: 6;
+  grid-column: 1;
 }
