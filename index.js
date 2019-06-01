@@ -63,6 +63,5 @@ const loadTrips = () => {
 
 $(document).ready(() => {
     $('#load-trips').click(loadTrips);
-    // $('body').on('click', 'li', loadIndividualTrip);
 });
 

@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css?family=Rock+Salt&display=swap');
 
 main {
-    /* display: inline-block; */
     display: grid;
     grid-template: 150px 1fr 5fr 5fr / 1fr 1fr
 }
@@ -21,7 +20,6 @@ header {
     background-color: #89C38B;
     border-top: 2px solid #224923;
     border-bottom: 2px solid #224923;
-   /* padding-bottom: 1em */
 }
 header h1 {
     font-weight: bolder;
@@ -33,7 +31,6 @@ header h1 {
 }
 
 header h3 {
-    /* font-style: italic; */
     font-family: 'Rock Salt', cursive;
 }
 
