@@ -31,6 +31,38 @@ Object.keys(fieldProblems).forEach(field => {
 errorHtml += '</ul>';
 reportStatus(errorHtml);
 }
+const readRegForm = () => {
+  let name = $("#trip-form input[name=name]").val();
+  let email = $("#trip-form input[name=email]").val();
+  console.log(name);
+  console.log(email);
+  return {
+    'name': name,
+    'email': email 
+  };
+}
+
+const addRegistration = (id) => {
+
+  postUrl = `https://trektravel.herokuapp.com/trips/${id}/reservations`
+  console.log(postUrl)
+  const tripData = readRegForm();
+
+  reportStatus("About to post registration data...");
+  console.log("lets check to be sure we're doing this right", tripData);
+
+  axios.post(postUrl, tripData)
+    .then((response) => {
+      console.log("successfully posted registration data", response);
+
+      // its creating an id, right?
+      const regId = response.data.id;
+      reportStatus(`Successfully created a new registration with ID ${regId}`);
+    })
+    .catch((error) => {
+      reportApiError(error);
+    })
+};
 
 const loadTrips = () => {
     reportStatus('Loading trips...');
@@ -62,8 +94,25 @@ const loadTrips = () => {
           
           $(`#` + id).click(() => {
             alert(id);
-            let deets = `<li>trip id: ${trip.id}, trip name: ${trip.name}, continent: ${trip.continent}, category: ${trip.category}, duration: ${trip.weeks}, cost: ${trip.cost} </li>`;
+            let deets = `<li>trip id: ${trip.id}, trip name: ${trip.name}, continent: ${trip.continent}, category: ${trip.category}, duration: ${trip.weeks}, cost: ${trip.cost} <div class="trip-registration">
+            <h1>register for trip</h1>
+            <form id="trip-form">
+              <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input type="text" name="email" />
+              </div>
+              <input type="submit" name="add-registration" value="Add Registration" />
+            </form>
+          </div></li>`;
             $(`.` + id).html(deets);
+            $('#trip-form').submit((event) => {
+              event.preventDefault();
+              addRegistration(trip.id);
+            });
           })
         });
         // $(`#` + id).click(alert(id));
@@ -76,8 +125,11 @@ const loadTrips = () => {
   };
 
 
+
+
   $(document).ready(() => {
     $('#load').click(loadTrips);
+
 
   });
 
