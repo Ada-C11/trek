@@ -15,6 +15,9 @@ const loadTrips = () => {
 
       response.data.forEach((trip) => {
             const loadOneTrip = () => {
+              if ($('#trip').children().length > 0) {
+                $('#trip').empty();
+              }
               const URL = `https://trektravel.herokuapp.com/trips/${trip.id}` 
               axios.get(URL)
               .then((response) => {
@@ -28,7 +31,10 @@ const loadTrips = () => {
         $('#trips').append(`<tr><td id='${trip.id}'>${trip.name}</td></tr>`);
 
         $(`#${trip.id}`).one('click', loadOneTrip);
-        // $(`#${trip.id}`).one(() => {'click', loadOneTrip}, () => {'click', highlightColor()});
+        // $(`#${trip.id}`).one('click', loadOneTrip);
+        // $(`#${trip.id}`).one(() => {'click', $( "#trip" ).remove()}, () => {'click', loadOneTrip});
+        
+        // highlightColor()});
 
 
 
