@@ -16,15 +16,6 @@ const reportError = (message, errors) => {
     reportStatus(content);
   };
 
-const jsonifyFormData = (tripArray) => {
-    let returnObj = {}
-    for (let i = 0; i < tripArray.length; i += 1) {
-        console.log("got to method");
-        returnObj[tripArray[i]['name']] = tripArray[i]['value'];
-    }
-    return returnObj;
-};
-
 const clearForm = () => {
     $('#trip-form').get(0).reset();
 };
@@ -84,19 +75,13 @@ const showTrip = (index) => {
         });
 };
 
-const makeReservation = () => {
-    // const tripArray = $('#trip-form').serializeArray();
-    // const tripData = jsonifyFormData(tripArray);
-    // console.log(tripData);
-    const name = $('#name').val();
-    const email = $('#email').val();
-    const age = $('#age').val();
+const makeReservation = () => {   
     const tripID = $('#tripID').val();
 
     const tripData = {
-        name: name,
-        email: email,
-        age: age,
+        name: $('#customer-name').val(),
+        email: $('#email').val(),
+        age: $('#age').val(),
     }
 
     axios.post(URL+`/${tripID}/reservations`, tripData)
@@ -108,13 +93,11 @@ const makeReservation = () => {
     .catch((error) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
-        // User our new helper method
         reportError(
             `Encountered an error: ${error.message}`,
             error.response.data.errors
         );
     } else {
-        // This is what we had before
         reportStatus(`Encountered an error: ${error.message}`);
     }
     });
