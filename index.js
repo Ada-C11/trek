@@ -1,6 +1,5 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 const tripDetailsURL = 'https://trektravel.herokuapp.com/trips/';
-const reserve = $('#section.reserve-trip')
 
 const reportStatus = (message) => {
   const statusContainer = $('#status').html(message);
@@ -10,9 +9,9 @@ const reportStatus = (message) => {
   
   const handleApiError = (error) => {
     console.log(error);
-    // TODO: politely report this error to the user
   }
 
+  // Load trips and details
   const loadTrips = () => {
     reportStatus("loading trips...");
 
@@ -42,13 +41,13 @@ const reportStatus = (message) => {
                   <h3>Weeks: ${trip.weeks}</h3>
                   <h3>Cost: $${trip.cost}</h3>
                   <h3>About: </h3>
-                  <p>${trip.about}</p>`
+                  <p>${response.data.about}</p>`
                 )
               })
               
               .catch((error) => {
                 reportStatus(error);
-              });
+              })
             }
             return tripDetail;
           };
@@ -64,9 +63,9 @@ const reportStatus = (message) => {
       });
   }
 
+  // Booking Reservation
   const readFormData = () => {    
     const parsedFormData = {};
-
     const nameFromForm = $(`#new-reservation input[name="name]`).val();
     parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
@@ -76,12 +75,22 @@ const reportStatus = (message) => {
     return parsedFormData;
   };
 
-  const reserveTrip = (trip) => {
-    console.log("reserving trip", trip)
-  
-    // TODO: Wave 2
-    // reserve a spot on the trip when the form is submitted
+  const clearForm = () => {
+    $(`#reservation-form input[name="name"]`).val('');
+    $(`#reservation-form input[name="email"]`).val('');
   }
+  
+  const reserveTripHandler = (event) => {
+    const reserveDetails = () => {
+      event.preventDefault();
+
+      const reserveDetails = readFormData();
+      reportStatus("Booking Rersvation...");
+      axios.post(URL + trip.id + '/reservations', )
+    }
+
+  }
+
   
   $(document).ready(() => {
     $('#load-trips').click(loadTrips);  
