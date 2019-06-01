@@ -47,21 +47,11 @@ const showTripDetails = (trip) => {
   const getTripDetails = () => {
     axios.get(URL + '/' + trip.id)
     .then((response) => {
-      reportStatus(`Successfully loaded trip ${response.data.name}`);
-      const target = $('#trip-details');
-      target.empty();
-      target.append(`<h2>Trip Details</h2>`)
-      target.append(`<li>ID: ${response.data.id}</li>`);
-      target.append(`<li>Name: ${response.data.name}</li>`);
-      target.append(`<li>Continent: ${response.data.continent}</li>`);
-      target.append(`<li>About: ${response.data.about}</li>`);
-      target.append(`<li>Category: ${response.data.category}</li>`);
-      target.append(`<li>Weeks: ${response.data.weeks}</li>`);
-      target.append(`<li>Cost: ${response.data.cost}</li>`);
-      target.append(`<h2>Reserve a Spot on ${response.data.name}</h2>`)
-      $(`#reservation-form`).show();
+      const tripInfo = response.data;
+      reportStatus(`Successfully loaded trip ${tripInfo.name}`);
+      displayTripDetails(tripInfo)
       const reserve = reserveTrip(trip)
-      $(`#reservation-form`).submit(reserve)
+      $('#reservation-form').submit(reserve)
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -69,6 +59,22 @@ const showTripDetails = (trip) => {
     });
   }
   return getTripDetails;
+}
+
+const displayTripDetails = (tripInfo) => {
+  const target = $('#trip-details');
+  target.empty();
+  target.append(`<h2>Trip Details</h2>`)
+  target.append(`<li>ID: ${tripInfo.id}</li>`);
+  target.append(`<li>Name: ${tripInfo.name}</li>`);
+  target.append(`<li>Continent: ${tripInfo.continent}</li>`);
+  target.append(`<li>About: ${tripInfo.about}</li>`);
+  target.append(`<li>Category: ${tripInfo.category}</li>`);
+  target.append(`<li>Weeks: ${tripInfo.weeks}</li>`);
+  target.append(`<li>Cost: ${tripInfo.cost}</li>`);
+  const target2 = $('#reservation-form');
+  target2.before(`<h2>Reserve a Spot on ${tripInfo.name}</h2>`)
+  target2.show();
 }
 
 const readFormData = () => {
