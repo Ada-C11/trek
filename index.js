@@ -1,4 +1,4 @@
-const axios = require('axios');
+
 const tripAPI = "https://trektravel.herokuapp.com/trips";
 
 const reportStatus = (message) => {
@@ -16,59 +16,79 @@ const reportError = (message, errors) => {
     reportStatus(content);
 };
 
-const displayTripList = (tripList) => {
+// const displayTripList = (tripList) => {
+//     const target = $('#trip-list');
+//     target.empty();
+//     let i = 1;
+//     tripList.forEach(trip => {
+//         target.append(`<button id="trip-${trip.id}">${trip.name}</button>`);
+//         i += 1;
+//     });
+// }
+
+
+const displayTripList = () => {
     const target = $('#trip-list');
     target.empty();
-    let i = 1;
-    tripList.forEach(trip => {
-        target.append(`<button id="trip-${trip.id}">${trip.name}</button>`);
-        i += 1;
-    });
-}
-
-const loadTrips = () => {
     axios.get(tripAPI)
         .then((response) => {
-            const trips = response.data;
-            displayTripList(trips);
+            response.data.forEach((trip) => {
+                target.append(`<button id="trip-${trip.id}">${trip.name}</button>`);
+                $(`#trip-${trip.id}`).click(showTripDetails(trip.id));
+            });
         })
         .catch((error) => {
-            // Display something to the user
+            if (error.response.data && error.response.data.errors) {
+                reportError(
+                    `Encountered an error: ${error.message}`,
+                    error.response.data.errors
+                );
+            } else {
+                reportStatus(`Encountered an error: ${error.message}`);
+            }
         })
 }
 
-const displayOneTripList = (trip) => {
-    const target = $('.trip-details');
-    const otherTarget = $('.#trip-reservation-form')
-    target.empty();
-    target.append(`<section id="trip-name">Name: ${trip.name}</section> <section id="trip-continent">Continent: ${trip.continent}</section> <section id="trip-category">Category: ${trip.category}</section> <section id="trip-weeks">Category: ${trip.weeks}</section><section id="trip-category">Category: ${trip.cost}</section>`);
-    otherTarget.empty();
-    otherTarget.append(`<h3>Reserve a Spot on ${trip.name}</h3> <form id="reservation-form">
-    <div>
-      <label for="name">Name</label>
-      <input type="text" name="name" />
-    </div>
+const showTripDetails = (tripID) => {
+    const loadOneTrip = () =>
+        axios.get(`${tripAPI}` + `/` + `${tripID}`)
+            .then((response) => {
+                const trip = response.data;
+                const target = $('.trip-details');
+                const otherTarget = $('.trip-reservation-form')
+                target.empty();
+                target.html(`<section id="trip-name">Name: ${trip.name}</section> <section id="trip-continent">Continent: ${trip.continent}</section> <section id="trip-category">Category: ${trip.category}</section> <section id="trip-weeks">Weeks: ${trip.weeks}</section><section id="trip-category">Cost: $${trip.cost}</section>`);
+                otherTarget.empty();
+                otherTarget.html(`<h3>Reserve a Spot on ${trip.name}</h3> <form id="reservation-form">
+                <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+                </div>
 
-    <div>
-      <label for="email">Email</label>
-      <input type="text" name="email" />
-    </div>
+                <div>
+                <label for="email">Email</label>
+                <input type="text" name="email" />
+                </div>
 
-    <input type="submit" name="add-reservation" value="Reserve" />
-  </form>`)
-};
+                <input type="submit" name="add-reservation" value="Reserve"/>
+                </form>`)
 
-
-const loadOneTrip = (tripID) => {
-    axios.get(`${tripAPI}/${tripID}`)
-        .then((response) => {
-            const trip = response.data;
-            displayOneTripList(trip);
-        })
-        .catch((error) => {
-            // Display something to the user
-        })
+                const reserve = createReservation(tripID);
+                $('#trip-reservation-form').submit(reserve);
+            })
+            .catch((error) => {
+                if (error.response.data && error.response.data.errors) {
+                    reportError(
+                        `Encountered an error: ${error.message}`,
+                        error.response.data.errors
+                    );
+                } else {
+                    reportStatus(`Encountered an error: ${error.message}`);
+                }
+            })
+    return loadOneTrip;
 }
+
 
 
 const readFormData = () => {
@@ -88,36 +108,32 @@ const clearForm = () => {
     $(`#email-form input[name="email"]`).val('');
 }
 
-const createReservation = (event) => {
-    event.preventDefault();
-    const reservationData = readFormData();
-    reportStatus('Sending reservation data...');
-    axios.post("https://trektravel.herokuapp.com/trips/" + 1 + "/reservations", reservationData)
-        .then((response) => {
-            reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
-            clearForm();
-        })
-        .catch((error) => {
-            if (error.response.data && error.response.data.errors) {
-                reportError(
-                    `Encountered an error: ${error.message}`,
-                    error.response.data.errors
-                );
-            } else {
-                reportStatus(`Encountered an error: ${error.message}`);
-            }
-        });
+const createReservation = (tripID) => {
+    const reserveTrip = (event) => {
+        event.preventDefault();
+
+        const reservationData = readFormData();
+        reportStatus('Sending reservation data...');
+        axios.post(tripAPI + tripID + "/reservations", reservationData)
+            .then((response) => {
+                reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
+                clearForm();
+            })
+            .catch((error) => {
+                if (error.response.data && error.response.data.errors) {
+                    reportError(
+                        `Encountered an error: ${error.message}`,
+                        error.response.data.errors
+                    );
+                } else {
+                    reportStatus(`Encountered an error: ${error.message}`);
+                }
+            });
+    };
+    return reserveTrip;
 };
 
 
 $(document).ready(() => {
-    $('#trip-list-button').on('click', loadTrips);
-    const liList = $("#trip-list").getElementsByTagName("button");
-    const numberofTrips = liList.length
-    for (let i = 70; i <= numberofTrips; i += 1) {
-        const tripElement = `#trip-${i}`;
-        const tripID = `${i}`
-        $(tripElement).click(loadOneTrip(tripID));
-    }
-    $('#trip-reservation-form').submit(createReservation);
+    $('#trip-list-button').on('click', displayTripList);
 });
