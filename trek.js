@@ -13,42 +13,62 @@ $('document').ready(()=>{
             $('#reserve-form')[0].reset();
             console.log('name');
             const messageHTML = `<h4>Congrats, ${name}! You're going to ${continent}!</h4><p>Your reservation ID is ${response.data.id}.</p>`
-            $('#reserve-message').html(messageHTML)
+            $('#reserve-message').html(messageHTML);
             $('#reserve-message').removeClass('hidden');
         })
         .catch((error)=>{
-
         });
     };
-
+    
+    
     const buildTripClickHandler = (trip) => {
-        const tripDetails = (
-            `<h2>${trip.name}</h2>` +
-            `<h3>Continent: ${trip.continent}</h3>` +
-            `<h3>Category: ${trip.category}</h3>` +
-            `<h3>Weeks: ${trip.weeks}</h3>` +
-            `<h3>Cost: $${trip.cost}</h3>`
-        );
-
         const changeSelected = () => {
             $('.selected').removeClass('selected');
             $(`#trip-${trip.id}`).addClass('selected');
         }
 
-        const handler = () => {
-            changeSelected();
-            $(`#trip-details`).html(tripDetails);
+        const displayTripDescription = () => {
+            axios.get('https://trektravel.herokuapp.com/trips/' + trip.id)
+            .then((response) => {
+                $(`#trip-details`).append(`<details>${response.data.about}</details>`);
+            })
+            .catch((error) => {
+                $(`#trip-details`).append(`Failed to load trip details:  ${error.message}`);
+            });
+        };
+
+
+        const displayReservationForm = () => {
             $('#reserve-heading').text(`Reserve a Spot on ${trip.name}`);
             $('#reserve-message').empty();
             $('#reserve-trip').removeClass('hidden');
+        }
+
+        const setReservationButtonHandler = () => {
             $('#reserve-button').off();
             $('#reserve-button').click((event)=>{
-                handleReserveTrip(trip.id, trip.continent);
                 event.preventDefault();
+                handleReserveTrip(trip.id, trip.continent);
             });
+        }
+
+        const tripDetails = (
+            `<h3>${trip.name}</h3>` +
+            `<p>Continent: ${trip.continent}</p>` +
+            `<p>Category: ${trip.category}</p>` +
+            `<p>${trip.weeks} ${(trip.weeks === 1) ? "week" : "weeks"}</p>` +
+            `<p>$${trip.cost.toFixed(2)}</p>`
+        );
+
+        const handler = () => {
+            changeSelected();
+            $(`#trip-details`).html(tripDetails);
+            displayTripDescription();
+            displayReservationForm();
+            setReservationButtonHandler();
         };
         return handler;
-    }
+    };
 
 
     const loadTrips= (tripData) => {
