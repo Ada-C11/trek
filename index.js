@@ -39,4 +39,26 @@ function buildList(trips){
     });
 }
 
+function getTrip(id){
+    urlDynamic = urlDynamic+"/"+id;
+    axios.get(urlDynamic)
+    .then(function(response){
+        $("#detailTrip").removeClass("invisible");
+        $("#reserveTrip").removeClass("invisible");
+        buildDetail(response.data);
+    }).catch(function(error){
+        alert("Sorry an error ocurred, please try again.");
+    });
+}
+
+function buildDetail(trip){
+    $("#tripId").html(trip.id);
+    $("#tripName").html(trip.name);
+    $("#tripContient").html(trip.continent);
+    $("#tripDetails").html(trip.about);
+    $("#tripCategory").html(trip.category);
+    $("#tripWeekDuration").html(trip.weeks);
+    $("#tripCost").html("$"+trip.cost);
+}
+
 
