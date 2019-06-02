@@ -56,18 +56,14 @@ const loadTrips = () => {
                 reportStatus('Details for this trip are not currently avialable.');
             });
 
-        $('#reservation form').addClass(`${tripId}`);
+            $('#reservation form').removeClass();
+            $('#reservation form').addClass(`${tripId}`);
 
     }
 
     $('#trip-list').on('click', 'li', oneTrip);
 
-  
-
 }
-
-
-
 
 
 const reservationData = () => {
@@ -75,19 +71,19 @@ const reservationData = () => {
     const reservationTripId = $('#reservation form').attr('class');
     return {
         trip_id: `${reservationTripId}`,
-        name: "stinker",
-        email: "test@test"
+        name: $('#form-name').val(),
+        email: $('#form-email').val(),
     };
 }
 
 const makeReservation = function makeReservation() {
 
-    const pfeiffer = reservationData();
-    console.log(pfeiffer)
+    const dataForReservation = reservationData();
+    console.log(dataForReservation)
 
     const reservationTripId = $('#reservation form').attr('class');
 
-    axios.post(ALL_URL + `/${reservationTripId}/reservations`, pfeiffer)
+    axios.post(ALL_URL + `/${reservationTripId}/reservations`, dataForReservation)
 
         .then((response) => {
             console.log("successfully posted reservation", response);
@@ -97,7 +93,7 @@ const makeReservation = function makeReservation() {
         })
         .catch((error) => {
             console.log("there has been a reservation error")
-            // reportApiError(error);
+            
         })
 
 }
@@ -118,12 +114,10 @@ $(document).ready(() => {
         makeReservation();
     });
 
-    $('#trip-details').click(function(){
-        $('section').empty();
-    })
+    $('#trip-list').on('click', 'li', function () {
+        $('#trip-details').show();
+        $('#reservation').show();
+    });
 
-    // $('#trip-details').on('click', 'section')
-    
-   
    
     })

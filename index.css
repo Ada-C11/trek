@@ -25,33 +25,46 @@ h1 {
     display: grid;
     height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.5fr 2fr 2fr 1fr;
-    border-color :black;
+    grid-template-rows: 200px 2fr 1fr 0.5fr;
+    border-color :white solid;
 }
 
 .trips {
     grid-row: 2 / 4;
-    padding-left: 40px;
+    margin: 50px;
+    padding: 20px;
+    background-color: whitesmoke;
+    opacity: 0.8;
+
 }
+
 
 #trip-details {
     font-family: 'Lato', sans-serif;
-    color: white;
     grid-column: 2;
     grid-row: 2;
-    padding-right: 50px;
+    margin: 50px;
+    padding: 20px;
+    background-color: whitesmoke;
+    opacity: 0.8;
 }
 
-#trip-details h2 {
+h2 {
     font-family: 'Permanent Marker', cursive;
 }
 
 #reservation {
     grid-column: 2;
     grid-row: 3;
+    background-color: whitesmoke;
+    margin: 50px;
+    padding: 20px;
+    font-family: 'Lato', sans-serif;
+    opacity: 0.8;
 
 }
 
 #reservation h3 {
     font-family: 'Permanent Marker', cursive;
 }
+
