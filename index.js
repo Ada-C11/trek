@@ -110,7 +110,7 @@ const reserveTrip = (trip) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
         reportError(
-          `Encountered an error: ${error.message}`, error.response.data.errors
+          `Encountered an error with this reservation: ${error.message}`, error.response.data.errors
         );
       } else {
         reportStatus(`Encountered an error reservering this trip: ${error.message}`);
