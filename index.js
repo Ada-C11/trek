@@ -35,7 +35,6 @@ const displayTripList = (tripList) => {
   $(".card").show();
   const target = $('#trip-list');
   target.empty();
-  target.before(`<h2 class="card-header">All Trips</h2>`)
   tripList.forEach((trip) => {
     target.append(`<a href="#" id="${trip.id}" class="list-group-item list-group-item-action">${trip.name}</a>`);
     const getDetails = showTripDetails(trip)
@@ -53,9 +52,12 @@ const showTripDetails = (trip) => {
       reportStatus(`Successfully loaded trip ${tripInfo.name}`);
       displayTripDetails(tripInfo)
       const reserve = reserveTrip(trip)
-      $('#reservation-header').text(`Reserve a Spot on ${tripInfo.name}`)
+      const resHeader = $('#reservation-header')
+      resHeader.text(`Reserve a Spot on ${tripInfo.name}`)
       const target = $('#reservation-form');
       target.removeClass('d-none');
+      $('#reservation-card').removeClass('d-none');
+      resHeader.removeClass('d-none');
       target.submit(reserve)
     })
     .catch((error) => {
