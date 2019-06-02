@@ -20,19 +20,26 @@
                     <h1 id="page-title">Trek</h1>
                     <h2>Plan your next escape.</h2>
                 </hgroup>
+                <button class="centered">See All Trips</button>
         </header>
         <main>
-            <button class="centered">See All Trips</button>
+
             <section id="trips-list"></section>
             <aside id="trip-details"></aside>
             <section id="reserve-trip" class="hidden">
                 <h3 id="reserve-heading"></h3>
+                <div id="reserve-message" class="hidden"></div>
                 <form id="reserve-form" >
-                    <label name="name">Name</label>
-                    <input type="text" name="name">
-                    <label name="email">Email</label>
-                    <input type="text" name="email">
-                    <input type="submit">
+                    <div class="field">
+                        <label name="name">Name </label>
+                        <input id="name-field" type="text" name="name">
+                    </div>
+                    <div class="field">
+                        <label name="email">Email </label>
+                        <input id="email-field" type="text" name="email">
+                    </div>
+                    <input type="submit" value="Reserve" id="reserve-button">
+                    
                 </form>
             </section>
             

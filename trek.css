@@ -2,6 +2,37 @@ header {
     text-align:center;
 }
 
+main {
+    width:80%;
+    margin:auto;
+    display:grid;
+    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-columns: 2fr 2fr;
+}
+
+
+
+#trips-list {
+    grid-column:1/2;
+    grid-row:1/5;
+    max-height:60%;
+    overflow-y:scroll;
+}
+
+#trip-details {
+    grid-column:2/3;
+    grid-row:1/2;
+}
+
+#reserve-trip {
+    grid-column:2/3;
+    grid-row:2/3;
+}
+
+#reserve-form .field{
+    display:block;
+}
+
 .hidden {
     visibility:hidden;
 }
