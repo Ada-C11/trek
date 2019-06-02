@@ -12,6 +12,6 @@
   grid-row: 2;
 }
 
-#trip-details .card-body {
-  color: red;
+#trip-details h6 {
+  padding: 5px;
 }

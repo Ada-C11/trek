@@ -22,6 +22,8 @@ const tripList = getAllTrips();
 
 const displayAllTrips = () => {
     reportStatus(`Successfully loaded all trips!`);
+    $("#all-trips-card").addClass("card");
+
     tripList.forEach((trip) =>
     $("#all-trips-list").append(`<li id="${trip.id}" class="list-group-item">${trip.name}</li>`)
   )
@@ -39,14 +41,16 @@ const displayTripDetails = (event) => {
   axios.get(baseURL + `/${event.target.id}`)
   .then((response) => {
     let details = response.data;
+    $("#trip-details-card").addClass("card");
+    $("#trip-form-card").addClass("card");
     $("#trip-details").empty();
     $("#trip-details").append(`<h2 class='card-title'>${details.name}</h2>`);
-    $("#trip-details").append(`<p>ID: ${details.id}</p>`);
-    $("#trip-details").append(`<p>${details.continent}</p>`);
-    $("#trip-details").append(`<p>${details.category}</p>`);
-    $("#trip-details").append(`<p>${details.weeks} weeks</p>`);
-    $("#trip-details").append(`<p>${details.about} </p>`);
-    $("#trip-details").append(`<p>$${details.cost} </p>`);
+    $("#trip-details").append(`<h6 class='card-subtitle'><b>Continent:</b> ${details.continent}</h6>`);
+    $("#trip-details").append(`<h6 class='card-subtitle'><b>Category:</b> ${details.category}</h6>`);
+    $("#trip-details").append(`<h6 class='card-subtitle'><b>ID:</b> ${details.id}</h6>`);
+    $("#trip-details").append(`<h6 class='card-subtitle'><b>Price:</b> $${details.cost}</h6>`);
+    $("#trip-details").append(`<h6 class='card-subtitle'><b>Number of weeks:</b> ${details.weeks}</h6>`);
+    $("#trip-details").append(`${details.about}`);
     generateRegistrationForm("#trip-form");
   })
   .catch((error) => {
@@ -59,6 +63,8 @@ $(document).ready ( () => {
   $("#see-trips").click(displayAllTrips);
 
   $("#all-trips-list").on("click", "li", displayTripDetails);
+
+  $(document).on("submit", "form", function () { alert(`Successfully registered!`); $("form").reset();} );
 });
 
 
