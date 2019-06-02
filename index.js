@@ -28,6 +28,8 @@ const displayAllTrips = () => {
 };
 
 const generateRegistrationForm = (element) => {
+  $(element).empty();
+  $(element).append(`<h2>Register</h2>`);
   $(element).append(
     "<form><label for='name'>Name:</label> <input type='text' id='name'><label for='email'>Email address:</label> <input type='text' id='email'><button type='submit'>Submit Registration</button></form>"
   );
@@ -38,15 +40,14 @@ const displayTripDetails = (event) => {
   .then((response) => {
     let details = response.data;
     $("#trip-details").empty();
-    $("#trip-details .card-body").append(`<h2 class="card-title">${details.name}</h2>`);
+    $("#trip-details").append(`<h2 class='card-title'>${details.name}</h2>`);
     $("#trip-details").append(`<p>ID: ${details.id}</p>`);
     $("#trip-details").append(`<p>${details.continent}</p>`);
     $("#trip-details").append(`<p>${details.category}</p>`);
     $("#trip-details").append(`<p>${details.weeks} weeks</p>`);
     $("#trip-details").append(`<p>${details.about} </p>`);
     $("#trip-details").append(`<p>$${details.cost} </p>`);
-    $("#trip-details").append(`<h2>Register for ${details.name}</h2>`);
-    generateRegistrationForm("#trip-details");
+    generateRegistrationForm("#trip-form");
   })
   .catch((error) => {
     reportStatus(`There was an error while loading the trip details: ${error.message}`);
