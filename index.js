@@ -33,7 +33,7 @@ const generateRegistrationForm = (element) => {
   $(element).empty();
   $(element).append(`<h2>Register</h2>`);
   $(element).append(
-    "<form><label for='name'>Name:</label> <input type='text' id='name'><label for='email'>Email address:</label> <input type='text' id='email'><button type='submit'>Submit Registration</button></form>"
+    `<form><label for='name'>Name:</label> <input type='text' id='name' name='name'><label for='email'>Email address:</label> <input type='text' id='email' name='email'><button type='submit' id=${element.id}>Submit Registration</button></form>`
   );
 }
 
@@ -51,7 +51,11 @@ const displayTripDetails = (event) => {
     $("#trip-details").append(`<h6 class='card-subtitle'><b>Price:</b> $${details.cost}</h6>`);
     $("#trip-details").append(`<h6 class='card-subtitle'><b>Number of weeks:</b> ${details.weeks}</h6>`);
     $("#trip-details").append(`${details.about}`);
-    generateRegistrationForm("#trip-form");
+    $("#trip-form").empty();
+    $("#trip-form").append(`<h2>Register</h2>`);
+    $("#trip-form").append(
+    `<form id=${event.target.id}><label for='name'>Name:</label> <input type='text' id='name' name='name'><label for='email'>Email address:</label> <input type='text' id='email' name='email'><button type='submit'>Submit Registration</button></form>`
+  );;
   })
   .catch((error) => {
     reportStatus(`There was an error while loading the trip details: ${error.message}`);
@@ -59,12 +63,32 @@ const displayTripDetails = (event) => {
   });
 }
 
+const submitRegistration = (event) => {
+  event.preventDefault();
+
+  let registrationInfo = { 
+    name: $("input[name=name]").val(),
+    email: $("input[name=email]").val(),
+    };
+  
+    axios.post(baseURL + `/${event.target.id}` + `/reservations`, registrationInfo)
+    .then((response) => {
+      reportStatus(`Congratulations ${response.data.name}, you've registered for the trip!`);
+    })
+    .catch((error) => {
+      reportStatus(`There was an error while registering for the trip: ${error.message}`);
+      console.log(error);
+    });
+
+
+}
+
 $(document).ready ( () => {
   $("#see-trips").click(displayAllTrips);
 
   $("#all-trips-list").on("click", "li", displayTripDetails);
 
-  $(document).on("submit", "form", function () { alert(`Successfully registered!`); $("form").reset();} );
+  $(document).on("submit", "form", submitRegistration);
 });
 
 
