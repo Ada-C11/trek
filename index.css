@@ -1,5 +1,140 @@
-main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+h1 {
+  font-size: 100px;
+  color:#3a4660;
+  align-self: center;
+  margin: 20px;
+  font-family: 'Ranga', cursive;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  width: 100%;
+  margin-bottom: 20px;
+  font-family: 'Ranga', cursive;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: #3a4660;
+}
+
+body {
+  background-color: #c9af98;
+  color: #3a4660;
+  font-size: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#load {
+  margin-right: 150px;
+  align-self: center;
+  font-size: 15px;
+  font-weight: bold;
+  height: 50px;
+  background: #3a4660;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+#load:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#status-message {
+  color: #3a4660; 
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.trek-view{
+  display: flex;
+  flex-direction: row;
+}
+
+#trips-list{
+  width: 50vw;
+  background-color: white;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: #3a4660;
+}
+#trip-view{
+  width: 50vw;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: #3a4660;
+  background-color: white;
+}
+
+ul {
+  list-style: none;
+  line-height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#trips-list li:hover {
+  color: #d8a77f;
+}
+
+#trip-view li {
+  margin-left -20px;
+  margin-right: 20px;
+  text-align: justify;
+}
+
+h2, h3, h4 {
+  color:#3a4660;
+  font-family: 'Ranga', cursive;
+  font-size: 2em;
+}
+
+button {
+  margin-right: 150px;
+  align-self: center;
+  font-size: 15px;
+  font-weight: bold;
+  height: 50px;
+  background: #3a4660;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+#reserve-button {
+  margin-right: 150px;
+  align-self: center;
+  font-size: 15px;
+  font-weight: bold;
+  height: 50px;
+  background: #3a4660;
+  border: 0;
+  border-radius: 20px;
+  cursor: pointer;
+  color:white;
+  text-decoration: none;
+  margin-bottom: 2em;
+}
+
+#reserve-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

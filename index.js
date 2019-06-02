@@ -1,10 +1,10 @@
-const URL = 'https://trektravel.herokuapp.com/trips';
+const URL = 'https://trektravel.herokuapp.com/trips/';
 
- const reportStatus = (message) => {
+const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
- const reportError = (message, errors) => {
+const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
     for (const problem of errors[field]) {
@@ -15,67 +15,141 @@ const URL = 'https://trektravel.herokuapp.com/trips';
   reportStatus(content);
 };
 
- const loadTrips = () => {
-  reportStatus('Loading Trips...');
+const loadTrips = () => {
+  reportStatus('Loading inventory...');
 
-   const tripList = $('#trip-list');
-  tripList.empty();
+  const tripsList = $('#trips-list');
+  tripsList.empty();
 
-   axios.get(URL)
-
-   .then((response) => {
+  axios.get(URL)
+  .then((response) => {
     reportStatus(`Successfully loaded ${response.data.length} trips`);
     response.data.forEach((trip) => {
-      let link = `${URL}/${trip.id}`;
-      tripList.append(`<li><a href=${link}>${trip.name}</li>`);
-      // tripList.click(() => {
-      //   loadDetails(trip);
-      // })
+      const newTrip = $(`<li class="trip ">${trip.name}</li>`);
+      tripsList.append(newTrip);
+      const showTrip = tripShowHandler(trip);
+      newTrip.click(showTrip);
     });
-    // .click function and pass
   })
-
-   .catch((error) => {
+  .catch((error) => {
     reportStatus(`Encountered an error while loading trips: ${error.message}`);
     console.log(error);
   });
 };
 
- const loadDetails = (link) => {
-  reportStatus('Loading Details...');
-  console.log(link);
+const tripShowHandler = (trip) => {
 
-   // const details = $('#trip-list li');
-  // details.empty();
+  const tripsShow = $('#trip-view');
+  const tripID = trip.id;
+  return () => {
+    reportStatus('Loading trip...');
+    tripsShow.empty();
+   
+    axios.get(URL + tripID)
+    .then((response) => {
+      reportStatus(`Found the perfect adventure...`);
+      const newTrip = $(`<h2>${response.data.name}</h2>
+        <h3>$${response.data.cost} ${response.data.continent}, ${response.data.weeks} weeks</h3>
+         <ul>
+         <li><strong>Trip type:</strong> ${response.data.category}</li>
+         <li><strong>Details:</strong> ${response.data.about}</li>
+         </ul>`);
+      tripsShow.append(newTrip);
+      const reserveButton = $(`<button class="reserve">Sign me up!</button>`)
+      tripsShow.append(reserveButton);
+      const reserveForm = reserveFormHandler(trip);
+      reserveButton.click(reserveForm);
+    })
 
-   axios.get(link)
-
-   .then((response) => {
-    reportStatus(`Successfully loaded ${this.name} details!`);
-    console.log('pressed');
-
-     $('#trip-detail').empty();
-    let tripDetails = "";
-    for (let detail in response.data) {
-      console.log(detail);
-
-       tripDetails += `<li>${detail}</li>`;
-    }
-    $('#trip-details').append(tripDetails);
-  })
-
-   .catch((error) => {
-    reportStatus(`Encountered an error while loading trips: ${error.message}`);
-    console.log(error);
-  });
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      console.log(error);
+    });
+  };
 };
 
- $(document).ready(() => {
-  $('#search-all').click(loadTrips);
-  $( '#trip-list' ).on("click", "a",  function(event) {
-    console.log($(event));
-    event.preventDefault();
-    loadDetails(this.href);
-  });
+const reserveFormHandler = (trip) => {
 
+  const tripID = trip.id;
+
+  const form = `<h3>Add a reservation for ${trip.name}</h3>
+  <form id="reservation-form">
+  <div>
+  <label for="name">Name</label>
+  <input type="text" name="name" />
+  </div>
+  <div>
+  <label for="age">Age</label>
+  <input type="number" name="age" />
+  </div>
+  <div>
+  <label for="email">Email</label>
+  <input type="text" name="email" />
+  </div>
+  <input id ="reserve-button" type="submit" name="add-reservation" value="Reserve it!" />
+  </form>`
+
+  const tripsShow = $('#trip-view');
+
+  return () => {
+    reportStatus('Loading reservation...');
+    tripsShow.append(form);
+    const result = (event) => {
+      event.preventDefault();
+      createReservation( tripID );
+    };
+
+    $('#reservation-form').submit(result);
+  }
+};
+
+const createReservation = ( tripID ) => {
+
+  const readFormData = () => {
+    const parsedFormData = {};
+
+    const nameFromForm = $(`#reservation-form input[name="name"]`).val();
+    parsedFormData['name'] = nameFromForm
+
+    const ageFromForm = $(`#reservation-form input[name="age"]`).val();
+    parsedFormData['age'] = ageFromForm ? ageFromForm : undefined;
+
+    const emailFromForm = $(`#reservation-form input[name="email"]`).val();
+    parsedFormData['email'] = emailFromForm
+
+    return parsedFormData;
+  };
+
+  const reservationData = readFormData();
+
+  const clearForm = () => {
+    $(`#reservation-form input[name="name"]`).val('');
+    $(`#reservation-form input[name="age"]`).val('');
+    $(`#reservation-form input[name="email"]`).val('');
+  }
+
+  const url = URL + tripID + `"/reservations?name=${reservationData['name']}&age=${reservationData['age']}&email=${reservationData['email']}`;
+
+  reportStatus(`Sending reservation data...`);
+
+  axios.post(url)
+      .then((response) => {
+        reportStatus(`Successfully added reservation with ID ${response.data.id}!`);
+        clearForm();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+          );
+        } else {
+          reportStatus(`Encountered an error: ${error.message}`);
+        }
+      });
+};
+
+$(document).ready(() => {
+  $('#load').click(loadTrips);
 });
