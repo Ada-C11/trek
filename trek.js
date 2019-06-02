@@ -99,7 +99,7 @@ const reserveTrip = (event) => {
     .then((response) => {
       const resId = response.data.id;
 
-      displayStatus(`Successfully reserved your spot! Your reference number is ${resId}!`, "#reservation-status");
+      displayStatus(`Successfully reserved your spot! Your reference number is ${resId}.`, "#reservation-status");
 
       $("#reserve-trip-form")[0].reset();
     })
