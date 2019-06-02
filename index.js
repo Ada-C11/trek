@@ -68,7 +68,7 @@ const loadTrips = () => {
 }
 
 
-// reads the form data - the return new FormData would work is I used a hidden field in the form that had the trip id. 
+// reads the form data - the return new FormData should work if I used a hidden field in the form that had the trip id. 
 const reservationData = () => {
     // return new FormData(document.querySelector('#reservation form'));
     const reservationTripId = $('#reservation form').attr('class');
