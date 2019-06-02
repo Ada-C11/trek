@@ -14,7 +14,7 @@ const showTripDetails = (event) => {
     // eslint-disable-next-line no-undef
     axios.get(TRIP_URL)
         .then((response) => {
-            reportStatus(`Successfully loaded details for ${response.data.length} trip`);
+            reportStatus(`Successfully loaded details for ${response.data.name} trip`);
             tripDetails.append(`<li>Trip Name: ${response.data.name}</li>`);
             tripDetails.append(`<li>Continent: ${response.data.continent}</li>`);
             tripDetails.append(`<li>About: ${response.data.about}</li>`);
@@ -34,15 +34,12 @@ const listTrips = () => {
     const tripList = $('#trip-list');
     tripList.empty();
 
-    tripList.append(`<li><a id="test_link" href="#" onclick="return showTripDetails(event);">Test Trip</a></li>`);
-    
-
     // eslint-disable-next-line no-undef
     axios.get(URL)
         .then((response) => {
             reportStatus(`Successfully loaded ${response.data.length} trips`);
             response.data.forEach((trip) => {
-                tripList.append(`<li>${trip.name}</li>`);
+                tripList.append(`<li><a href="#" onclick="return showTripDetails(event);">${trip.name}</a></li>`);
             });
         })
         .catch((error) => {
