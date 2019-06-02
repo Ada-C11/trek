@@ -55,7 +55,7 @@ const loadTrips = () => {
 
             })
             .catch((error) => {
-                reportStatus('Details for this trip are not currently avialable.');
+                reportStatus(`Details for this trip are not currently avialable. Error: ${error.message}`);
             });
 
             $('#reservation form').removeClass();
@@ -68,12 +68,12 @@ const loadTrips = () => {
 }
 
 
-// reads the form data - the return new FormData should work if I used a hidden field in the form that had the trip id. 
+// reads the form data - the return new FormData also works. I also thought I needed to have the trip_id in the object, but it works without it and I'm not sure why. 
 const reservationData = () => {
     // return new FormData(document.querySelector('#reservation form'));
-    const reservationTripId = $('#reservation form').attr('class');
+    // const reservationTripId = $('#reservation form').attr('class');
     return {
-        trip_id: `${reservationTripId}`,
+        // trip_id: `${reservationTripId}`,
         name: $('#form-name').val(),
         email: $('#form-email').val(),
     };
@@ -97,8 +97,7 @@ const makeReservation = function makeReservation() {
             reportStatus(`Successfully reserved spot ${reservationId}`);
         })
         .catch((error) => {
-            console.log("there has been a reservation error")
-            
+            console.log(`There is an error with your reservation: ${error.message}`)
         })
 
 }
