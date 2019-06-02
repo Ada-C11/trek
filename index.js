@@ -30,7 +30,7 @@ const reportStatus = (message) => {
         
         trips.forEach((trip) => {
           tripList.append(`<p>${trip.name}</p>`)
-          
+
           const showTripDetails = (trip) => {
             const tripDetail = () => {
               axios.get(tripDetailsURL + trip.id)
@@ -119,7 +119,7 @@ const reportStatus = (message) => {
 
       const reserveInfo = readFormData();
 
-      axios.post(tripDetailsURL + trip.id + '/reservations', reserveInfo)
+      axios.post(tripDetailsURL + trip + '/reservations', reserveInfo)
       .then((response) => {
         reportStatus(`Your reservation # ${response.data.id} was created!`);  
         clearForm();
