@@ -1,3 +1,24 @@
+body {
+    font-family:"Karla", sans-serif;
+    background-image: url('images/map-background.jpg');
+}
+
+header h1, header h2 {
+    font-family: 'Yesteryear', cursive;
+    color:darkred;
+    text-shadow: 2px 2px white;
+    display:inline-block;
+    padding: 0 1em 0 1em;
+}
+
+h1 {
+    font-size:4em;
+    border-right: 2px solid darkred;
+}
+
+h2 {
+    font-size:2em;
+}
 header {
     text-align:center;
 }
@@ -7,7 +28,7 @@ article {
     width:80%;
     margin:3em auto;
     display:grid;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 2fr 2fr;
 }
 
@@ -15,10 +36,35 @@ main {
     text-align:center;
 }
 
+button, input[type="submit"] {
+    background-color:darkred;
+    color:white;
+    border:white 1px solid;
+    font-size:1.2em;
+    padding:10px;
+}
+
+section, aside {
+    background-color: blanchedalmond;
+    border-radius: 20px;
+    padding:20px;
+    margin:1em;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+details {
+    text-align:justify;
+    max-height:150px;
+    overflow-y:scroll;
+}
+
+form {
+    margin:auto;
+}
 #trips-list {
     grid-column:1/2;
     grid-row:1/3;
-    max-height:600px;
+    max-height:800px;
     overflow-y:scroll;
     margin-right:3em;
 }
@@ -26,13 +72,12 @@ main {
 #trip-details {
     grid-column:2/3;
     grid-row:1/2;
-    text-align:left;
+    
 }
 
 #reserve-trip {
     grid-column:2/3;
     grid-row:2/3;
-    text-align:left;
 }
 
 #reserve-trip input{
@@ -50,10 +95,13 @@ main {
 .centered {
     display:block;
     margin: 20% auto;
+    font-size:2em;
 }
 
 .selected {
-    color:blue;
+    color:white;
+    background-color:darkolivegreen;
+    padding:0.5em;
 }
 
 .error {
@@ -62,4 +110,14 @@ main {
 
 .success {
     color:green;
+}
+
+section>h3, aside>h3{
+    color:darkred;
+}
+
+#cost{
+    font-size:2em;
+    font-weight:bold;
+    color:darkred;
 }

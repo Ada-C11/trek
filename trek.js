@@ -10,6 +10,11 @@ const listErrors = (errors) => {
   errorList += '</ul>';
   return errorList;
 };
+
+const showMessage = (elementID, status) => {
+  $(elementID).addClass(status);
+  $(elementID).removeClass('hidden');
+};
 const handleReserveTrip = (tripID, continent) => {
   const endpoint = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
   const name = $('#name-field').val();
@@ -21,8 +26,7 @@ const handleReserveTrip = (tripID, continent) => {
   })
     .then((response) => {
       $('#reserve-form')[0].reset();
-      $('#reserve-message').addClass('success');
-      $('#reserve-message').removeClass('hidden');
+      showMessage('#reserve-message','success');
 
       const messageHTML = (
         `<h4>Congrats, ${name}, you're going to ${continent}!</h4>`
@@ -32,8 +36,7 @@ const handleReserveTrip = (tripID, continent) => {
       
     })
     .catch((error) => {
-      $('#reserve-message').addClass('error');
-      $('#reserve-message').removeClass('hidden');
+      showMessage('#reserve-message','error');
       $('#reserve-message').html(`<h4> A problem occured: ${error.message} </h4>`);
 
       if (error.response && error.response.data && error.response.data.errors) {
@@ -80,6 +83,7 @@ const displayTripDetails = (trip) => {
           + `<p id="weeks">${trip.weeks} ${(trip.weeks === 1) ? 'week' : 'weeks'}</p>`
           + `<p id="cost">$${trip.cost.toFixed(2)}</p>`
   ); 
+  $('#trip-details').removeClass('hidden');
   $('#trip-details').html(tripDetails);
 };
 const buildTripClickHandler = (trip) => {
@@ -94,14 +98,14 @@ const buildTripClickHandler = (trip) => {
   return handler;
 };
 
-const rearrangeButtons = ()=>{
+const moveButton = ()=>{
   $('#main-button').removeClass('centered');
   $('#main-button').text('Reload Trips');
-  $('#sort-button').removeClass('hidden');
 };
 const loadTrips = (tripData) => { 
   $('.selected').removeClass('selected');
-  $('#reserve-trip').addClass('hidden');
+  $('#trips-list').removeClass('hidden');
+  $('#reserve-trip, #trip-details').addClass('hidden');
   $('#trip-details, #trips-list').empty();
   
   for (const trip of tripData) {
@@ -116,13 +120,12 @@ const handleMainButtonClick = () => {
     .then((response) => {
       $('#status-message').empty();
       $('#status-message').addClass('hidden');
-      rearrangeButtons();
+      moveButton();
       loadTrips(response.data);
     })
     .catch((error) => {
       $('#status-message').html(`Could not load trips: ${error.message}`);
-      $('#status-message').removeClass('hidden');
-      $('#status-message').addClass('error');
+      showMessage('#status-message', error);
     });
 };
 
