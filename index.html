@@ -9,54 +9,35 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- not sure status-message or status -->
-  <section id="status-message"></section>
-
+  
   <main>
-      <section>
-          <h1>Trek</h1>
-          <button id="load-trips">See All Trips</button>
-          <ul id="trips-list"></ul>
-      </section>
-
-      <section id="trip-details">
-        <!-- Something -->
-      </section>
-
-    <!-- <section class="current-pets">
-      <h1>List-o-Pets</h1>
-      <button id="load">Get pets!</button>
-      <ul id="pet-list"></ul>
-    </section>
+    <section id="status-message"></section>
     
+    <section>
+      <h1>Trek</h1>
+      <button id="load-trips">See All Trips</button>
+      <article id="trips-list"></article>
+    </section>
 
-    <section class="new-pet">
-      <h1>Add a new pet</h1>
-      <form id="pet-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
+    <section id="trip-details">
+      <h1>Trip Details</h1>
+    </section>
 
-        <div>
-          <label for="age">Age</label>
-          <input type="number" name="age" />
-        </div>
-
-        <div>
-          <label for="owner">Owner</label>
-          <input type="text" name="owner" />
-        </div>
-
-        <input type="submit" name="add-pet" value="Add Pet" />
-      </form>
-    </section> -->
-
-
-
-
-
-
+    <section id="reserve-trip">
+      <h1>Reserve a Spot on Example Trip</h1>
+      <form id="reservation-form">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" />
+          </div>
+  
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" />
+          </div>
+  
+          <input type="submit" name="reserve" value="Reserve" />
+        </form>
     </section>
   </main>
 </body>
