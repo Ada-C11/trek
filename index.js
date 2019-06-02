@@ -4,8 +4,14 @@ axios.defaults.baseURL = 'https://trektravel.herokuapp.com/trips';
 //
 const reportStatus = (message) => {
   $('#status-message').html(message);
-  $('#status-message').addClass('alert alert-secondary');
+  $('#status-message').removeClass('alert alert-danger')
+  $('#status-message').addClass('alert alert-success')
 };
+const errorStyling = () => {
+  $('#status-message').removeClass('alert alert-success')
+  $('#status-message').addClass('alert alert-danger')
+}
+
 
 const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
@@ -40,6 +46,7 @@ const loadTrips = () => {
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      errorStyling();
       console.log(error);
     });
 };
@@ -71,6 +78,7 @@ const showTripDetails = (tripId) => {
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      errorStyling();
       console.log(error);
     });
   };
@@ -119,8 +127,10 @@ const reservationHandler = (tripId) => {
             `Encountered an error: ${error.message}`,
             error.response.data.errors
           );
+          errorStyling();
         } else {
           reportStatus(`Encountered an error: ${error.message}`);
+          errorStyling();
         }
       });
   };
