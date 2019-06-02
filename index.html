@@ -12,23 +12,27 @@
   </script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="trek.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD  +dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="styles.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="status-message"></div>
-  <h1>Trips</h1>
+  <div id="status-message" class="container"></div>
+  <section id="all-trips" class="row">
+  <h1>Excellent Excursions</h1>
   <button id="load-trips">See All Trips</button>
-  <div class="content">
+ 
+  <div class="content container">
     <ul id="trip-list"></ul>
   </div>
+  </section>
 
-  <div class="details"></div>
+  <section id="trip" class="container">
+    <div class="details column"></div>
+  </section>
 
-
- <section>
-   <form id="trek-form"></form>
-</section>
-  
-     
+  <section id="form" class="container">
+    <form id="trek-form"></form>
+  </section>
 </body>
 </html>
