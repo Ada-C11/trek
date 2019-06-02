@@ -54,9 +54,10 @@ const reportStatus = (message) => {
               .catch((error) => {
                 reportStatus(error);
               });
-            };
-            // Generates booking form
-            resFormGenerator(trip);
+              // Generates booking form
+              resFormGenerator(trip);
+
+            };          
             return tripDetail;
           }
           // Shows individual trip details
@@ -86,12 +87,10 @@ const reportStatus = (message) => {
         <label for="name">Name</label>
         <input type="text" name="name"/>
       </div>
-
       <div>
         <label for="email">Email</label>
         <input type="text" name="email"/>
       </div>
-
       <input type="submit" name="book" value="Book"/>`)
   };
 
@@ -135,4 +134,3 @@ const reportStatus = (message) => {
   $(document).ready(() => {
     $('#load-trips').click(loadTrips); 
   });
-  
