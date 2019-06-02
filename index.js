@@ -1,18 +1,17 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
-const TRIP_URL = 'https://trektravel.herokuapp.com/trips/71';
 
 const reportStatus = (message) => {
     $('#status-message').html(message);
 };
 
-const showTripDetails = (event) => {
+const showTripDetails = (event, tripId) => {
     const tripDetails = $('#trip-details');
     tripDetails.empty();
 
     event.preventDefault();
 
     // eslint-disable-next-line no-undef
-    axios.get(TRIP_URL)
+    axios.get(`${URL}/${tripId}`)
         .then((response) => {
             reportStatus(`Successfully loaded details for ${response.data.name} trip`);
             tripDetails.append(`<li>Trip Name: ${response.data.name}</li>`);
@@ -39,7 +38,7 @@ const listTrips = () => {
         .then((response) => {
             reportStatus(`Successfully loaded ${response.data.length} trips`);
             response.data.forEach((trip) => {
-                tripList.append(`<li><a href="#" onclick="return showTripDetails(event);">${trip.name}</a></li>`);
+                tripList.append(`<li><a href="#" onclick="return showTripDetails(event, ${trip.id});">${trip.name}</a></li>`);
             });
         })
         .catch((error) => {
