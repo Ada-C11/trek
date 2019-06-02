@@ -67,7 +67,6 @@ const showTripDetails = (event) => {
     .then((response) => {
       formatTripDetails(response.data);
       $("#reserve-trip-form").addClass(`${response.data.id}`)
-        .submit(reserveTrip);
       $("#reserve-trip").show();
     })
     .catch((error) => {
@@ -87,11 +86,6 @@ const readFormData = () => {
   return parsedFormData;
 };
 
-const clearForm = () => {
-  $(`#reserve-trip-form input[name="name"]`).val("");
-  $(`#reserve-trip-form input[name="email"]`).val("");
-}
-
 const reserveTrip = (event) => {
   event.preventDefault();
 
@@ -104,8 +98,10 @@ const reserveTrip = (event) => {
   axios.post(reservationUrl, reservationParams)
     .then((response) => {
       const resId = response.data.id;
+
       displayStatus(`Successfully reserved your spot! Your reference number is ${resId}!`, "#reservation-status");
-      clearForm();
+
+      $("#reserve-trip-form")[0].reset();
     })
     .catch((error) => {
       console.log(error.response);
