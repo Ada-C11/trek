@@ -8,6 +8,7 @@ const reportStatus = (message) => {
 };
 
 
+// loads all trips for viewing
 const loadTrips = () => {
     reportStatus('Loading trips...');
 
@@ -30,7 +31,8 @@ const loadTrips = () => {
 
         });
 
-    const oneTrip = function oneTrip(event) {
+    //loads details for a trip when user clicks on a trip
+        const oneTrip = function oneTrip(event) {
         reportStatus('Loading trip...');
 
         const showTrip = $('#trip-details ul');
@@ -66,6 +68,7 @@ const loadTrips = () => {
 }
 
 
+// reads the form data - the return new FormData would work is I used a hidden field in the form that had the trip id. 
 const reservationData = () => {
     // return new FormData(document.querySelector('#reservation form'));
     const reservationTripId = $('#reservation form').attr('class');
@@ -76,6 +79,8 @@ const reservationData = () => {
     };
 }
 
+
+//posts a reservation to a specific trip
 const makeReservation = function makeReservation() {
 
     const dataForReservation = reservationData();
@@ -97,8 +102,6 @@ const makeReservation = function makeReservation() {
         })
 
 }
-
-
 
 $('#reservation').on('click', 'input', makeReservation);
 
