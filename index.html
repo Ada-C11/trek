@@ -24,7 +24,7 @@
         </header>
         <main>
             <div id="status-message" class="hidden"></div>
-            <button class="centered">See All Trips</button>
+            <button id="main-button" class="centered">See All Trips</button>
             <article>
                 <section id="trips-list"></section>
                 <aside id="trip-details"></aside>
@@ -33,11 +33,11 @@
                     <div id="reserve-message" class="hidden"></div>
                     <form id="reserve-form" >
                         <div class="field">
-                            <label name="name">Name: </label>
+                            <label for="name">Name: </label>
                             <input id="name-field" type="text" name="name">
                         </div>
                         <div class="field">
-                            <label name="email">Email: </label>
+                            <label for="email">Email: </label>
                             <input id="email-field" type="text" name="email">
                         </div>
                         <input type="submit" value="Reserve" id="reserve-button">

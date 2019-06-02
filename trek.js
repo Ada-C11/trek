@@ -1,121 +1,132 @@
-/* eslint-disable no-undef */
-$('document').ready(() => {
-  const listErrors = (errors) => {
-    let errorList = "<ul>";
-    for (const field in errors) {
+const listErrors = (errors) => {
+  let errorList = '<ul>';
+  for (const field in errors) {
+    if (errors[field]) {
       for (const problem of errors[field]) {
-      errorList += `<li>${field}: ${problem}</li>`;
-    }
+        errorList += `<li>${field}: ${problem}</li>`;
       }
-    errorList += "</ul>";
-    return errorList;
-  }
-  const handleReserveTrip = (tripID, continent) => {
-    const endpoint = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
-    const name = $('#name-field').val();
-    const email = $('#email-field').val();
-
-    axios.post(endpoint, {
-      name,
-      email,
-    })
-      .then((response) => {
-        $('#reserve-form')[0].reset();
-
-        const messageHTML = (
-          `<h4>Congrats, ${name}! You're going to ${continent}!</h4>`
-                + `<p>Your reservation ID is ${response.data.id}.</p>`
-        );
-        $('#reserve-message').addClass('success');
-        $('#reserve-message').removeClass('hidden');
-        $('#reserve-message').html(messageHTML);
-        
-      })
-      .catch((error) => {
-        $('#reserve-message').addClass('error');
-        $('#reserve-message').removeClass('hidden');
-        $('#reserve-message').html(`<h4> A problem occured: ${error.message} </h4>`)
-        if (error.response && error.response.data && error.response.data.errors) {
-          const errors = error.response.data.errors;
-          $('#reserve-message').append(listErrors(errors));
-        }
-      });
-  };
-  const buildTripClickHandler = (trip) => {
-    const changeSelected = () => {
-      $('.selected').removeClass('selected');
-      $(`#trip-${trip.id}`).addClass('selected');
-    };
-
-    const displayTripDescription = () => {
-      axios.get(`https://trektravel.herokuapp.com/trips/${trip.id}`)
-        .then((response) => {
-          $('#trip-details').append(`<details>${response.data.about}</details>`);
-        })
-        .catch((error) => {
-          $('#trip-details').append(`<p class="error">Failed to load trip details:  ${error.message}</p>`);
-        });
-    };
-
-    const displayReservationForm = () => {
-      $('#reserve-heading').text(`Reserve a Spot on ${trip.name}`);
-      $('#reserve-message').empty();
-      $('#reserve-trip').removeClass('hidden');
-    };
-
-    const setReservationButtonHandler = () => {
-      $('#reserve-button').off();
-      $('#reserve-button').click((event) => {
-        event.preventDefault();
-        handleReserveTrip(trip.id, trip.continent);
-      });
-    };
-
-    const tripDetails = (
-      `<h3>${trip.name}</h3>`
-            + `<p id="continent">Continent: ${trip.continent}</p>`
-            + `<p id="category">Category: ${trip.category[0].toUpperCase() + trip.category.slice(1)}</p>`
-            + `<p id="weeks">${trip.weeks} ${(trip.weeks === 1) ? 'week' : 'weeks'}</p>`
-            + `<p id="cost">$${trip.cost.toFixed(2)}</p>`
-    );
-
-    const handler = () => {
-      changeSelected();
-      $('#trip-details').html(tripDetails);
-      displayTripDescription();
-      displayReservationForm();
-      setReservationButtonHandler();
-    };
-    return handler;
-  };
-
-  const loadTrips = (tripData) => {
-    $('button').removeClass('centered');
-    $('.selected').removeClass('selected');
-    $('#reserve-trip').addClass('hidden');
-    $('#trip-details').empty();
-    $('button').text('Reload Trips');
-    $('#trips-list').empty();
-    for (const trip of tripData) {
-      $('#trips-list').append(`<div id=trip-${trip.id}><h3>${trip.name}</h3></div>`);
-      const handleTripClick = buildTripClickHandler(trip);
-      $(`#trip-${trip.id}`).click(() => { handleTripClick(); });
     }
-  };
+  }
+  errorList += '</ul>';
+  return errorList;
+};
+const handleReserveTrip = (tripID, continent) => {
+  const endpoint = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
+  const name = $('#name-field').val();
+  const email = $('#email-field').val();
 
-  const handleButtonClick = () => {
-    axios.get('https://trektravel.herokuapp.com/trips')
-      .then((response) => {
-        $('#status-message').empty();
-        $('#status-message').addClass('hidden');
-        loadTrips(response.data);
-      })
-      .catch((error) => {
-        $('#status-message').html(`Could not load trips: ${error.message}`);
-        $('#status-message').removeClass('hidden');
-      });
-  };
+  axios.post(endpoint, {
+    name,
+    email,
+  })
+    .then((response) => {
+      $('#reserve-form')[0].reset();
+      $('#reserve-message').addClass('success');
+      $('#reserve-message').removeClass('hidden');
 
+      const messageHTML = (
+        `<h4>Congrats, ${name}, you're going to ${continent}!</h4>`
+              + `<p>Your reservation ID is ${response.data.id}.</p>`
+      );
+      $('#reserve-message').html(messageHTML);
+      
+    })
+    .catch((error) => {
+      $('#reserve-message').addClass('error');
+      $('#reserve-message').removeClass('hidden');
+      $('#reserve-message').html(`<h4> A problem occured: ${error.message} </h4>`);
+
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errors = error.response.data.errors;
+        $('#reserve-message').append(listErrors(errors));
+      }
+    });
+};
+
+const changeSelected = (tripID) => {
+  $('.selected').removeClass('selected');
+  $(`#trip-${tripID}`).addClass('selected');
+};
+
+const displayTripDescription = (tripID) => {
+  axios.get(`https://trektravel.herokuapp.com/trips/${tripID}`)
+    .then((response) => {
+      $('#trip-details').append(`<details>${response.data.about}</details>`);
+    })
+    .catch((error) => {
+      $('#trip-details').append(`<p class="error">Failed to load trip details:  ${error.message}</p>`);
+    });
+};
+
+const displayReservationForm = (tripName) => {
+  $('#reserve-heading').text(`Reserve a Spot on ${tripName}`);
+  $('#reserve-message').empty();
+  $('#reserve-trip').removeClass('hidden');
+};
+
+const setReservationButtonHandler = (tripID, continent) => {
+  $('#reserve-button').off();
+  $('#reserve-button').click((event) => {
+    event.preventDefault();
+    handleReserveTrip(tripID, continent);
+  });
+};
+
+const displayTripDetails = (trip) => {
+  const tripDetails = (
+    `<h3>${trip.name}</h3>`
+          + `<p id="continent">Continent: ${trip.continent}</p>`
+          + `<p id="category">Category: ${trip.category[0].toUpperCase() + trip.category.slice(1)}</p>`
+          + `<p id="weeks">${trip.weeks} ${(trip.weeks === 1) ? 'week' : 'weeks'}</p>`
+          + `<p id="cost">$${trip.cost.toFixed(2)}</p>`
+  ); 
+  $('#trip-details').html(tripDetails);
+};
+const buildTripClickHandler = (trip) => {
+ 
+  const handler = () => {
+    changeSelected(trip.id);
+    displayTripDetails(trip);
+    displayTripDescription(trip.id);
+    displayReservationForm(trip.name);
+    setReservationButtonHandler(trip.id, trip.continent);
+  };
+  return handler;
+};
+
+const rearrangeButtons = ()=>{
+  $('#main-button').removeClass('centered');
+  $('#main-button').text('Reload Trips');
+  $('#sort-button').removeClass('hidden');
+};
+const loadTrips = (tripData) => { 
+  $('.selected').removeClass('selected');
+  $('#reserve-trip').addClass('hidden');
+  $('#trip-details, #trips-list').empty();
+  
+  for (const trip of tripData) {
+    $('#trips-list').append(`<div id=trip-${trip.id}><h3>${trip.name}</h3></div>`);
+    const handleTripClick = buildTripClickHandler(trip);
+    $(`#trip-${trip.id}`).click(() => { handleTripClick(); });
+  }
+};
+
+const handleMainButtonClick = () => {
+  axios.get('https://trektravel.herokuapp.com/trips')
+    .then((response) => {
+      $('#status-message').empty();
+      $('#status-message').addClass('hidden');
+      rearrangeButtons();
+      loadTrips(response.data);
+    })
+    .catch((error) => {
+      $('#status-message').html(`Could not load trips: ${error.message}`);
+      $('#status-message').removeClass('hidden');
+      $('#status-message').addClass('error');
+    });
+};
+
+$('document').ready(() => {
+  $('#main-button').click(() => { handleMainButtonClick(); });
   $('#reserve-button').click(() => { handleReserveTrip(); });
-  $('button').click(() => { handleButtonClick(); });
 });
