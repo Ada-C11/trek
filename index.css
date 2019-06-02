@@ -65,3 +65,20 @@ button {
   -webkit-align-self: center;
   align-self: center;
 }
+
+#trip-list {
+ 
+}
+
+
+
+#res-form { 
+  margin-left: 53%;
+  padding: 10px;
+  /* margin-right: 25%; */
+  /* background-color: rgba(82, 222, 184, 0.3); */
+  margin-top: 32%;
+  position: fixed;
+  /* text-align: right; */
+}
+

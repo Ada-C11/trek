@@ -129,6 +129,7 @@ const reportStatus = (message) => {
       });
     };
   };
+  
 
   
   $(document).ready(() => {
