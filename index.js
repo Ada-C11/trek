@@ -1,6 +1,9 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 const tripDetailsURL = 'https://trektravel.herokuapp.com/trips/';
 
+//
+// Error Handling
+//
 const reportStatus = (message) => {
   const statusContainer = $('#status').html(message);
   statusContainer.empty();
@@ -11,7 +14,9 @@ const reportStatus = (message) => {
     console.log(error);
   }
 
+  //
   // Load trips and details
+  //
   const loadTrips = () => {
     reportStatus("loading trips...");
 
@@ -25,7 +30,7 @@ const reportStatus = (message) => {
         
         trips.forEach((trip) => {
           tripList.append(`<p>${trip.name}</p>`)
-          // show individual trips details with access to trip from loop
+          
           const showTripDetails = (trip) => {
             const tripDetail = () => {
               axios.get(tripDetailsURL + trip.id)
@@ -43,17 +48,21 @@ const reportStatus = (message) => {
                   <h3>About: </h3>
                   <p>${response.data.about}</p>`
                 )
+                const reserve = tripReservationHandler(trip.id);
+                $('#res-form').submit(reserve);
               })
-              
               .catch((error) => {
                 reportStatus(error);
-              })
-            }
+              });
+            };
+            // Generates booking form
+            resFormGenerator(trip);
             return tripDetail;
-          };
+          }
+          // Shows individual trip details
           const clickedTrip = showTripDetails(trip);
-          // $('#trip-list p').click(showTripDetails);
           $('p:last').click(clickedTrip);
+
         });
 
       })
@@ -61,38 +70,69 @@ const reportStatus = (message) => {
         reportStatus(`Encountered an error while loading trips: ${error.message}`, 'danger');
         console.log(error);
       });
-  }
 
+  };
+
+  //
   // Booking Reservation
+  //
+  const resFormGenerator = (trip) => {
+    $('#res-form').empty();
+    $('#res-form').append(
+      `<h3>Book a trek for ${trip.name}</h3>
+      <input type="hidden" id="${trip.id}" name="${trip.id}" value="${trip.id}">
+      
+      <div>
+        <label for="name">Name</label>
+        <input type="text" name="name"/>
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input type="text" name="email"/>
+      </div>
+
+      <input type="submit" name="book" value="Book"/>`)
+  };
+
   const readFormData = () => {    
     const parsedFormData = {};
-    const nameFromForm = $(`#new-reservation input[name="name]`).val();
+
+    const nameFromForm = $(`#res-form input[name="name"]`).val();
     parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
 
-    const emailFromForm = $(`#new-reservation input[name="email"]`).val();
+    const emailFromForm = $(`#res-form input[name="email"]`).val();
     parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
 
     return parsedFormData;
   };
 
   const clearForm = () => {
-    $(`#reservation-form input[name="name"]`).val('');
-    $(`#reservation-form input[name="email"]`).val('');
-  }
+    $(`#res-form input[name="name"]`).val('');
+    $(`#res-form input[name="email"]`).val('');
+  };
   
-  const reserveTripHandler = (event) => {
-    const reserveDetails = () => {
+  const tripReservationHandler = (trip) => {
+    reportStatus("Booking Reservation...");
+    return (event) => {
       event.preventDefault();
 
-      const reserveDetails = readFormData();
-      reportStatus("Booking Rersvation...");
-      axios.post(URL + trip.id + '/reservations', )
-    }
+      const reserveInfo = readFormData();
 
-  }
+      axios.post(tripDetailsURL + trip.id + '/reservations', reserveInfo)
+      .then((response) => {
+        reportStatus(`Your reservation # ${response.data.id} was created!`);  
+        clearForm();
+      })
+
+      .catch((error) => {
+        reportStatus(error);
+      });
+    };
+  };
 
   
   $(document).ready(() => {
-    $('#load-trips').click(loadTrips);  
+    $('#load-trips').click(loadTrips); 
   });
   
