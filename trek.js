@@ -20,7 +20,6 @@ $('document').ready(()=>{
         });
     };
     
-    
     const buildTripClickHandler = (trip) => {
         const changeSelected = () => {
             $('.selected').removeClass('selected');
@@ -36,7 +35,6 @@ $('document').ready(()=>{
                 $(`#trip-details`).append(`Failed to load trip details:  ${error.message}`);
             });
         };
-
 
         const displayReservationForm = () => {
             $('#reserve-heading').text(`Reserve a Spot on ${trip.name}`);
@@ -85,7 +83,7 @@ $('document').ready(()=>{
         }
     }
 
-    $('#reserve-button').click(()=>{handleReserveTrip()})
+    $('#reserve-button').click(()=>{ handleReserveTrip() })
 
     const handleButtonClick = () =>{
         axios.get('https://trektravel.herokuapp.com/trips')
@@ -96,5 +94,5 @@ $('document').ready(()=>{
             console.log(error.message);
         })
     };
-    $('button').click(()=>{handleButtonClick()});
+    $('button').click(()=>{ handleButtonClick()} );
 });
