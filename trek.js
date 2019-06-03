@@ -8,11 +8,17 @@ const tripList = $('<ul>');
 tripList.addClass('list-group list-group-flush');
 tripList.attr('id', 'trip-list');
 
-// const tripDetailsHeader
+const tripDetailsHeader = $('<div>Trip Details</div>');
+tripDetailsHeader.addClass('card-header');
 
-// const tripDetailsBody
+const tripDetails = $('<div>');
+tripDetails.addClass('trip-details card')
+
+const tripBody = $('<div>');
+tripBody.addClass('card-body');
 
 
+// get request for trips
 const requestTrips = () => {
   return axios.get(URL);
 }
@@ -37,23 +43,35 @@ const loadTrips = () => {
   currentTrips.append(tripsHeader, tripList);
 }
 
-
+// load details for clicked on trip
 const loadDetails = (function(tripName) {
-  // console.log(tripName);
+  const tripInfo = $('.trip-information');
+  tripInfo.empty();
 
   requestTrips()
     .then((response) => {
       const trips = response.data;
+      console.log(trips);
       const clickedTrip = trips.find((trip) => {
-        return trip['name'] === tripName;
+        return trip['name'] === tripName.replace(/amp;/, '');
       });
       console.log(clickedTrip);
+      tripBody.empty();
+      tripDetails.append(tripDetailsHeader);
+      tripDetails.append(tripBody);
+      tripBody.append(`<h2>Name: ${clickedTrip.name}</h2>`);
+      tripBody.append(`<p>Continent: ${clickedTrip.continent}</p>`);
+      tripBody.append(`<p>Category: ${clickedTrip.category}</p>`);
+      tripBody.append(`<p>Weeks: ${clickedTrip.weeks}</p>`);
+      tripBody.append(`<p>Cost: $${clickedTrip.cost.toFixed(2)}</p>`);
+      tripBody.append(`<p>About: ${clickedTrip.about}</p>`);
     })
     .catch((error) => {
       console.log(error);
     });
-});
 
+  tripInfo.append(tripDetails);
+});
 
 // doing the things!
 $(document).ready(function() {
@@ -62,6 +80,7 @@ $(document).ready(function() {
 
   tripList.on('click', 'li', function(event) {
     loadDetails(this.innerHTML);
+    
   });
 });
 
