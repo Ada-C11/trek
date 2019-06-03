@@ -66,6 +66,7 @@ const loadDetails = (id) => {
     axios.get(tripUrl)
     .then(function (response) {
       const details = response.data;
+      reportStatus(`Successfully loaded details for Trip ${details.id}!`);
       detailsList.append(`<li><strong>ID</strong>: ${details.id}</li>`);
       detailsList.append(`<li><strong>Name</strong>: ${details.name}</li>`);
       detailsList.append(`<li><strong>Continent</strong>: ${details.continent}</li>`);
@@ -85,10 +86,10 @@ const loadTrips = () => {
 
     const tripsList = $('#trip-list');
     tripsList.empty();
-    // tripsList.append('<h2>All Trips</h2>')
 
     axios.get(URL)
     .then(function (response) {
+        reportStatus('Successfully loaded all trips!');
         const trips = response.data;
         for (let i = 0; i <= trips.length-1; i += 1) {
             const idNum = response.data[i].id;
