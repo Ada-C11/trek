@@ -12,14 +12,6 @@ main {
     "list reserve"
 }
 
-#status-message {
-
-}
-
-#trips-button {
-
-}
-
 #trips-list {
   grid-area: list;
 }
@@ -30,4 +22,16 @@ main {
 
 #reserve-trip {
   grid-area: reserve;
+}
+
+#status-message {
+
+}
+
+#trips-button {
+
+}
+
+#reservation-form {
+
 }

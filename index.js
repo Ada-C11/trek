@@ -21,7 +21,7 @@ const displayTripsList = (tripsList) => {
   const target = $('#trips-list');
   target.empty();
   tripsList.forEach(trip => {
-    target.append(`<li><a href="#" id="${trip.id}">${trip.name}</a></li>`);
+    target.append(`<li id="${trip.id}">${trip.name}</a></li>`);
 
     const tripID = $(`#${trip.id}`);
     tripID.click(() => loadTripDetails(trip));
@@ -36,7 +36,6 @@ const loadTrips = () => {
   .then((response) => {
     const trips = response.data;
     displayTripsList(trips);
-
     reportStatus(`Successfully loaded ${trips.length} trips`);
   })
   .catch((error) => {
@@ -70,6 +69,7 @@ const loadTripDetails = (trip) => {
     displayTripDetails(trip);
 
     reportStatus(`Successfully loaded details for: ${trip.name}`);
+    $('#reservation-form').submit(() => reserveTrip(trip))
   })
   .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
@@ -77,9 +77,47 @@ const loadTripDetails = (trip) => {
   });
 }
 
-const reserveTrip = (event) => {
+// Wave 3
+const readFormData = () => {
+  const parsedFormData = {};
+
+  // const fields = ['name', 'email'];
+  // for (let field in fields) {
+  //   const dataFromForm = $(`#reservation-form input[name=${field}]`).val();
+  //   parsedFormData[field] = dataFromForm ? dataFromForm : undefined;
+  // }
+  parsedFormData.name = $("input[name='name']").val();
+  parsedFormData.email = $("input[name='email']").val();
+  return parsedFormData;
+}
+
+const clearForm = () => {
+  $(`#pet-form input[name="name"]`).val('');
+  $(`#pet-form input[name="email"]`).val('');
+}
+
+const reserveTrip = (trip) => {
   event.preventDefault();
-  console.log("reserving trip", trip)
+  const reservationData = readFormData();
+
+  reportStatus(`Sending reservation data for: ${trip.name}`);
+
+  axios.post(URL + trip.id + '/reservations', reservationData)
+  .then((response) => {
+    reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
+    clearForm();
+  })
+  .catch((error) => {
+    console.log(error.response);
+    if (error.response.data && error.response.data.errors) {
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.data.errors
+      );
+    } else {
+      reportStatus(`Encountered an error: ${error.message}`);
+    }
+  });
 }
 
 $(document).ready(() => {
