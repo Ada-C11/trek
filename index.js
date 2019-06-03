@@ -14,7 +14,7 @@ const loadTreks = () => {
     .then((response) => {
       reportStatus(`Successfully loaded ${response.data.length} treks`);
       response.data.forEach((trek) => {
-        trekList.append(`<li>${trek.name}</li>`);
+        trekList.append(`<li class="trek" id=${trek.id}>${trek.name}</li>`);
       });
     })
     .catch((error) => {
