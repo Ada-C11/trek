@@ -51,11 +51,9 @@ const loadDetails = (function(tripName) {
   requestTrips()
     .then((response) => {
       const trips = response.data;
-      console.log(trips);
       const clickedTrip = trips.find((trip) => {
         return trip['name'] === tripName.replace(/amp;/, '');
       });
-      console.log(clickedTrip);
       tripBody.empty();
       tripDetails.append(tripDetailsHeader);
       tripDetails.append(tripBody);
@@ -80,7 +78,7 @@ $(document).ready(function() {
 
   tripList.on('click', 'li', function(event) {
     loadDetails(this.innerHTML);
-    
+
   });
 });
 
