@@ -1,0 +1,7 @@
+.hide-reservation {
+    display: none;
+}
+
+.show-reservation {
+    display: block;
+}
