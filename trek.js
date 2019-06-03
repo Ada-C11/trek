@@ -106,10 +106,10 @@ const loadTrips = (tripData) => {
   $('.selected').removeClass('selected');
   $('#trips-list').removeClass('hidden');
   $('#reserve-trip, #trip-details').addClass('hidden');
-  $('#trip-details, #trips-list').empty();
+  $('#trip-details, #trips-list-container').empty();
   
   for (const trip of tripData) {
-    $('#trips-list').append(`<div id=trip-${trip.id}><h3>${trip.name}</h3></div>`);
+    $('#trips-list-container').append(`<li id=trip-${trip.id}><h3>${trip.name}</h3></li>`);
     const handleTripClick = buildTripClickHandler(trip);
     $(`#trip-${trip.id}`).click(() => { handleTripClick(); });
   }

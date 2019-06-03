@@ -19,9 +19,15 @@ h1 {
 h2 {
     font-size:2em;
 }
+
+ul {
+    padding: 10px;
+    list-style-type: none;
+}
 header {
     text-align:center;
 }
+
 
 article {
 
@@ -56,6 +62,7 @@ details {
     text-align:justify;
     max-height:150px;
     overflow-y:scroll;
+    margin:1em;
 }
 
 form {
@@ -64,11 +71,17 @@ form {
 #trips-list {
     grid-column:1/2;
     grid-row:1/3;
-    max-height:800px;
-    overflow-y:scroll;
     margin-right:3em;
 }
 
+#trips-list-container {
+    max-height:800px;
+    overflow-y:scroll;
+    padding:0;
+    margin:0;
+    border-top:solid 4px darkred;
+    border-bottom:solid 4px darkred;
+}
 #trip-details {
     grid-column:2/3;
     grid-row:1/2;
@@ -98,6 +111,14 @@ form {
     font-size:2em;
 }
 
+#trip-list-header {
+    margin: 0;
+    text-align: center;
+    color:darkred;
+    font-family: 'Yesteryear', cursive;
+    background-color:blanchedalmond;
+}
+
 .selected {
     color:white;
     background-color:darkolivegreen;
@@ -114,6 +135,8 @@ form {
 
 section>h3, aside>h3{
     color:darkred;
+    font-family: 'Yesteryear', cursive;
+    font-size:2em
 }
 
 #cost{
