@@ -4,19 +4,17 @@ const displayStatus = (message) => {
     $('#status').html(message);
   };
   
-  // const handleApiError = (error) => {
-  //   console.log(error);
 
-  // const reportError = (message, errors) => {
-  //   let content = `<p>${message}</p><ul>`;
-  //   for (const field in errors) {
-  //     for (const problem of errors[field]) {
-  //       content += `<li>${field}: ${problem}</li>`;
-  //     }
-  //   }
-  //   content += "</ul>";
-  //   reportStatus(content);
-  // };
+  const reportError = (message, errors) => {
+    let content = `<p>${message}</p><ul>`;
+    for (const field in errors) {
+      for (const problem of errors[field]) {
+        content += `<li>${field}: ${problem}</li>`;
+      }
+    }
+    content += "</ul>";
+    reportStatus(content);
+  };
 
   const showTripDetails = id => {
     const detailsUrl = tripsUrl + `/${id}`;
@@ -36,12 +34,18 @@ const displayStatus = (message) => {
           $('.trip-details').show();
         })
       .catch(function(error) {
-        console.log(error);
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+            );
+  } else {
+    reportStatus(`Encountered an error: ${error.message}`);
+  }
       });
   };
 
-
-// makes an axios call to the trips index and display the results
 const loadTrips = () => {
     const tripList = $('#trip-list');
     tripList.empty();
@@ -53,15 +57,21 @@ const loadTrips = () => {
             tripList.append(`<li><a href="" class="trip-link" id="${trip.id}">${trip.name}</a></li>`);
         });
         console.log(response);
-        $('.flex-container').css('display', 'flex');
+            $('.flex-container').css('display', 'flex');
         })
         // resultElement.innerHTML = generateSuccessHTMLOutput(response);
       .catch(function (error) {
-          console.log(error);
-        // resultElement.innerHTML = generateErrorHTMLOutput(error);
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+            );
+  } else {
+    reportStatus(`Encountered an error: ${error.message}`);
+  }  
       });   
   }
-
 
   const reserveTrip = (trip) => {
     console.log("reserving trip", trip)
