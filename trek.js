@@ -36,6 +36,7 @@ const callTrip = (id) => {
     axios.get(tripsURL+`/${id}`)
       .then((response) => {
         showTrip(response.data);
+
       })
       .catch((error) => {
         reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -62,7 +63,7 @@ const loadTrips = () => {
       target.append(`<li><a class=${trip.id} href='#'>${trip.name}</a></li>`);
       
       const tripClickHandler = callTrip(trip.id);
-      console.log(`${trip.id}`)
+      // console.log(`${trip.id}`)
       $(`.${trip.id}`).on('click', tripClickHandler);
     })
     
@@ -75,7 +76,7 @@ const loadTrips = () => {
 };
 
 //
-// Creating trips
+// Reserving trips
 //
 const readFormData = () => {
   const parsedFormData = {};
@@ -94,15 +95,17 @@ const clearForm = () => {
   $(`#trip-form input[name="email"]`).val('');
 }
 
-const createTrip = (event) => {
+const reserveTrip = (event) => {
   event.preventDefault();
 
   const tripData = readFormData();
-  console.log(tripData);
+  // console.log(tripData);
+  const id = ++++++++++++++++++++++++++++++++++++;
+  console.log(id);
 
   reportStatus('Sending trip data...');
 
-  axios.post(tripsURL, tripData)
+  axios.post(tripsURL+`/${id}/reservations`, tripData)
     .then((response) => {
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       clearForm();
@@ -124,5 +127,5 @@ const createTrip = (event) => {
 
 $(document).ready(() => {
   $('#load').click(loadTrips);
-  $('#trip-form').submit(createTrip);
+  $('#trip-form').submit(reserveTrip);
 });
