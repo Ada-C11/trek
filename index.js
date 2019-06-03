@@ -23,10 +23,38 @@ const loadTreks = () => {
     });
 };
 
+const loadTrekDetails = (id) => {
+  reportStatus('Loading treks...');
+
+  const trekDetails = $('.trek-details');
+  trekDetails.empty();
+
+  axios.get(TREK_API + '/' + id)
+    .then((response) => {
+      reportStatus(`Successfully loaded ${response.data.name}`);
+      trekDetails.append(
+        `<h2 class="details">Name: ${response.data.name}</h2>`,
+        `<p class="details">Continent: ${response.data.continent}</p>`,
+        `<p class="details">Category: ${response.data.category}</p>`,
+        `<p class="details">Weeks: ${response.data.weeks}</p>`,
+        `<p class="details">Cost: ${response.data.cost}</p>`);
+      })
+
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading treks: ${error.message}`);
+      console.log(error);
+    });
+};
 
 $(document).ready( function() {
-  $('button').click( function() {
+  $('#load').click( function() {
     loadTreks();
+  })
+
+  $('#trek-list').on('click', 'li', function() {
+    const id = this.getAttribute("id")
+    alert(`Got a click on an <li> element containing ${id}!`);
+    loadTrekDetails(id);
   })
 });
 
