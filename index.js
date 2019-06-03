@@ -33,8 +33,7 @@ const displayStatus = (message) => {
           <li><b>Duration</b>: ${trip.weeks} weeks</li>
           <li><b>Cost</b>: $${trip.cost}</li>
           <li><b>Trip ID</b>: ${trip.id}</li>
-          </ul>
-          <button id="reserve">Reservation form</button>`;
+          </ul>`;
           $("#trip-info").append(info);
         })
       .catch(function(error) {
