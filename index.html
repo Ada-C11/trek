@@ -12,14 +12,28 @@
   <link rel="stylesheet" href="index.css">
 </head>
 
+<style>
+    .flex-container {
+      display: flex;
+      flex-wrap: nowrap;
+      background-color: rgb(200, 230, 199);
+    }
+    
+    .flex-container .box {
+      background-color: white;
+      width: 50%;
+      margin: 5px;
+      text-align: left;
+      line-height: 30px;
+      font-size: 15px;
+    }
+    </style>
+    </head>
+    <body>
+    <h1>Trek</h1>
 <body>
   <div id="background">
     <img src="https://i.ibb.co/RQjSQ7w/Screen-Shot-2019-05-31-at-1-28-37-PM.png" class="stretch" alt="" />
-</div>
-
-
-<div class="container">
-  <h1>Trek</h1>
 </div>
 
 <div class="card">
@@ -27,30 +41,32 @@
     <button id="load-trips">View All Trips</button>
   </div>
 </div>
-  
-<section class="all-trips">
-  <div id="trip-list-container">
-    <ul id="trip-list"></ul>
-  </div>
-</section>
 
+<div class="flex-container">
+  <div class="box">
+      <section class="all-trips">
+          <div id="trip-list-container">
+            <ul id="trip-list"></ul>
+          </div>
+  </div>
+      </section>
+  <div class="box">
+      <section class="trip-details">
+          <h2>Trip Details</h1>
+          <div id="trip-info"></div>
+          <div id="reservation-form"> 
+              <p>Reservation Form</p>
+              <form>
+                <label for="your-name">Your Name:</label>
+                <input type="text" id="your-name" name="your-name">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email">
+                <button id="submit">Submit</button>
+              </form>
+          </div>
+        </section>
+  </div>
 <section id="status"></section>
-
-<section class="trip-details">
-  <h2>Trip Details</h1>
-  <div id="trip-info"></div>
-  <div id="reservation-form"> 
-      <p>Reservation Form</p>
-      <form>
-        <label for="your-name">Your Name:</label>
-        <input type="text" id="your-name" name="your-name">
-        <label for="email">Email:</label>
-        <input type="text" id="email" name="email">
-        <button id="submit">Submit</button>
-      </form>
-  </div>
-</section>
-
 </body>
 </html>
 

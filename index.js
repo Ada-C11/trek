@@ -6,8 +6,6 @@ const displayStatus = (message) => {
   
   // const handleApiError = (error) => {
   //   console.log(error);
-  //   // TODO: politely report this error to the user
-  // }
 
   // const reportError = (message, errors) => {
   //   let content = `<p>${message}</p><ul>`;
@@ -69,16 +67,15 @@ const loadTrips = () => {
 
   $(document).on("click", "a", event => {
     event.preventDefault();
-    $('.trip-details').show();
+    $("#trip-info").empty();
     const id = $(event.target).attr("id");
     console.log("loading " + id);
     showTripDetails(id);
-    $('#trip-list').hide();
+    $('.trip-details').show();
   });
 
   $(document).on("click", "#load-trips", event => {
     $('.trip-details').hide();
-    $('#trip-list').show();
     loadTrips();
   });
   
