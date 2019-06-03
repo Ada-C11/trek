@@ -1,7 +1,16 @@
 
 
 body {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100px 1fr 1fr;
+}
+
+header {
+/* Start on Row 1 */
+  grid-row: 1;
+  /* Start on the first column line and extend all the to the last column line */
+  grid-column: 1 / 3;
 }
 
 header, h1, h2 {
