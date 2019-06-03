@@ -1,0 +1,46 @@
+main {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr, 1fr;
+}
+header {
+  grid-column: span 2;
+  align-items: center;
+}
+
+header h1 {
+  text-align: center;
+}
+#show-all-trips {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  padding: 2em 0 0 2em
+}
+
+#trips-button {
+  margin-bottom: 2em;
+}
+
+a {
+  color: green;
+}
+
+li:hover {
+  text-decoration: none;
+  background-color: gray;
+}
+#show-table {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+ul {
+  list-style: none;
+}
+
+.details.hidden {
+  display: none
+}
