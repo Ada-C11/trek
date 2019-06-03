@@ -49,6 +49,7 @@ const loadTrips = () => {
 const showTrip = (index) => {
     $('#status-message').removeClass();
     $('#status-message').html('');
+    
     axios.get(URL + `/${index}`)
         .then((response) => {
             $('#form-section').removeClass('hidden');
@@ -59,7 +60,7 @@ const showTrip = (index) => {
             });
 
             $('#trip-details').removeClass('hidden');
-
+            $('#form-section h2').html(`Make a Reservation: ${response.data.name}`);
             $('#name').html(`Trip ${response.data.id}: ${response.data.name}`);
             $('#continent').html(`<strong>Continent:</strong> ${response.data.continent}`)
             $('#category').html(`<strong>Category:</strong> ${response.data.category}`)
