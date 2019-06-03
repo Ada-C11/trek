@@ -53,6 +53,7 @@ const loadTrips = () => {
             tripList.append(`<li><a href="" class="trip-link" id="${trip.id}">${trip.name}</a></li>`);
         });
         console.log(response);
+        $('.flex-container').css('display', 'flex');
         })
         // resultElement.innerHTML = generateSuccessHTMLOutput(response);
       .catch(function (error) {
