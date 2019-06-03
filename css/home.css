@@ -1,0 +1,44 @@
+section.display-flex {
+    display: flex;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0px;
+}
+
+section.title {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: solid thin black;
+}
+
+button#load-trips {
+    margin-top: 10px;
+}
+
+#trip-list {
+    width: 450px;
+    padding-top: 10px;
+}
+
+#trip-list > h4 {
+    text-align: center;
+    border: solid thin black;
+    margin: 0px;
+    border-bottom: 0px;
+    padding: 10px 0px;
+}
+
+#trip-list > div {
+    border: solid thin black;
+    border-bottom: 0;
+    text-align: center;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+#trip-list > div:last-child{
+    border-bottom: solid thin black;
+}
