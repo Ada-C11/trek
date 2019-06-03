@@ -18,39 +18,55 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-const loadTrips = () => {
-  // TODO: Wave 1
-  // make an axios call to the trips index and display the results
 
+const displayTripsList = (tripsList) => {
+  const target = $('#trips-list');
+  target.empty();
+  tripsList.forEach(trip => {
+    target.append(`<li>${trip.name}</li>`);
+  });
+}
+
+const loadTrips = () => {
   reportStatus("loading trips...");
-  
-  let tripsList = $('#trips-list');
-  tripsList.empty();
-  
+
   axios.get(URL)
   .then((response) => {
-    let responseArr = response.data
-    
-    reportStatus(`Successfully loaded ${responseArr.length} trips`);
-    
-    responseArr.forEach(trip => {
-      tripsList.append(`<li>${trip.name}</li>`);
-    });
+    const trips = response.data;
+    displayTripsList(trips);
+
+    reportStatus(`Successfully loaded ${trips.length} trips`);
   })
   .catch((error) => {
-    reportStatus(`Encountered an error while loading wonder: ${error.message}`);
+    reportStatus(`Encountered an error while loading trip: ${error.message}`);
     console.log(error);
   });
 }
 
 const showTripDetails = (trip) => {
-  // $(this.Attr([id]))
-  console.log("showing details for trip", trip);
-
   // DONT FORGET TO START AT TRIP 70
 
   // TODO: Wave 2
   // display trip details and the trip reservation form
+  
+  // // $(this.Attr([id]))
+  // reportStatus("showing details for trip", trip.name);
+
+  // let tripDetails = $('#trip-details');
+  // tripDetails.empty();
+
+  // axios.get(URL + trip.id)
+  // .then((response) => {
+    
+  //   reportStatus(`Successfully loaded details for ` trip.name);
+
+  //   // Do something
+
+  // })
+  // .catch((error) => {
+  //   reportStatus(`Encountered an error while loading details for ` trip.name);
+  //   console.log(error);
+  // });
 }
 
 const reserveTrip = (trip) => {
@@ -61,5 +77,5 @@ const reserveTrip = (trip) => {
 }
 
 $(document).ready(() => {
-  $('#load-trips').click(loadTrips);
+  $('#trips-button').on('click', loadTrips);
 });
