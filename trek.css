@@ -60,14 +60,17 @@ section, aside {
 
 details {
     text-align:justify;
-    max-height:150px;
+    max-height:100px;
     overflow-y:scroll;
     margin:1em;
 }
 
-form {
-    margin:auto;
+section>h3, aside>h3{
+    color:darkred;
+    font-family: 'Yesteryear', cursive;
+    font-size:2em
 }
+
 #trips-list {
     grid-column:1/2;
     grid-row:1/3;
@@ -103,6 +106,7 @@ form {
 
 .hidden {
     visibility:hidden;
+    display:none;
 }
 
 .centered {
@@ -119,6 +123,13 @@ form {
     background-color:blanchedalmond;
 }
 
+
+#cost{
+    font-size:2em;
+    font-weight:bold;
+    color:darkred;
+}
+
 .selected {
     color:white;
     background-color:darkolivegreen;
@@ -133,14 +144,3 @@ form {
     color:green;
 }
 
-section>h3, aside>h3{
-    color:darkred;
-    font-family: 'Yesteryear', cursive;
-    font-size:2em
-}
-
-#cost{
-    font-size:2em;
-    font-weight:bold;
-    color:darkred;
-}

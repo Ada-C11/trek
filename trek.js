@@ -1,10 +1,8 @@
 const listErrors = (errors) => {
   let errorList = '<ul>';
   for (const field in errors) {
-    if (errors[field]) {
-      for (const problem of errors[field]) {
-        errorList += `<li>${field}: ${problem}</li>`;
-      }
+    for (const problem of errors[field]) {
+      errorList += `<li>${field}: ${problem}</li>`;
     }
   }
   errorList += '</ul>';
@@ -15,15 +13,13 @@ const showMessage = (elementID, status) => {
   $(elementID).addClass(status);
   $(elementID).removeClass('hidden');
 };
+
 const handleReserveTrip = (tripID, continent) => {
   const endpoint = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
   const name = $('#name-field').val();
   const email = $('#email-field').val();
 
-  axios.post(endpoint, {
-    name,
-    email,
-  })
+  axios.post(endpoint, { name, email,})
     .then((response) => {
       $('#reserve-form')[0].reset();
       showMessage('#reserve-message','success');
