@@ -38,6 +38,12 @@ const loadTrips = () => {
                 // console.log('***********trip***********');
 
                 const trip = event.data.thisTrip;
+                //remove class='selected' from any other table row
+                $(".selected").removeClass('selected');
+
+                //set class='selected' on this table row
+                $(`#${trip.id}`).addClass('selected');
+
 
                 $("#trip-details").empty();
                 $("#trip-details").append(`<h2>${trip.name}</h2>`);
@@ -47,60 +53,20 @@ const loadTrips = () => {
                 $("#trip-details").append(`<p>${trip.weeks} weeks</p>`);
                 $("#trip-details").append(`<p>Summary: ${trip.about} </p>`);
                 $("#trip-details").append(`<p>Price: $${trip.cost} </p>`);
-                
+
                 $('#reservation-form').empty();
+                $('#reservation-form').unbind('submit');
+
                 $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
-                $('#reservation-form').append('<div> <label for="name">Name</label> <input type="text" name="name"/> </div>');
+                $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname"/> </div>');
                 $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email"/> </div>');
-                $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="Make Reservation"/>');
-                
-                return trip // need this?????
+                $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
+                // $('submit-btn').click(makeReservation);
+                $('#reservation-form').submit(reserveTrip);
+
+                // return trip // need this?????
             });
 
-            const readFormData = () => {
-                const formData = {};
-
-                const nameFromForm = $(`#reservation-form input[name="name"]`).val();
-                formData['name'] = nameFromForm ? nameFromForm : undefined;
-
-                const emailFromForm = $('#reservation-form input[email="email"]').val();
-                formData['email'] = emailFromForm ? emailFromForm : undefined;
-
-                return formData;
-            };
-
-            const clearForm = () => {
-                $(`#reservation-form input [name="name"]`).val('');
-                $(`#reservation-form input [email="email"]`).val('');
-            };
-
-            const reserveTrip = (event) => {
-                event.preventDefault();
-
-                const reservationData = readFormData();
-                console.log(reservationData);
-
-                reportStatus('Submitting reservation...');
-
-                axios.post(`${BASEURL}/${trip.id}/reservations`, reservationData)
-                    .then((response) => {
-                        reportStatus(`Successfully reserved your trip. name: ${response.data.name}  email: ${response.data.email}`);
-                        clearForm();
-                    })
-                    .catch((error) => {
-                        console.log(error.response);
-                        if (error.response.data && error.response.data.errors) {
-                            reportError(`Encountered an error: ${error.message}`, error.response.data.errors);
-                          } else {
-                            reportStatus(`Encountered an error: ${error.message}`);
-                          }
-                    });
-
-                // accepted params:
-                // name (string) required
-                // age (integer)
-                // email (string) required
-            };
 
 
         });//END Each loop
@@ -110,6 +76,57 @@ const loadTrips = () => {
         reportStatus(`Error loading trips: ${error.message}`);
         console.log(error);
     });
+
+};
+
+const readFormData = () => {
+    const formData = {};
+
+    const nameFromForm = $(`#reservation-form input[name="guestname"]`).val();
+    formData['name'] = nameFromForm ? nameFromForm : undefined;
+
+    const emailFromForm = $('#reservation-form input[name="email"]').val();
+    formData['email'] = emailFromForm ? emailFromForm : undefined;
+
+    return formData;
+};
+
+const clearForm = () => {
+    $(`#reservation-form input [name="guestname"]`).val('');
+    $(`#reservation-form input [email="email"]`).val('');
+};
+
+const reserveTrip = (event) => {
+    event.preventDefault();
+
+    // gets the HTML attribute called id (#id)
+    const tripID = $(`.selected`).attr('id');
+
+    let reservationData = readFormData();
+    // reservation = JSON.stringify(reservationData);
+
+    console.log(reservationData);
+
+    reportStatus('Submitting reservation...');
+
+    axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
+        .then((response) => {
+            reportStatus(`Successfully reserved your trip. name: ${response.data.name}  email: ${response.data.email}`);
+            clearForm();
+        })
+        .catch((error) => {
+            console.log(error.response);
+            if (error.response.data && error.response.data.errors) {
+                reportError(`Encountered an error: ${error.message}`, error.response.data.errors);
+              } else {
+                reportStatus(`Encountered an error: ${error.message}`);
+              }
+        });
+
+    // accepted params:
+    // name (string) required
+    // age (integer)
+    // email (string) required
 };
 
 
