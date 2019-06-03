@@ -59,11 +59,11 @@ const loadTrips = () => {
     reportStatus(`Successfully loaded ${trips.length} trips`);
 
     trips.forEach((trip) => {
-      target.append(`<li class='trip-item'><a href='#'>${trip.name}</a></li>`);
+      target.append(`<li><a class=${trip.id} href='#'>${trip.name}</a></li>`);
       
       const tripClickHandler = callTrip(trip.id);
-      // console.log(`${trip.id}`)
-      $(`.trip-item`).on('click', tripClickHandler);
+      console.log(`${trip.id}`)
+      $(`.${trip.id}`).on('click', tripClickHandler);
     })
     
   })
@@ -95,9 +95,6 @@ const clearForm = () => {
 }
 
 const createTrip = (event) => {
-  // Note that createTrip is a handler for a `submit`
-  // event, which means we need to call `preventDefault`
-  // to avoid a page reload
   event.preventDefault();
 
   const tripData = readFormData();
