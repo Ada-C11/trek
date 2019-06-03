@@ -1,8 +1,6 @@
 const URL =  'https://trektravel.herokuapp.com/trips/'
 
-//
 // Status Management
-//
 const reportStatus = (message) => {
   $('#status-message').html(message);
 };
@@ -18,15 +16,19 @@ const reportError = (message, errors) => {
   reportStatus(content);
 };
 
-
+// Wave 1 - Display
 const displayTripsList = (tripsList) => {
   const target = $('#trips-list');
   target.empty();
   tripsList.forEach(trip => {
-    target.append(`<li>${trip.name}</li>`);
+    target.append(`<li><a href="#" id="${trip.id}">${trip.name}</a></li>`);
+
+    const tripID = $(`#${trip.id}`);
+    tripID.click(() => loadTripDetails(trip));
   });
 }
 
+// Wave 1 - Load
 const loadTrips = () => {
   reportStatus("loading trips...");
 
@@ -38,42 +40,46 @@ const loadTrips = () => {
     reportStatus(`Successfully loaded ${trips.length} trips`);
   })
   .catch((error) => {
+    reportStatus(`Encountered an error while loading trips: ${error.message}`);
+    console.log(error);
+  });
+}
+
+// Wave 2 - Display
+const displayTripDetails = (trip) => {
+  const target = $('#trip-details');
+  target.empty();
+
+  target.append(`<h1>Trip Details</h1>`);
+  target.append(`<li>ID: ${trip.id}</li>`);
+  target.append(`<li>Name: ${trip.name}</li>`);
+  target.append(`<li>Continent: ${trip.continent}</li>`);
+  target.append(`<li>Category: ${trip.category}</li>`);
+  target.append(`<li>Weeks: ${trip.weeks}</li>`);
+  target.append(`<li>Cost: $${trip.cost.toFixed(2)}</li>`);
+  target.append(`<li>About: ${trip.about}</li>`);
+}
+
+// Wave 2 - Load
+const loadTripDetails = (trip) => {
+  reportStatus(`loading details for trip ${trip.name}`);
+
+  axios.get(URL + trip.id)
+  .then((response) => {
+    const trip = response.data;
+    displayTripDetails(trip);
+
+    reportStatus(`Successfully loaded details for: ${trip.name}`);
+  })
+  .catch((error) => {
     reportStatus(`Encountered an error while loading trip: ${error.message}`);
     console.log(error);
   });
 }
 
-const showTripDetails = (trip) => {
-  // DONT FORGET TO START AT TRIP 70
-
-  // TODO: Wave 2
-  // display trip details and the trip reservation form
-  
-  // // $(this.Attr([id]))
-  // reportStatus("showing details for trip", trip.name);
-
-  // let tripDetails = $('#trip-details');
-  // tripDetails.empty();
-
-  // axios.get(URL + trip.id)
-  // .then((response) => {
-    
-  //   reportStatus(`Successfully loaded details for ` trip.name);
-
-  //   // Do something
-
-  // })
-  // .catch((error) => {
-  //   reportStatus(`Encountered an error while loading details for ` trip.name);
-  //   console.log(error);
-  // });
-}
-
-const reserveTrip = (trip) => {
+const reserveTrip = (event) => {
+  event.preventDefault();
   console.log("reserving trip", trip)
-
-  // TODO: Wave 2
-  // reserve a spot on the trip when the form is submitted
 }
 
 $(document).ready(() => {
