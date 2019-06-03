@@ -1,3 +1,13 @@
+
+
+body {
+    display: flex;
+}
+
+header, h1, h2 {
+    border: 1px solid black;
+}
+
 #details-list {
     border: 1px solid black;
 }

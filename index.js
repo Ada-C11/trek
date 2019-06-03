@@ -4,37 +4,54 @@ const reportStatus = (message) => {
     $('#status-message').html(message);
 };
 
-const makeReservation = (event) => {
-    event.preventDefault();
-    const reservationUrl = "https://trektravel.herokuapp.com/trips/70/reservations";
-    const reservationData = {
-        name: "Jax Wheeler",
-        email: "jwheeler@wheelieeees"
-    };
+const readFormData = () => {
+    const parsedFormData = {};
 
+    const nameFromForm = $(`#reservation-form input[name="name"]`).val();
+    parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+    const emailFromForm = $(`#reservation-form input[name="email"]`).val();
+    parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+    return parsedFormData;
+};
+
+
+const makeReservation = () => {
+
+    event.preventDefault();
+    const tripId = $(event.target).find('div.button').attr("name");
+    const reservationUrl = "https://trektravel.herokuapp.com/trips" + `/${tripId}/` + "reservations";
+   
+    const reservationData = readFormData();
     console.log(reservationData);
+
+    reportStatus("Submitting your reservation...");
 
     axios.post(reservationUrl, reservationData)
       .then(function (response) {
         console.log(response);
+        reportStatus(`Successfully added your reservation!  The ID is ${response.data.id}!`);
+        // $('#reservation-form').reset();
       })
       .catch(function (error) {
         console.log(error);
+        reportStatus(`Encountered an error while submitting your reservation: ${error.message}`)
       });
 }
 
-const loadReservationForm = () => {
-  $('.reservations').append('<h2>Reserve a Trip</h2>')
-  $('.reservations').append('<form id="reservation-form"></form>')
 
+const loadReservationForm = (trip) => {
+  $('.reservations').append(`<h2 class=${trip.id}>Reserve a Trip to ${trip.name}</h2>`);
+  $('.reservations').append('<form id="reservation-form"></form>');
 
     const nameField = '<div>' + '<label for="name">Name:</label>' + 
-    '<input type="text" id="name" name="user_name">' + '</div>'
+    '<input type="text" id="name" name="name">' + '</div>'
 
     const emailField = '<div>' + '<label for="email">Email:</label>' + 
-    '<input type="text" id="email" name="user_email">' + '</div>'
+    '<input type="text" id="email" name="email">' + '</div>'
 
-    const submitButton = '<div class="button" id="reserve">' + 
+    const submitButton = `<div class="button reserve" id="reserve" name="${trip.id}">` + 
     '<button type="submit">Reserve</button>' + '</div>'
   
     $('#reservation-form').append(nameField);
@@ -56,7 +73,7 @@ const loadDetails = (id) => {
       detailsList.append(`<li>Weeks: ${details.weeks}</li>`);
       detailsList.append(`<li>Cost: ${details.cost}</li>`);
 
-      loadReservationForm();
+      loadReservationForm(details);
     })
     .catch((error) => {
       reportStatus(`Whoops!  Something went wrong while loading trip details: ${error.message}`);
@@ -78,7 +95,6 @@ const loadTrips = () => {
             const element = `<li id="${tripId}">${response.data[i].name}</li>`;
             tripsList.append(element);
         }
-        // tripsList.append(`<li>${response.data[0]}</li>`);
     })
     .catch((error) => {
         reportStatus(`Whoops!  Something went wrong while loading trips: ${error.message}`);
@@ -103,5 +119,4 @@ $(document).ready(() => {
     });
 
     $(document).on("submit", "#reservation-form", makeReservation);
-    // $('#reservation-form').submit(makeReservation);
 })
