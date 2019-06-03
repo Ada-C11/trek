@@ -33,7 +33,7 @@ const loadTrips = () => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach((trip) => {
         tripsList.append(`<li class=${trip.id}>${trip.name}</li>`);
-        // tripsList.append(`<li class=${trip.id}><a href=${URL}/${trip.id}>${trip.name}</a></li>`);
+        
       });
     })
     .catch((error) => {
@@ -42,63 +42,61 @@ const loadTrips = () => {
     });
 };
 
-// add event listener to each link and capture the id to use in the get request
-// make the names in the list name a link using the id of the trip
+
 const loadIndividualTrip = (id)=> {
     reportStatus('Loading trip...');
     const tripDetails = $('.trip-details');
     tripDetails.empty();
 
+
     axios.get(`${URL}/${id}`)
      .then((trip) => {
          console.log(trip);
-       
-            tripDetails.append(`<li class="name">${trip.data.name}</li>`);
-            tripDetails.append(`<li class="continent">${trip.data.continent}</li>`);
-            tripDetails.append(`<li class="category">${trip.data.category}</li>`);
-            tripDetails.append(`<li class="weeks">${trip.data.weeks}</li>`);
-            tripDetails.append(`<li class="cost">${trip.data.cost}</li>`);
-            tripDetails.append(`<li class="about">${trip.data.about}</li>`);
-
+            reportStatus('');
+            tripDetails.append(`<li class="name"><strong>Name: </strong> ${trip.data.name}</li>`);
+            tripDetails.append(`<li class="continent"><strong>Constinent: </strong> ${trip.data.continent}</li>`);
+            tripDetails.append(`<li class="category"><strong>Category: </strong> ${trip.data.category}</li>`);
+            tripDetails.append(`<li class="weeks"><strong>Weeks: </strong> ${trip.data.weeks}</li>`);
+            tripDetails.append(`<li class="cost"><strong>Cost: </strong> ${trip.data.cost}</li>`);
+            tripDetails.append(`<li class="about"><strong>About: </strong> ${trip.data.about}</li>`);
      })
 
      
     .catch((error) => {
             reportStatus(`Encountered an error while loading trips: ${error.message}`);
             console.log(error);
- 
-
      });
-
-
-    
 }
 
-// const readPetForm = () => {
-//   return {
-//     // name: "dan's ports pet don't use this name please I need it for debugging",
-//     age: 14,
-//     owner: "ports"
-//   };
-// }
+const readtripForm = (name, email) => {
+  return {
+    name: name,
+    email: email,
+  };
+}
 
-// const addPet = () => {
-//   const petData = readPetForm();
 
-//   reportStatus("About to post pet data...");
-//   console.log("About to post pet data", petData);
+const createReservation = (id, name, email) => {
+  const reservationData = readtripForm(name, email);
 
-//   axios.post(URL, petData)
-//     .then((response) => {
-//       console.log("successfully posted pet data", response);
 
-//       const petId = response.data.id;
-//       reportStatus(`Successfully created a new pet with ID ${petId}`);
-//     })
-//     .catch((error) => {
-//       reportApiError(error);
-//     })
-// };
+  reportStatus("Submitting reservation request");
+  console.log("reservation request", reservationData);
+
+  axios.post(`${URL}/${id}/reservations`, reservationData)
+    .then((response) => {
+      console.log("Successfully reserved", response);
+
+      const reservationId = response.data.id;
+      reportStatus(`Successfully created a new reservation with ID ${reservationId}`);
+
+    })
+    .catch((error) => {
+      reportApiError(error);
+    })
+};
+
+let submitHandler;
 
 // OK GO!!!!!
 $(document).ready(() => {
@@ -106,13 +104,21 @@ $(document).ready(() => {
 
   $('.current-trips').on('click', 'li', function(event){
     let tripClass = this.className;
+    console.log(tripClass)
     loadIndividualTrip(tripClass);
-  });
-//   $()loadIndividualTrip();
+    
+    if (submitHandler) {
+      $('#reserve-form').off("submit", submitHandler );
+    }
 
-  $('#reserve-form').submit((event) => {
-    event.preventDefault();
-    // addPet();
-
+    submitHandler = (event) => {
+      event.preventDefault();
+      let name = $('.j').val();
+      let email = $('.i').val();
+      console.log(name, email);
+      createReservation(tripClass, name, email); 
+    }
+    $('#reserve-form').submit(submitHandler);
   });
+
 });
