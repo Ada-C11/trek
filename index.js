@@ -66,12 +66,12 @@ const loadDetails = (id) => {
     axios.get(tripUrl)
     .then(function (response) {
       const details = response.data;
-      detailsList.append(`<li>ID: ${details.id}</li>`);
-      detailsList.append(`<li>Name: ${details.name}</li>`);
-      detailsList.append(`<li>Continent: ${details.continent}</li>`);
-      detailsList.append(`<li>Category: ${details.category}</li>`);
-      detailsList.append(`<li>Weeks: ${details.weeks}</li>`);
-      detailsList.append(`<li>Cost: ${details.cost}</li>`);
+      detailsList.append(`<li><strong>ID</strong>: ${details.id}</li>`);
+      detailsList.append(`<li><strong>Name</strong>: ${details.name}</li>`);
+      detailsList.append(`<li><strong>Continent</strong>: ${details.continent}</li>`);
+      detailsList.append(`<li><strong>Category</strong>: ${details.category}</li>`);
+      detailsList.append(`<li><strong>Weeks</strong>: ${details.weeks}</li>`);
+      detailsList.append(`<li><strong>Cost</strong>: ${details.cost}</li>`);
 
       loadReservationForm(details);
     })
@@ -85,6 +85,7 @@ const loadTrips = () => {
 
     const tripsList = $('#trip-list');
     tripsList.empty();
+    // tripsList.append('<h2>All Trips</h2>')
 
     axios.get(URL)
     .then(function (response) {
@@ -109,7 +110,7 @@ $(document).ready(() => {
     $('#trip-list').on('click', 'li', function() {
         $('.details').empty();
         $('.reservations').empty();
-        $('section.details').append('<h2>Details</h2>');
+        $('section.details').append('<h2>Trip Details</h2>');
 
         const tripId = parseInt($(this).attr("id"));
         const detailsWindow = '<ul id="details-list"></ul>';
