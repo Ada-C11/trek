@@ -32,7 +32,6 @@ const makeReservation = () => {
       .then(function (response) {
         console.log(response);
         reportStatus(`Successfully added your reservation!  The ID is ${response.data.id}!`);
-        // $('#reservation-form').reset();
       })
       .catch(function (error) {
         console.log(error);
