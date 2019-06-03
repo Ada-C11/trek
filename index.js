@@ -1,5 +1,6 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
+
 const reportStatus = (message, alertClass) => {
     $('#status-message').removeClass();
     $('#status-message').addClass(alertClass);
@@ -22,13 +23,13 @@ const clearForm = () => {
     $('#trip-form').get(0).reset();
 };
 
+
+
 const loadTrips = () => {
     reportStatus('Loading trips...');
 
     const tripList = $('#trips-list');
     tripList.empty();
-
-    $('#load').addClass('hidden');
 
     axios.get(URL)
         .then((response) => {
