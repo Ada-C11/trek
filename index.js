@@ -5,6 +5,13 @@ $(document).ready(function(){
     $("#btnAllTrips").on("click",function(){
         getAllTrips();
     });
+
+      $("#frmReservation").submit(function(event){
+        reserveSpot();
+        $("#inputName").val("");
+        $("#inputEmail").val("");
+        event.preventDefault();
+    });
 });
 
 function getAllTrips(){
