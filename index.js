@@ -16,17 +16,6 @@ const reportError = (message, errors) => {
     reportStatus(content);
 };
 
-// const displayTripList = (tripList) => {
-//     const target = $('#trip-list');
-//     target.empty();
-//     let i = 1;
-//     tripList.forEach(trip => {
-//         target.append(`<button id="trip-${trip.id}">${trip.name}</button>`);
-//         i += 1;
-//     });
-// }
-
-
 const displayTripList = () => {
     const target = $('#trip-list');
     target.empty();
