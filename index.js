@@ -33,6 +33,7 @@ const displayStatus = (message) => {
           <li><b>Trip ID</b>: ${trip.id}</li>
           </ul>`;
           $("#trip-info").append(info);
+          $('.trip-details').show();
         })
       .catch(function(error) {
         console.log(error);
@@ -45,7 +46,7 @@ const loadTrips = () => {
     const tripList = $('#trip-list');
     tripList.empty();
     $("#trip-info").empty();
-
+    tripList.append(`<h2>All Trips</h2>`);
     axios.get(tripsUrl)
       .then(function (response) {
         response.data.forEach((trip) => {
@@ -71,7 +72,6 @@ const loadTrips = () => {
     const id = $(event.target).attr("id");
     console.log("loading " + id);
     showTripDetails(id);
-    $('.trip-details').show();
   });
 
   $(document).on("click", "#load-trips", event => {
