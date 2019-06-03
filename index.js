@@ -54,7 +54,7 @@ const displayTripDetails = (event) => {
     $("#trip-form").empty();
     $("#trip-form").append(`<h2>Register</h2>`);
     $("#trip-form").append(
-    `<form id=${event.target.id}><label for='name'>Name:</label> <input type='text' id='name' name='name'><label for='email'>Email address:</label> <input type='text' id='email' name='email'><button type='submit'>Submit Registration</button></form>`
+    `<form name=${event.target.id}><label for='name'>Name:</label> <input type='text' id='name' name='name'><label for='email'>Email address:</label> <input type='text' id='email' name='email'><button type='submit'>Submit Registration</button></form>`
   );;
   })
   .catch((error) => {
@@ -71,7 +71,7 @@ const submitRegistration = (event) => {
     email: $("input[name=email]").val(),
     };
   
-    axios.post(baseURL + `/${event.target.id}` + `/reservations`, registrationInfo)
+    axios.post(baseURL + `/${$(event.target).attr("name")}` + `/reservations`, registrationInfo)
     .then((response) => {
       reportStatus(`Congratulations ${response.data.name}, you've registered for the trip!`);
     })
@@ -79,7 +79,6 @@ const submitRegistration = (event) => {
       reportStatus(`There was an error while registering for the trip: ${error.message}`);
       console.log(error);
     });
-
 
 }
 
