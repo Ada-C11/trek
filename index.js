@@ -1,5 +1,5 @@
 const URL_ALL_TRIPS = "https://trektravel.herokuapp.com/trips"
-var urlDynamic=URL_ALL_TRIPS;
+var urlDynamic = URL_ALL_TRIPS; //so its easier to modify for different calls
 
 $(document).ready(function(){
     $("#btnAllTrips").on("click",function(){
@@ -59,6 +59,25 @@ function buildDetail(trip){
     $("#tripCategory").html(trip.category);
     $("#tripWeekDuration").html(trip.weeks);
     $("#tripCost").html("$"+trip.cost);
+}
+
+function reserveSpot(){
+    var _name = $("#inputName").val();
+    var _email = $("#inputEmail").val();
+    urlDynamic = urlDynamic+"/reservations";
+    axios.post(urlDynamic,{
+        name : _name,
+        email: _email,
+        //age : 18
+    })
+    .then(function(response){
+        if(response.data.id>0)
+        {
+            alert("Your reservation was successful!!.");
+        }
+    }).catch(function(error){
+        alert("Sorry an error ocurred, please try again.");
+    });
 }
 
 
