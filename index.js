@@ -38,13 +38,42 @@ const loadTrekDetails = (id) => {
         `<p class="details">Category: ${response.data.category}</p>`,
         `<p class="details">Weeks: ${response.data.weeks}</p>`,
         `<p class="details">Cost: ${response.data.cost}</p>`);
-      })
+      $("#trip-form").append(`<h2>Register</h2>`);
+      $("#trip-form").append(
+        `<form name=${id}>
+          <label for='name'>Name:</label> 
+          <input type='text' id='name' name='name'>
+          <label for='email'>Email address:</label> 
+          <input type='text' id='email' name='email'>
+          <button type='submit'>Submit Registration</button>
+        </form>`
+      )
+    })
 
     .catch((error) => {
       reportStatus(`Encountered an error while loading treks: ${error.message}`);
       console.log(error);
     });
 };
+
+const submitReservation = (event) => {
+  event.preventDefault();
+
+  let reservationInfo = { 
+    name: $("input[name=name]").val(),
+    email: $("input[name=email]").val(),
+    };
+
+    axios.post(TREK_API + `/${$(event.target).attr("name")}` + `/reservations`, reservationInfo)
+    .then(() => {
+      reportStatus(`You've successfully submitted reservation for the trip!`);
+    })
+    .catch((error) => {
+      reportStatus(`Reservation was unsuccessful: ${error.message}`);
+      console.log(error);
+    });
+
+}
 
 $(document).ready( function() {
   $('#load').click( function() {
@@ -56,5 +85,7 @@ $(document).ready( function() {
     alert(`Got a click on an <li> element containing ${id}!`);
     loadTrekDetails(id);
   })
+
+  $(document).on("submit", "form", submitReservation);
 });
 
