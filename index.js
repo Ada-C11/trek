@@ -1,6 +1,8 @@
 const URL = 'https://trektravel.herokuapp.com/trips';
 
-const reportStatus = (message) => {
+const reportStatus = (message, alertClass) => {
+    $('#status-message').removeClass();
+    $('#status-message').addClass(alertClass);
     $('#status-message').html(message);
 };
 
@@ -13,7 +15,7 @@ const reportError = (message, errors) => {
       }
     }
     content += "</ul>";
-    reportStatus(content);
+    reportStatus(content, "alert alert-warning");
   };
 
 const clearForm = () => {
@@ -30,9 +32,9 @@ const loadTrips = () => {
 
     axios.get(URL)
         .then((response) => {
-            reportStatus(`Successfully loaded ${response.data.length} trips`);
+            reportStatus(`Successfully loaded ${response.data.length} trips`, "alert alert-success");
             response.data.forEach((trip) => {
-                tripList.append(`<li id='${trip.id}'>${trip.name}</li>`);
+                tripList.append(`<li id='${trip.id}'><a href=#>${trip.name}</a></li><hr />`);
                 $(`#${trip.id}`).click(function () {
                     showTrip(trip.id);
                 });
@@ -45,6 +47,7 @@ const loadTrips = () => {
 };
 
 const showTrip = (index) => {
+    $('#status-message').removeClass();
     $('#status-message').html('');
     axios.get(URL + `/${index}`)
         .then((response) => {
@@ -76,6 +79,7 @@ const showTrip = (index) => {
 };
 
 const makeReservation = () => {   
+    $('#status-message').html('');
     const tripID = $('#tripID').val();
 
     const tripData = {
@@ -88,7 +92,7 @@ const makeReservation = () => {
     .then((response) => {
         clearForm();
       console.log(response);
-      reportStatus('Successfully made reservation!');
+      reportStatus('Successfully made reservation!', "alert alert-success");
     })
     .catch((error) => {
       console.log(error.response);
@@ -98,7 +102,7 @@ const makeReservation = () => {
             error.response.data.errors
         );
     } else {
-        reportStatus(`Encountered an error: ${error.message}`);
+        reportStatus(`Encountered an error: ${error.message}`, "alert alert-warning");
     }
     });
 

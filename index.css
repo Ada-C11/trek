@@ -1,15 +1,18 @@
-body, html {
-    font-family: sans-serif;
-}
+
 
 body {
     display: grid;
-    grid-template: 100px 1fr 1fr / 1fr 1fr;
+    /* grid-template: 100px (autofill, minmax(10px, 150px)) 1fr 2fr / 1fr 1fr; */
+    grid-template: 100px minmax(10px, 150px) 1fr 2fr / 1fr 1fr;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
+h1, h2, h3 {
+    font-family: 'Baloo Da', cursive;
+}
+
+h1 {
+    font-size: 4em;
+    color: white;
 }
 
 li {
@@ -17,22 +20,31 @@ li {
     line-height: 1.5em;
 }
 
+#logo {
+    text-align: center;
+    background-color: lightblue;
+    grid-column: span 2;
+}
+
 #trips {
     grid-row: span 2;
+    padding-right: 25px;
 }
 
 #status-message {
+    min-height: 10px;
     grid-column: span 2;
 }
 
 #trip-details {
-    height: 200;
-    width: 100;
+    grid-row: 3 / span 1;
+    min-height: 100px;
+    grid-column: 2;
 }
 
 #form-section {
-    grid-column: 2 / span 1;
-    grid-row: 3 / span 1;
+    grid-column: 2;
+    grid-row: 4;
 }
 
 .hidden {
