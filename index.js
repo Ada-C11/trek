@@ -47,6 +47,51 @@ const listTrips = () => {
         });
 };
 
+// START HERE
+const readFormData = () => {
+    const parsedFormData = {};
+  
+    const nameFromForm = $(`#reservation-form input[name="name"]`).val();
+    parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+  
+    const emailFromForm = $(`#reservation-form input[name="email"]`).val();
+    parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+    return parsedFormData;
+  };
+  
+  const clearForm = () => {
+    $(`#reservation-form input[name="name"]`).val('');
+    $(`#reservation-form input[name="email"]`).val('');
+  }
+  
+  const createReservation = (event, tripId) => {
+    event.preventDefault();
+  
+    const reservationData = readFormData();
+    console.log(reservationData);
+  
+    reportStatus('Sending reservation data...');
+  
+    axios.post(`${URL}/${tripId}/reservations`, reservationData)
+      .then((response) => {
+        reportStatus(`Successfully added a reservation with ID ${response.data.id}!`);
+        clearForm();
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error.response.data && error.response.data.errors) {
+          reportError(
+            `Encountered an error: ${error.message}`,
+            error.response.data.errors
+          );
+        } else {
+          reportStatus(`Encountered an error: ${error.message}`);
+        }
+      });
+  };
+
 $(document).ready(() => {
     $('#load').click(listTrips);
+    $('#reservation-form').submit(createReservation);
 });
