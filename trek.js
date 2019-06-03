@@ -5,7 +5,7 @@ const tripsHeader = $('<div>All Trips</div>');
 tripsHeader.addClass('card-header');
 
 const tripList = $('<ul>');
-tripList.addClass('list-group list-group-flush');
+tripList.addClass('list-group list-group-flush scroll');
 tripList.attr('id', 'trip-list');
 
 const tripDetailsHeader = $('<div>Trip Details</div>');

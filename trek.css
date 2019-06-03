@@ -56,3 +56,10 @@ li {
 li:hover {
   background-color: hotpink;
 }
+
+/* scroll bar for list of trips, courtesy of:
+https://stackoverflow.com/questions/49818715/scrollable-card-bootstrap */
+.scroll {
+  max-height: 520px;
+  overflow-y: auto;
+}
