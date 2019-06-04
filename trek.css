@@ -63,3 +63,8 @@ https://stackoverflow.com/questions/49818715/scrollable-card-bootstrap */
   max-height: 520px;
   overflow-y: auto;
 }
+
+/* will need to change most likely after reservation is added */
+.card-body {
+  max-height: 350px;
+}

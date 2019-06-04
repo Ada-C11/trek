@@ -1,4 +1,5 @@
-const URL = 'https://trektravel.herokuapp.com/trips'
+const TRIPS_URL = 'https://trektravel.herokuapp.com/trips'
+const TRIP_URL = 'https://trektravel.herokuapp.com/trips/'
 
 // html set-up
 const tripsHeader = $('<div>All Trips</div>');
@@ -17,10 +18,13 @@ tripDetails.addClass('trip-details card')
 const tripBody = $('<div>');
 tripBody.addClass('card-body');
 
+const reserveName = $(`<label for="exampleInputName">Name</label>
+<input type="name" class="form-control" id="nameInput" aria-describedby="nameHelp" placeholder="Enter Name">`) 
+
 
 // get request for trips
 const requestTrips = () => {
-  return axios.get(URL);
+  return axios.get(TRIPS_URL);
 }
 
 // load list of current trips  
@@ -39,7 +43,6 @@ const loadTrips = () => {
         listItem.attr('id', `${trip.id}`);
         listItem.text(`${trip.name}`);
         tripList.append(listItem);
-        // tripList.append(`<li class=list-group-item>${trip.name}</li>`);
       });
     })
     .catch((error) => {
@@ -51,37 +54,37 @@ const loadTrips = () => {
 }
 
 // load details for clicked on trip
-const loadDetails = (function(tripID) {
+const loadDetails = tripID => {
   const tripInfo = $('.trip-information');
+  const newTripID = parseInt(tripID);
   tripInfo.empty();
   console.log(tripID);
 
-  requestTrips()
+  axios.get(TRIP_URL + `${newTripID}`)
     .then((response) => {
-      // you could send this to details method so that you don't have to do 
-      // another get request...? 
-      const trips = response.data;
-      const clickedTrip = trips.find((trip) => {
-        console.log(tripID);
-        return tripID === trip['id'];
-        // return trip['name'] === tripName.replace(/amp;/, '');
-      });
-      // tripBody.empty();
-      // tripDetails.append(tripDetailsHeader);
-      // tripDetails.append(tripBody);
-      // tripBody.append(`<h2>Name: ${clickedTrip.name}</h2>`);
-      // tripBody.append(`<p>Continent: ${clickedTrip.continent}</p>`);
-      // tripBody.append(`<p>Category: ${clickedTrip.category}</p>`);
-      // tripBody.append(`<p>Weeks: ${clickedTrip.weeks}</p>`);
-      // tripBody.append(`<p>Cost: $${clickedTrip.cost.toFixed(2)}</p>`);
-      // tripBody.append(`<p>About: ${clickedTrip.about}</p>`);
+      const trip = response.data;
+      tripBody.empty();
+      tripDetails.append(tripDetailsHeader);
+      tripDetails.append(tripBody);
+      tripBody.append(`<h5>Name: ${trip.name}</h5>`);
+      tripBody.append(`<p>Continent: ${trip.continent}</p>`);
+      tripBody.append(`<p>Category: ${trip.category}</p>`);
+      tripBody.append(`<p>Weeks: ${trip.weeks}</p>`);
+      tripBody.append(`<p>Cost: $${trip.cost.toFixed(2)}</p>`);
+      tripBody.append(`<p>About: ${trip.about}</p>`);
+      tripBody.addClass('scroll');
     })
     .catch((error) => {
       console.log(error);
     });
 
   tripInfo.append(tripDetails);
-});
+};
+
+// load reservation form
+const loadReserveForm = tripID => {
+  $('.name-field').append(reserveName);
+}
 
 // doing the things!
 $(document).ready(function() {
@@ -89,8 +92,8 @@ $(document).ready(function() {
   $('#trips-btn').click(loadTrips);
 
   tripList.on('click', 'li', function(event) {
-    // loadDetails(jQuery.data( this,"id" ));
-    loadDetails(this);
+    loadDetails(this.id);
+    loadReserveForm(this.id);
 
   });
 });
