@@ -14,53 +14,42 @@ const displayTreks = (trekInfo) => {
   });
 };
 
-const loadFromAPI = (url) => {
+const displayTrek = (trekInfo) => {
+  const trekDetails = $('.trek-details');
+  trekDetails.empty();
+
+  trekDetails.append(
+    `<h2 class="details">Name: ${trekInfo.name}</h2>`,
+    `<p class="details">Continent: ${trekInfo.continent}</p>`,
+    `<p class="details">Category: ${trekInfo.category}</p>`,
+    `<p class="details">Weeks: ${trekInfo.weeks}</p>`,
+    `<p class="details">Cost: ${trekInfo.cost}</p>`);
+  $("#trip-form").append(`<h2>Register</h2>`);
+  $("#trip-form").append(
+    `<form name=${trekInfo.id}>
+      <label for='name'>Name:</label> 
+      <input type='text' id='name' name='name'>
+      <label for='email'>Email address:</label> 
+      <input type='text' id='email' name='email'>
+      <button type='submit'>Submit Registration</button>
+    </form>`
+  )
+}
+
+const loadFromAPI = (url, displayFunction) => {
   reportStatus('Calling Travel API...');
 
   axios.get(url)
     .then((response) => {
       const trekInfo = response.data;
-      displayTreks(trekInfo);
-      reportStatus(`Successfully loaded ${trekInfo.length} treks`)
+      displayFunction(trekInfo)
+      reportStatus(`Information successfully loaded!`)
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading treks: ${error.message}`);
       console.log(error);
     })
 }
-
-const loadTrekDetails = (id) => {
-  reportStatus('Loading treks...');
-
-  const trekDetails = $('.trek-details');
-  trekDetails.empty();
-
-  axios.get(TREK_API + '/' + id)
-    .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.name}`);
-      trekDetails.append(
-        `<h2 class="details">Name: ${response.data.name}</h2>`,
-        `<p class="details">Continent: ${response.data.continent}</p>`,
-        `<p class="details">Category: ${response.data.category}</p>`,
-        `<p class="details">Weeks: ${response.data.weeks}</p>`,
-        `<p class="details">Cost: ${response.data.cost}</p>`);
-      $("#trip-form").append(`<h2>Register</h2>`);
-      $("#trip-form").append(
-        `<form name=${id}>
-          <label for='name'>Name:</label> 
-          <input type='text' id='name' name='name'>
-          <label for='email'>Email address:</label> 
-          <input type='text' id='email' name='email'>
-          <button type='submit'>Submit Registration</button>
-        </form>`
-      )
-    })
-
-    .catch((error) => {
-      reportStatus(`Encountered an error while loading treks: ${error.message}`);
-      console.log(error);
-    });
-};
 
 const submitReservation = (event) => {
   event.preventDefault();
@@ -72,24 +61,22 @@ const submitReservation = (event) => {
 
     axios.post(TREK_API + `/${$(event.target).attr("name")}` + `/reservations`, reservationInfo)
     .then(() => {
-      reportStatus(`You've successfully submitted reservation for the trip!`);
+      reportStatus(`You've successfully submitted a reservation!`);
     })
     .catch((error) => {
       reportStatus(`Reservation was unsuccessful: ${error.message}`);
       console.log(error);
     });
-
 }
 
 $(document).ready( function() {
   $('#load').click( function() {
-    loadFromAPI(TREK_API);
+    loadFromAPI(TREK_API, displayTreks);
   })
 
   $('#trek-list').on('click', 'li', function() {
     const id = this.getAttribute("id")
-    alert(`Got a click on an <li> element containing ${id}!`);
-    loadTrekDetails(id);
+    loadFromAPI((TREK_API + '/' + id), displayTrek)
   })
 
   $(document).on("submit", "form", submitReservation);
