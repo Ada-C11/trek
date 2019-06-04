@@ -32,7 +32,14 @@ const loadTrips = () => {
     .then((response) => {
       const trips = response.data;
       trips.forEach((trip) => {
-        tripList.append(`<li class=list-group-item>${trip.name}</li>`);
+        const listItem = $('<li>');
+        listItem.addClass('list-group-item');
+        // jQuery.data(listItem, "id", `${trip.id}`);
+        // console.log( typeof jQuery.data( listItem, "id" ) );
+        listItem.attr('id', `${trip.id}`);
+        listItem.text(`${trip.name}`);
+        tripList.append(listItem);
+        // tripList.append(`<li class=list-group-item>${trip.name}</li>`);
       });
     })
     .catch((error) => {
@@ -44,25 +51,30 @@ const loadTrips = () => {
 }
 
 // load details for clicked on trip
-const loadDetails = (function(tripName) {
+const loadDetails = (function(tripID) {
   const tripInfo = $('.trip-information');
   tripInfo.empty();
+  console.log(tripID);
 
   requestTrips()
     .then((response) => {
+      // you could send this to details method so that you don't have to do 
+      // another get request...? 
       const trips = response.data;
       const clickedTrip = trips.find((trip) => {
-        return trip['name'] === tripName.replace(/amp;/, '');
+        console.log(tripID);
+        return tripID === trip['id'];
+        // return trip['name'] === tripName.replace(/amp;/, '');
       });
-      tripBody.empty();
-      tripDetails.append(tripDetailsHeader);
-      tripDetails.append(tripBody);
-      tripBody.append(`<h2>Name: ${clickedTrip.name}</h2>`);
-      tripBody.append(`<p>Continent: ${clickedTrip.continent}</p>`);
-      tripBody.append(`<p>Category: ${clickedTrip.category}</p>`);
-      tripBody.append(`<p>Weeks: ${clickedTrip.weeks}</p>`);
-      tripBody.append(`<p>Cost: $${clickedTrip.cost.toFixed(2)}</p>`);
-      tripBody.append(`<p>About: ${clickedTrip.about}</p>`);
+      // tripBody.empty();
+      // tripDetails.append(tripDetailsHeader);
+      // tripDetails.append(tripBody);
+      // tripBody.append(`<h2>Name: ${clickedTrip.name}</h2>`);
+      // tripBody.append(`<p>Continent: ${clickedTrip.continent}</p>`);
+      // tripBody.append(`<p>Category: ${clickedTrip.category}</p>`);
+      // tripBody.append(`<p>Weeks: ${clickedTrip.weeks}</p>`);
+      // tripBody.append(`<p>Cost: $${clickedTrip.cost.toFixed(2)}</p>`);
+      // tripBody.append(`<p>About: ${clickedTrip.about}</p>`);
     })
     .catch((error) => {
       console.log(error);
@@ -77,7 +89,8 @@ $(document).ready(function() {
   $('#trips-btn').click(loadTrips);
 
   tripList.on('click', 'li', function(event) {
-    loadDetails(this.innerHTML);
+    // loadDetails(jQuery.data( this,"id" ));
+    loadDetails(this);
 
   });
 });
