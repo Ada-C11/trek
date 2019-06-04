@@ -4,24 +4,30 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const loadTreks = () => {
-  reportStatus('Loading treks...');
+const displayTreks = (trekInfo) => {
 
   const trekList = $('#trek-list');
   trekList.empty();
 
-  axios.get(TREK_API)
+  trekInfo.forEach((trek) => {
+    trekList.append(`<li class="trek" id=${trek.id}>${trek.name}</li>`);
+  });
+};
+
+const loadFromAPI = (url) => {
+  reportStatus('Calling Travel API...');
+
+  axios.get(url)
     .then((response) => {
-      reportStatus(`Successfully loaded ${response.data.length} treks`);
-      response.data.forEach((trek) => {
-        trekList.append(`<li class="trek" id=${trek.id}>${trek.name}</li>`);
-      });
+      const trekInfo = response.data;
+      displayTreks(trekInfo);
+      reportStatus(`Successfully loaded ${trekInfo.length} treks`)
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading treks: ${error.message}`);
       console.log(error);
-    });
-};
+    })
+}
 
 const loadTrekDetails = (id) => {
   reportStatus('Loading treks...');
@@ -77,7 +83,7 @@ const submitReservation = (event) => {
 
 $(document).ready( function() {
   $('#load').click( function() {
-    loadTreks();
+    loadFromAPI(TREK_API);
   })
 
   $('#trek-list').on('click', 'li', function() {
