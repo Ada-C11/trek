@@ -63,7 +63,6 @@ const reportStatus = (message) => {
           // Shows individual trip details
           const clickedTrip = showTripDetails(trip);
           $('p:last').click(clickedTrip);
-
         });
 
       })
@@ -71,7 +70,6 @@ const reportStatus = (message) => {
         reportStatus(`Encountered an error while loading trips: ${error.message}`, 'danger');
         console.log(error);
       });
-
   };
 
   //

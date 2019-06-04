@@ -66,19 +66,19 @@ button {
   align-self: center;
 }
 
-#trip-list {
- 
+.new-reservation {
+  
 }
 
 
-
 #res-form { 
-  margin-left: 53%;
+  background-color: #02ffc7;
+  border-radius: 10px;
+  margin-left: 60%;
+  flex-direction: column;
   padding: 10px;
-  /* margin-right: 25%; */
-  /* background-color: rgba(82, 222, 184, 0.3); */
-  margin-top: 32%;
   position: fixed;
+  text-align: center;
   /* text-align: right; */
 
 }
