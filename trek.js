@@ -18,9 +18,32 @@ tripDetails.addClass('trip-details card')
 const tripBody = $('<div>');
 tripBody.addClass('card-body');
 
-const reserveName = $(`<label for="exampleInputName">Name</label>
-<input type="name" class="form-control" id="nameInput" aria-describedby="nameHelp" placeholder="Enter Name">`) 
+// const reserveForm = $('<div>');
+// reserveForm.addClass('reservation-card card');
 
+// const reserveHeader = $('<div>');
+// reserveHeader.addClass('reservation-header card-header');
+// reserveForm.append(reserveHeader);
+
+// const form = $('<form>');
+// form.addClass('reservation-form);
+
+// const formField = $('<div>');
+// formField.addClass('form-group');
+
+// const formLabel = $('<label>');
+// formLabel.attr('for', 'name');
+
+// const formInput = $('<input>');
+// formInput.addClass('type', 'name');
+// formInput.attr('class', 'form-control');
+// formInput.attr('id', 'nameInput')
+// formInput.attr('aria-describedby', 'nameHelp');
+// formInput.attr('placeholder', 'Enter Name');
+
+// const submitButton = $('<button>');
+// submitButton.addClass('btn btn-primary');
+// submitButton.attr('type', 'submit');
 
 // get request for trips
 const requestTrips = () => {
@@ -57,7 +80,7 @@ const loadTrips = () => {
 const loadDetails = tripID => {
   const tripInfo = $('.trip-information');
   const newTripID = parseInt(tripID);
-  tripInfo.empty();
+  // tripInfo.empty();
   console.log(tripID);
 
   axios.get(TRIP_URL + `${newTripID}`)
@@ -94,7 +117,11 @@ $(document).ready(function() {
   tripList.on('click', 'li', function(event) {
     loadDetails(this.id);
     loadReserveForm(this.id);
+  });
 
+  $('#pet-form').submit((event) => {
+    event.preventDefault();
+    addPet();
   });
 });
 
