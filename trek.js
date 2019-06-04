@@ -21,7 +21,7 @@ const showTrip = (trip) => {
   const target = $('#trip-details');
   target.empty();
   target.append(
-    `<li>ID: ${trip.id}</li>
+    `<li class='trip-id'>${trip.id}</li>
     <li>Name: ${trip.name}</li>
     <li>Category: ${trip.category}</li>
     <li>Continent: ${trip.continent}</li>
@@ -99,8 +99,8 @@ const reserveTrip = (event) => {
   event.preventDefault();
 
   const tripData = readFormData();
-  // console.log(tripData);
-  const id = ++++++++++++++++++++++++++++++++++++;
+  console.log(tripData);
+  const id = parseInt($(".trip-id").text());
   console.log(id);
 
   reportStatus('Sending trip data...');
