@@ -104,10 +104,35 @@ const loadDetails = tripID => {
   tripInfo.append(tripDetails);
 };
 
+const readReserveForm = () => {
+  const name = $('#reservation-form').find('input[type="name"]').val();
+  const email = $('#reservation-form').find('input[type="email"]').val();
+  console.log(name);
+  console.log(email);
+  return {
+    "name": `${name}`,
+    "email": `${email}`
+  }
+}
+
+
 // load reservation form
 const loadReserveForm = tripID => {
-  $('.name-field').append(reserveName);
+  // $('.name-field').append(reserveName);
 }
+
+// post reservation
+const addReservation = tripID => {
+  // $('.name-field').append(reserveName);
+  const reserveData = readReserveForm();
+  axios.post('https://trektravel.herokuapp.com/trips/71/reservations', reserveData)
+    .then((response) => {
+      console.log("Yippy bish!", response);
+    })
+    .catch((error) => {
+      console.log(error.message, error);
+    })
+};
 
 // doing the things!
 $(document).ready(function() {
@@ -119,9 +144,11 @@ $(document).ready(function() {
     loadReserveForm(this.id);
   });
 
-  $('#pet-form').submit((event) => {
+  $('#reservation-form').submit((event) => {
     event.preventDefault();
-    addPet();
+    readReserveForm();
+    addReservation();
+    // addReservation();
   });
 });
 
