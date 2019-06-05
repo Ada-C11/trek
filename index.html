@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Reserve your spot on a trip"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>TREK</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700|Yesteryear&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="trek.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+        <script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+        <script src="trek.js"></script>
+    </head>
+    <body>
+        <header>
+                <hgroup>
+                    <h1 id="page-title">Trek</h1>
+                    <h2>Plan your next escape.</h2>
+                </hgroup>
+                
+        </header>
+        <main>
+            <div id="status-message" class="hidden"></div>
+            <button id="main-button" class="centered">See All Trips</button>
+            <article>
+                <aside id="trips-list" class="hidden">
+                    <h2 id="trip-list-header">Available Trips</h2>
+                    <ul id="trips-list-container"></ul>
+                </aside>
+                <section id="trip-details" class="hidden"></section>
+                <section id="reserve-trip" class="hidden">
+                    <h3 id="reserve-heading"></h3>
+                    <div id="reserve-message" class="hidden"></div>
+                    <form id="reserve-form" >
+                        <div class="field">
+                            <label for="name-field">Name: </label>
+                            <input id="name-field" type="text" name="name">
+                        </div>
+                        <div class="field">
+                            <label for="email-field">Email: </label>
+                            <input id="email-field" type="text" name="email">
+                        </div>
+                        <input type="submit" value="Reserve" id="reserve-button">
+                        
+                    </form>
+                </section>
+            </article>
+        </main>
+        <footer>&copy;Shubha Rajan, Ada Developers Academy 2019 | Photo by Leah Kelley from <a href="https://www.pexels.com/photo/close-up-of-pictures-185933/">Pexels</a></footer>
+    </body>
+</html>

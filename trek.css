@@ -1,0 +1,146 @@
+body {
+    font-family:"Karla", sans-serif;
+    background-image: url('images/map-background.jpg');
+}
+
+header h1, header h2 {
+    font-family: 'Yesteryear', cursive;
+    color:darkred;
+    text-shadow: 2px 2px white;
+    display:inline-block;
+    padding: 0 1em 0 1em;
+}
+
+h1 {
+    font-size:4em;
+    border-right: 2px solid darkred;
+}
+
+h2 {
+    font-size:2em;
+}
+
+ul {
+    padding: 10px;
+    list-style-type: none;
+}
+header {
+    text-align:center;
+}
+
+
+article {
+
+    width:80%;
+    margin:3em auto;
+    display:grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 2fr 2fr;
+}
+
+main {
+    text-align:center;
+}
+
+button, input[type="submit"] {
+    background-color:darkred;
+    color:white;
+    border:white 1px solid;
+    font-size:1.2em;
+    padding:10px;
+}
+
+section, aside {
+    background-color: blanchedalmond;
+    border-radius: 20px;
+    padding:20px;
+    margin:1em;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+details {
+    text-align:justify;
+    max-height:100px;
+    overflow-y:scroll;
+    margin:1em;
+}
+
+section>h3, aside>h3{
+    color:darkred;
+    font-family: 'Yesteryear', cursive;
+    font-size:2em
+}
+
+#trips-list {
+    grid-column:1/2;
+    grid-row:1/3;
+    margin-right:3em;
+}
+
+#trips-list-container {
+    height:800px;
+    overflow-y:scroll;
+    padding:0;
+    margin:0;
+    border-top:solid 4px darkred;
+    border-bottom:solid 4px darkred;
+}
+#trip-details {
+    grid-column:2/3;
+    grid-row:1/2;
+    
+}
+
+#reserve-trip {
+    grid-column:2/3;
+    grid-row:2/3;
+}
+
+#reserve-trip input{
+    margin: 10px 5px;
+}
+
+#reserve-form .field{
+    display:block;
+}
+
+.hidden {
+    visibility:hidden;
+    display:none;
+}
+
+.centered {
+    display:block;
+    margin: 20% auto;
+    font-size:2em;
+}
+
+#trip-list-header {
+    margin: 0;
+    text-align: center;
+    color:darkred;
+    font-family: 'Yesteryear', cursive;
+    background-color:blanchedalmond;
+}
+
+
+#cost{
+    font-size:2em;
+    font-weight:bold;
+    color:darkred;
+}
+
+.selected {
+    color:white;
+    background-color:darkolivegreen;
+    padding:0.5em;
+}
+
+.error {
+    color:red;
+}
+
+.success {
+    color:green;
+}
+
