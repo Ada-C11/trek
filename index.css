@@ -1,0 +1,26 @@
+body {
+  background-color: yellow; 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 10% 45% 45%;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.header {
+  grid-row: 1;
+}
+
+.current-trips, #trip-list {
+  grid-row: 2;
+}
+
+#expand-details {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.new-trip {
+  grid-column: 2;
+  grid-row: 3;
+}

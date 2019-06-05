@@ -21,7 +21,8 @@ const showTrip = (trip) => {
   const target = $('#trip-details');
   target.empty();
   target.append(
-    `<li class='trip-id'>${trip.id}</li>
+    `<h3>Trip Details</h3>
+    <li class='trip-id'>${trip.id}</li>
     <li>Name: ${trip.name}</li>
     <li>Category: ${trip.category}</li>
     <li>Continent: ${trip.continent}</li>
@@ -107,6 +108,7 @@ const reserveTrip = (event) => {
 
   axios.post(tripsURL+`/${id}/reservations`, tripData)
     .then((response) => {
+      console.log(response)
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       clearForm();
     })
