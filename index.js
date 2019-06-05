@@ -23,15 +23,15 @@ const displayTrek = (trekInfo) => {
     `<p class="details">Continent: ${trekInfo.continent}</p>`,
     `<p class="details">Category: ${trekInfo.category}</p>`,
     `<p class="details">Weeks: ${trekInfo.weeks}</p>`,
-    `<p class="details">Cost: ${trekInfo.cost}</p>`);
-  $("#trip-form").append(`<h2>Register</h2>`);
+    `<p class="details">Cost: $${trekInfo.cost}</p>`);
+  $("#trip-form").append(`<h2>Reserve a trip!</h2>`);
   $("#trip-form").append(
     `<form name=${trekInfo.id}>
       <label for='name'>Name:</label> 
       <input type='text' id='name' name='name'>
       <label for='email'>Email address:</label> 
       <input type='text' id='email' name='email'>
-      <button type='submit'>Submit Registration</button>
+      <button type='submit'>Submit!</button>
     </form>`
   )
 }

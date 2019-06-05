@@ -1,0 +1,8 @@
+#trek-list {
+    list-style-type: none;
+}
+
+main > * {
+    display: inline-block;
+    vertical-align: top;
+}
