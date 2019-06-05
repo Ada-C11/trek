@@ -1,0 +1,66 @@
+
+
+body {
+    display: grid;
+    margin-left: 25px;
+    margin-right: 25px;    
+    grid-template: 100px fit-content(10%) 1fr 2fr / 1fr 2fr;
+}
+
+h1, h2, h3 {
+    font-family: 'Baloo Da', cursive;
+}
+
+h1 {
+    font-size: 4em;
+    color: white;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    line-height: 1.5em;
+}
+
+#logo {
+    text-align: center;
+    background-color: lightblue;
+    grid-column: span 2;
+}
+
+#load {
+    margin-bottom: 25px;
+}
+
+#trips {
+    grid-row: span 2;
+    padding-right: 25px;
+}
+
+#status-message {
+    min-height: 10px;
+    grid-column: span 2;
+}
+
+#trip-details {
+    grid-row: 3 / span 1;
+    min-height: 100px;
+    grid-column: 2;
+}
+
+#form-section {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+#submit-div {
+    padding-top: 15px;
+}
+
+.hidden {
+    display: none;
+}
