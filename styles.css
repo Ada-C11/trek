@@ -1,0 +1,68 @@
+ul li {
+  list-style-type: none;
+  padding-bottom: 10px;
+}
+
+body {
+  line-height: 2em;
+  font-family: 'Josefin sans', sans-serif;
+}
+
+h1,h2, h3 {
+  color: rgb(4, 99, 12);
+  padding: 25px 0;
+}
+
+
+#trip-list {
+  border: 2px, gray;
+}
+
+.column {
+  columns: 2
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+}
+#all-trips {
+  width: 50%;
+
+}
+
+.trip {
+  width: 50%;
+  padding: 40px;
+}
+
+#trip-list {
+  cursor: pointer;
+  text-align: center;
+}
+
+#trip-list:hover {
+  color: rgb(56, 108, 8);
+}
+
+#trip-list li:nth-child(odd){
+  background-color: rgb(155, 162, 143);
+}
+
+span {
+  color: rgb(211, 121, 11);
+}
+
+.details {
+  border-bottom: 5px rgb(56, 108, 8) dotted;
+  padding-bottom: 45px;
+}
+
+.details h1 {
+  padding-bottom: 5px;
+}
+
+#status-message {
+  color: rgb(211, 121, 11);
+}
