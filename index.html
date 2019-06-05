@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <title>Trek</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<style>
+    .flex-container {
+      display: none;
+      flex-wrap: nowrap;
+      background-color: rgb(200, 230, 199);
+    }
+    
+    .flex-container .box {
+      background-color: white;
+      width: 50%;
+      margin: 5px;
+      text-align: left;
+      line-height: 30px;
+      font-size: 15px;
+    }
+    </style>
+    </head>
+    <body>
+    <h1>Trek</h1>
+<body>
+  <div id="background">
+    <img src="https://i.ibb.co/RQjSQ7w/Screen-Shot-2019-05-31-at-1-28-37-PM.png" class="stretch" alt="" />
+</div>
+
+<div class="card">
+  <div class="btn-container">
+    <button id="load-trips">View All Trips</button>
+  </div>
+</div>
+
+<div class="flex-container">
+  <div class="box">
+      <!-- <section id="status"></section> -->
+      <section class="all-trips">
+          <div id="trip-list-container">
+            <ul id="trip-list"></ul>
+          </div>
+  </div>
+      </section>
+  <div class="box">
+      <section class="trip-details">
+          <h2>Trip Details</h2>
+          <div id="trip-info"></div>
+          <div class="box">
+          <div id="reservation-form"> 
+              <p><h2>Book this trip!</h2></p>
+              <form>
+                <label for="your-name">Your Name:</label>
+                <input type="text" id="your-name" name="your-name" required>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+                <button type="submit">Submit</button>
+              </form>
+            </div>
+          </div>
+        </section>
+  </div>
+</body>
+</html>
+
