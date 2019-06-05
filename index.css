@@ -1,0 +1,19 @@
+.card {
+    display: none;
+}
+
+header {
+    border-bottom: 2px solid black !important; 
+}
+
+.card .list-group-item:hover {
+    background-color: #CCF7ED;
+}    
+
+#about-text {
+    padding: 0 15px;
+}
+
+.card-header, header {
+    background-color: #80F1D7;
+}
