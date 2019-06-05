@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Trek</title>
+      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script type="text/javascript" src="trek.js"></script>
+      <link rel="stylesheet" type="text/css" href="trek.css">
+      <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      
+      <style>
+        @import url('https://fonts.googleapis.com/css?family=Anonymous+Pro:400,700&display=swap');
+      </style>
+   
+  </head>
+
+  <body>
+    <header>
+      <h1>Trek</h1>
+    </header>
+    <main>
+      <section id="status" class="alert"></section>
+      <button id="load-trips">Load Trips</button>
+      
+      <div class="content-wrapper">
+        <section id="trip-section">
+          <ul id="trip-list" class="list-group"></ul>
+        </section>
+        
+        <section id="trip-details">
+          <div id ="trip-details-list"></div>
+          <div id="reserve-trip">
+            <h2>Reserve My Spot!</h2>
+            <section id="reservation-status" class="alert"></section>
+            <form id="reserve-trip-form">
+              <div>
+                <input type="text" name="name" value="Your Name" />
+              </div>
+
+              <div>
+                <input type="text" name="email" value="Your Email" />
+              </div>
+
+              <button id="submitRes" name="reserve-trip" value="Reserve Trip" >Make Reservation</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+    
+  </body>
+</html>
