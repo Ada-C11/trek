@@ -1,6 +1,7 @@
 body {
     display: grid;  
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr 1fr;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 #trip-list , #load-trips {
@@ -13,6 +14,12 @@ body {
     grid-column-start: 2;
     grid-column-end: 3;
     list-style-type: none;
-
 }
 
+.btn {
+    margin: 10px;
+}
+
+#load-trips {
+    width: 12em;
+}

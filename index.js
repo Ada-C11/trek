@@ -6,11 +6,16 @@ const displayStatus = (message) => {
 
 let tripId;
 
-const handleApiError = (error) => {
-  console.log('Error:', error);
-  // TODO: politely report this error to the user
-}
-
+const reportError = (message, errors) => {
+  let content = `<p>${message}</p><ul>`;
+  for (const field in errors) {
+    for (const problem of errors[field]) {
+      content += `<li>${field}: ${problem}</li>`;
+    }
+  }
+  content += "</ul>";
+  displayStatus(content);
+};
 
 const loadTrips = () => {
   displayStatus("Loading trips...");
@@ -21,21 +26,16 @@ const loadTrips = () => {
       displayStatus(`Successfully loaded ${trips.length} trips`);
       trips.forEach((trip) => {
 
-        $('#trip-list').append(`<li><button id=${trip.id}>${trip.id}: ${trip.name}</button></li>`);
+        $('#trip-list').append(`<li><button type="button" class="btn btn-primary" id=${trip.id}>${trip.id}: ${trip.name}</button></li>`);
       });
     })
     .catch((error) => {
       displayStatus(`Encountered an error while loading tips: ${error.message}`);
-      // console.log('The error was this:', error);
     });
 }
 
 const showTripDetails = () => {
-  // console.log('Im in the request!');
-  // console.log(`the value of id currently is`);
-  // console.log(`the value of id is`, tripId())
-  axios.get(`${BASE_URL}/${tripId}`) //need to get access to trip id at this time 
-
+  axios.get(`${BASE_URL}/${tripId}`) 
     .then((response) => {
       const trip = response.data;
       displayStatus('Successfully loaded trip');
@@ -58,8 +58,9 @@ const showTripDetails = () => {
           <input type="text" name="email" />
         </div>
 
-        <input type="submit" name="submit" value="Submit" />
+        <input type="submit" name="trip-form" value="Submit Reservation" />
       </form>`)
+      $('#trip-form').submit(addReservation);
 
     })
     .catch((error) => {
@@ -76,8 +77,9 @@ const readFormData = () => {
 
   const emailFromForm = $(`#trip-form input[email="email"]`).val();
   parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
-
+  //when submitting post request, email is showing as undefined!? why?? 
   return parsedFormData;
+  
 };
 
 const clearForm = () => {
@@ -85,34 +87,29 @@ const clearForm = () => {
   $(`#trip-form input[email="email"]`).val('');
 }
 
-const createReservation = () => {
-  // console.log("reserving", trip)
-
-  // event.preventDefault();
-
+const addReservation = (event) => {
+  event.preventDefault();
   const reservationData = readFormData();
-  console.log("reservation data is", reservationData);
-  // console.log(`tripIDs`, tripId);
 
-  // displayStatus('Sending reservation data...');
+  displayStatus('Reserving trip...');
+  console.log('reservationdata is', reservationData)
 
-  axios.post(BASE_URL + '/' + tripId +'/reservations', reservationData)
+  axios.post(`${BASE_URL}/${tripId}/reservations`, reservationData)
     .then((response) => {
       console.log('posted res data', response);
-      const resId = response.data.id
-      displayStatus(`Successfully created a reservation with id of ${resId}`);
+      displayStatus(`Successfully created a reservation with ID:${response.data.id}`);
       clearForm();
     })
     .catch((error) => {
       console.log(error.response);
       if (error.response.data && error.response.data.errors) {
-        // reportError(
-        //   `Encountered an error: ${error.message}`,
-        //   error.response.data.errors
-        // );
-        console.log(error)
+      reportError(
+        `Encountered an error: ${error.message}`,
+        error.response.data.errors
+      );
+      console.log(error)
       } else {
-        displayStatus(`Encountered an error: ${error.message}`);
+      displayStatus(`Encountered an error: ${error.message}`);
       }
     });
 };
@@ -124,9 +121,5 @@ $(document).ready(() => {
   $('#trip-list').on('click', 'button', function (event) {
     tripId = event.target.id;
     showTripDetails();
-  });
-  $('#trip-form').submit((event) => {
-    event.preventDefault();
-    createReservation();
   });
 });
