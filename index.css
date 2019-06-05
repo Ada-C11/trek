@@ -1,0 +1,59 @@
+body{
+  line-height: 2em;
+}
+h1,h2 {
+  font-family: 'Times New Roman', Times, serif;
+  color: #00876E;
+  padding: 25px 0;
+}
+
+h2 {
+  
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+}
+.all-trips {
+  width: 50%;
+ 
+}
+
+.details {
+  width: 50%;
+  padding: 40px;
+}
+.details.hidden {
+  display: none;
+}
+.hidden {
+  display: none;
+}
+
+#trip-list {
+  cursor: pointer;
+  text-align: center;
+}
+
+#trip-list li:nth-child(odd){
+  background-color: #B9E8CB;
+}
+
+span{
+  font-weight: bold;
+}
+
+.trip-details {
+  border-bottom: 5px  #B9E8CB solid;
+  padding-bottom: 45px;
+}
+
+.new-reservation {
+  padding-top: 45px; 
+}
