@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Trek</title>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="title">Trek</h1>
+  </header>
+
+  <main>
+    <section id="status-message"></section>
+    <section class="Trips">
+      <div class="box card">
+        <h1>List of Trips</h1>
+        <button id="load-trips">Get Trips!</button>
+        <ul id="trip-list">
+        </ul>
+      </div>
+    </section>
+
+    <div class="right-col">
+
+      <section class="trip-details ">
+        <div class="box card">
+          <h1>Trip Details</h1>
+          <ul id="trip-info-list">
+
+          </ul>
+        </div>
+      </section>
+
+      <section class="trip-form card">
+        <h1>Reserve A Trip</h1>
+        <form id="trip-form">
+
+          <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" />
+          </div>
+
+          <div>
+            <label for="email">Email</label>
+            <input type="text" name="email" />
+          </div>
+
+
+          <input type="submit" name="reserve-trip" value="Reserve Trip" />
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>
