@@ -1,0 +1,17 @@
+#all-trips-list {
+  grid-column: 1;
+}
+
+#trip-details {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#trip-registration {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#trip-details h6 {
+  padding: 5px;
+}

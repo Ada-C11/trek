@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trek</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+  </head>
+
+  <body>
+
+   <header>
+      <h1>Trek</h1>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="column" id="status-messages">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="column">
+          <button id="see-trips">See All Trips</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <section id="all-trips-card">
+            <ul id="all-trips-list" class="list-group list-group-flush"></ul>
+          </section>
+        </div>
+
+        <div class="col">
+          <section id="trip-details-card">
+            <section class="card-body" id="trip-details">
+             
+            </section>
+          </section>
+        </div>
+
+        <div class="col">
+            <section id="trip-form-card">
+              <section class="card-body" id="trip-form">
+  
+              </section>
+            </section>
+          </div>
+      
+      </div>
+    
+    </div>
+
+   <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./index.js" async defer></script>
+  </body>
+</html>
