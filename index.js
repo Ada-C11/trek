@@ -47,7 +47,7 @@ function buildList(trips){
 }
 
 function getTrip(id){
-    urlDynamic = urlDynamic+"/"+id;
+    urlDynamic = URL_ALL_TRIPS+"/"+id;
     axios.get(urlDynamic)
     .then(function(response){
         $("#detailTrip").removeClass("invisible");
