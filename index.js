@@ -1,9 +1,12 @@
 const tripsURL = 'https://trektravel.herokuapp.com/trips';
 //
+
+$( ".new-trip" ).hide();
+
 // Status Management
 //
 const reportStatus = (message) => {
-  $('#status-message').html(message);
+  $('#status-message').html(message).fadeOut(5000);;
 };
 
 const reportError = (message, errors) => {
@@ -21,14 +24,17 @@ const showTrip = (trip) => {
   const target = $('#trip-details');
   target.empty();
   target.append(
-    `<h3>Trip Details</h3>
+    `<h4>Trip Details</h4>
     <li class='trip-id'>${trip.id}</li>
     <li>Name: ${trip.name}</li>
     <li>Category: ${trip.category}</li>
     <li>Continent: ${trip.continent}</li>
-    <li>Cost: ${trip.cost}</li>
+    <li>Cost: $${trip.cost}</li>
     <li>Duration in weeks: ${trip.weeks}</li>`
   )
+
+  const showReservation = $('.new-trip');
+  showReservation.css("visibility", "visible");
 }
 
 const callTrip = (id) => {
@@ -47,7 +53,7 @@ const callTrip = (id) => {
   return loadTrip;
 };
 
-//
+
 const loadTrips = () => {
   const target = $(`#trip-list`);
   target.empty();
@@ -108,6 +114,7 @@ const reserveTrip = (event) => {
 
   axios.post(tripsURL+`/${id}/reservations`, tripData)
     .then((response) => {
+      $('#confirmation').append(`<p>You have successfully reserved a trip. A confirmation email was sent to ${response.data.email}.</p>`)
       console.log(response)
       reportStatus(`Successfully added a trip with ID ${response.data.id}!`);
       clearForm();
