@@ -1,0 +1,21 @@
+main {
+    display: grid;
+    grid-template: 1fr 1fr 1fr 1fr/ 1fr 1fr;
+    justify-content: center;
+    align-items: center; 
+   
+}
+.current-trips {
+    grid-row: span 2;
+    
+}
+ul {
+    list-style: none;
+}
+#trip-details {
+    grid-column: span 1;
+
+}
+reserve-trip {
+    grid-column: span 1;
+}
