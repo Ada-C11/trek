@@ -4,8 +4,6 @@ const displayStatus = (message) => {
   $('#status').html(message);
 }
 
-
-
 const reportError = (message, errors) => {
   let content = `<p>${message}</p><ul>`;
   for (const field in errors) {
@@ -62,8 +60,6 @@ const buildSubmitHandler = (tripId) => {
           displayStatus(`Encountered an error: ${error.message}`);
         }
       });
-
-
   }
   return handleSubmit;
 }
@@ -111,9 +107,8 @@ const readFormData = () => {
 
   const emailFromForm = $(`#trip-form input[name="email"]`).val();
   parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
-  //when submitting post request, email is showing as undefined!? why?? 
-  return parsedFormData;
 
+  return parsedFormData;
 };
 
 const clearForm = () => {
@@ -121,36 +116,7 @@ const clearForm = () => {
   $(`#trip-form input[name="email"]`).val('');
 }
 
-// const addReservation = (event) => {
-//   event.preventDefault();
-//   const reservationData = readFormData();
-
-//   displayStatus('Reserving trip...');
-//   console.log('reservationdata is', reservationData)
-
-//   axios.post(`${BASE_URL}/${tripId}/reservations`, reservationData)
-//     .then((response) => {
-//       console.log('posted res data', response);
-//       displayStatus(`Successfully created a reservation with ID:${response.data.id}`);
-//       clearForm();
-//     })
-//     .catch((error) => {
-//       console.log(error.response);
-//       if (error.response.data && error.response.data.errors) {
-//       reportError(
-//         `Encountered an error: ${error.message}`,
-//         error.response.data.errors
-//       );
-//       console.log(error)
-//       } else {
-//       displayStatus(`Encountered an error: ${error.message}`);
-//       }
-//     });
-// };
-
-
 $(document).ready(() => {
-
   $('#load-trips').click(loadTrips);
   $('#trip-list').on('click', 'button', function (event) {
     const tripId = event.target.id;
