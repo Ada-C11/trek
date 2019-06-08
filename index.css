@@ -1,25 +1,61 @@
 body {
     display: grid;  
     grid-template-columns: 1fr 1fr;
-    font-family: 'Courier New', Courier, monospace;
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family: 'Varela', sans-serif;
 }
 
-#trip-list , #load-trips {
+header {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    font-family: 'Permanent Marker', cursive;
+    padding: 15px;
+}
+
+header h1 {
+    font-size: 4em;
+}
+
+header h2 {
+    font-style: italic;
+    font-size: 3em;
+}
+
+footer {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding-top: 10px;
+}
+#trip-list, #load-trips {
     grid-column-start: 1;
     grid-column-end: 2;
     list-style-type: none;
 }
-    
+
+#trip-list {
+    min-height: 500px;
+}
+
 #trip-details {
     grid-column-start: 2;
     grid-column-end: 3;
     list-style-type: none;
 }
 
-.btn {
+#trip-details li{
+    padding: 5px;
+}
+
+#load-trips, #trip-list .btn {
     margin: 10px;
+}
+
+#trip-list .btn {
+    text-align: left;
 }
 
 #load-trips {
     width: 12em;
 }
+
