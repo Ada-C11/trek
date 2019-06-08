@@ -107,11 +107,9 @@ const readFormData = () => {
     return formData;
 };
 
-// **** THIS ISN'T WORKING, NEED TO FIX!! ****
+
 const clearForm = () => {
-    $(`#reservation-form input [name="guestname"]`).val('');
-    $(`#reservation-form input [email="email"]`).val('');
-    $(`#reservation-form input [age="age"]`).val('');
+    $(`#reservation-form input`).not('.btn').val('');
 };
 
 const reserveTrip = (event) => {
@@ -129,9 +127,10 @@ const reserveTrip = (event) => {
 
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
-            const tripName = $('.selected').attr('name'); //shows as undefined
-            reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age}`);
+            const tripName = $('.selected').attr('name'); 
+            reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age}`); //shows name and age as undefined
             clearForm();
+            console.log("after clear form");
         })
         .catch((error) => {
             handleApiError(error, "We encountered a problem submitting a reservation.");
