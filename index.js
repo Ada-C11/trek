@@ -69,7 +69,6 @@ const showTripDetails = (tripId) => {
     .then((response) => {
       const trip = response.data;
       displayStatus('Successfully loaded trip');
-      console.log(response.data);
       $('#trip-details').empty();
       $('#trip-details').append('<h2><strong> Trip Details </strong></h2>');
       $('#trip-details').append(`<li><strong> Name: </strong> ${trip.name}</li>`);
@@ -88,7 +87,7 @@ const showTripDetails = (tripId) => {
           <input type="text" name="email" />
         </div>
 
-        <input type="button" class="btn btn-primary" type="submit" name="trip-form" value="Submit Reservation" />
+        <input type="submit" name="trip-form" value="Submit Reservation" />
       </form>`)
       $('#trip-form').submit(buildSubmitHandler(trip.id));
 
