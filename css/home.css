@@ -5,7 +5,12 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0px;
+    margin: 3rem;
+    border: 1px solid black;
+}
+
+h1 {
+    margin-left: 10px;
 }
 
 section.title {
@@ -17,11 +22,13 @@ section.title {
 
 button#load-trips {
     margin-top: 10px;
+    margin-left: 10px;
 }
 
 #trip-list {
     width: 450px;
     padding-top: 10px;
+    margin-left: 10px;
 }
 
 #trip-details {
@@ -85,6 +92,7 @@ label {
     width: 650px;
     padding-top: 10px;
     margin-left: 10px;
+    margin-bottom: 20px;
 }
 
 div.display-flex > div:first-child {
