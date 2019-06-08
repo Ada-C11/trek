@@ -22,6 +22,8 @@ const showTripDetails = (event, tripId) => {
 
     event.preventDefault();
 
+    $('#trip-section').removeClass().addClass('show-reservation');
+
     // trip details
     axios.get(`${URL}/${tripId}`)
         .then((response) => {
@@ -94,6 +96,8 @@ const listTrips = () => {
     const tripList = $('#trip-list');
     tripList.empty();
 
+    $('#load').removeClass().addClass('hide-reservation');
+
     // list all trips
     axios.get(URL)
         .then((response) => {
@@ -103,7 +107,7 @@ const listTrips = () => {
             });
         })
         .catch((error) => {
-            reportStatus(`Encountered an error while loading pets: ${error.message}`);
+            reportStatus(`Encountered an error while loading trips: ${error.message}`);
             console.log(error);
         });
 };
