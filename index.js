@@ -23,13 +23,8 @@ const handleApiError = (error, customMessage) => {
 let allTrips; // not sure this is needed
 
 const getTripDetails = (tripID) => {
-    console.log('****** tripID in getTripDetails: ')
-    console.log(tripID);
-
     axios.get(`${BASEURL}/${tripID}`)
     .then((response) => {
-        // **** consider building the form once ****
-        // **** hide on page load and unhide when a trip is clicked ****
         const trip = response.data;
         $("#trip-details").empty();
         
@@ -42,12 +37,6 @@ const getTripDetails = (tripID) => {
         $("#trip-details").append(`<p><span class="bold">Price:</span> $${trip.cost.toFixed(2)}</p>`);
 
         $('#reservation-form').unbind('submit');
-
-        // $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
-        // $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
-        // $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
-        // $('#reservation-form').append('<div> <label for="age">Age</label> <input type="number" name="age"/> </div>');
-        // $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
         $('#reservation-form').submit(reserveTrip);
     })
 }
@@ -73,28 +62,24 @@ const loadTrips = () => {
             listOfTrips.append(`<tr id=${trip.id}><td>${trip.name}</td></tr>`);
             $(`#${trip.id}`).unbind()
             $(`#${trip.id}`).bind('click', {thisTrip:trip}, function(event){
-                // {thisTrip:trip} becomes available as event.data
-                // console.log(event);
-                // tripData = JSON.stringify(event.data)
+                // Chris: I realized when I was just about done with this project that .bind() is deprecated. D: This should be changed to a .on() method instead. I will refactor if I get some more time, or perhaps we could talk through it.
+
+                // {thisTrip:trip} --> thisTrip variable stores the current trip object, whose details/object/payload/hash becomes available through event.data
                 // console.log("******* trip is: ********");
-                // console.log(tripData);
+                // console.log(JSON.stringify(event.data));
                 // {"thisTrip":{"id":74,"name":"Best of New Zealand","continent":"Australasia","category":"everything","weeks":3,"cost":1952.77}}
 
+                const tripID = event.data.thisTrip.id;
 
-                const trip = event.data.thisTrip;
                 //remove class='selected' from any other table row
                 $(".selected").removeClass('selected');
 
                 //set class='selected' on this table row
-                $(`#${trip.id}`).addClass('selected');
+                $(`#${tripID}`).addClass('selected');
                 $('#status-message').empty();
 
-                const testTrip = (`${trip.id}`);
-                console.log('****** thisTripID in loadTrips: ');
-                console.log(testTrip);
-                getTripDetails(testTrip);
+                getTripDetails(`${tripID}`);
 
-             
                 $("#sign-up-form").removeAttr('hidden');
                 $("#sign-up-form").show();
             });
@@ -111,6 +96,8 @@ const loadTrips = () => {
 
 const readFormData = () => {
     const formData = {};
+
+    // Validations are being done in the HTML. Left these here just in case.
 
     const nameFromForm = $(`#reservation-form input[name="guestname"]`).val();
     formData['name'] = nameFromForm ? nameFromForm : undefined;
@@ -136,7 +123,6 @@ const reserveTrip = (event) => {
     const tripID = $(`.selected`).attr('id');
 
     let reservationData = readFormData();
-    // reservation = JSON.stringify(reservationData);
 
     console.log(reservationData);
 
