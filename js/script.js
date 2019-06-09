@@ -1,4 +1,3 @@
-let tripData = {};
 let selectedTrip = null;
 
 const displayStatus = (message) => {
@@ -15,27 +14,28 @@ displayStatus("loading trips...");
     const response = await axios.get('https://trektravel.herokuapp.com/trips');
     $("#trip-list")[0].innerHTML = getAlltrips(response.data);
     displayStatus("");
-    $('#trip-list div').bind("click", showTripDetails);
-    })().catch(function(error) {
-        handleApiError("There is an issue while pulling the trip information");
-    });
-}
 
-const showTripDetails = (trip) => {
-const tripName = trip.currentTarget.textContent;
-selectedTrip = tripData.filter(o => o.name === tripName);
-    if (selectedTrip && selectedTrip.length > 0) {
+    // using closure here
+    const showTripDetails = (trip) => {
+        const tripName = trip.currentTarget.textContent;
+        let selectedTrip = response.data.filter(o => o.name === tripName);
         const tripId = selectedTrip[0].id;
-        displayStatus("loading trips...");
-        (async () => {
-            const response = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
-            $("#trip-details")[0].innerHTML = getTripDetails(response.data);
-            displayStatus("");
-            $('#reserve-trip').show();
-            })().catch(function(error) {
-                handleApiError("There is an issue while pulling the trip's details");
+            (async () => {
+                const tripResponse = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
+                $("#trip-details")[0].innerHTML = getTripDetails(tripResponse.data);
+                displayStatus("");
+                $("#reserve-trip").show();
+            })()
+            .catch(function(error) {
+                handleApiError("There is an issue while pulling the trips' information");
             });
     }
+    $('#trip-list div').bind("click", showTripDetails);
+    })()
+    
+    .catch(function(error) {
+        handleApiError("There is an issue while pulling the trips' information");
+    });
 }
 
 const reserveTrip = () => {
@@ -76,10 +76,9 @@ $(document).ready(() => {
 });
 
 const getAlltrips = (data) => {
-    tripData = data;
     let output = '<h4>All Trips</h4>';
-    data.forEach(function(trip){
-        output += '<div>' + trip.name + '</div>';
+    data.forEach((trip)=> {
+        output += '<div id="trip-name">' + trip.name + '</div>';
     });
     return output;
 }
