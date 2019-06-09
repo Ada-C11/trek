@@ -17,7 +17,7 @@ const handleApiError = (error, customMessage) => {
 };
 
 // send GET request
-// data comes back, store in an object
+// data comes back, store response object in a variable
 // loop through the object and display each item on the page
 
 let allTrips; // not sure this is needed
@@ -81,10 +81,6 @@ const loadTrips = () => {
                 // console.log(tripData);
                 // {"thisTrip":{"id":74,"name":"Best of New Zealand","continent":"Australasia","category":"everything","weeks":3,"cost":1952.77}}
 
-                tripID = JSON.stringify(event.data)
-                console.log("******* trip is: ********");
-                console.log(tripID);
-                // {"thisTrip":"id":74}
 
                 const trip = event.data.thisTrip;
                 //remove class='selected' from any other table row
@@ -98,10 +94,6 @@ const loadTrips = () => {
                 console.log('****** thisTripID in loadTrips: ');
                 console.log(testTrip);
                 getTripDetails(testTrip);
-
-                
-
-                // return trip // need this?????
             });
 
 
