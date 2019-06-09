@@ -41,7 +41,6 @@ const getTripDetails = (tripID) => {
         $("#trip-details").append(`<p><span class="bold">Summary:</span><br> ${trip.about}</p>`);
         $("#trip-details").append(`<p><span class="bold">Price:</span> $${trip.cost.toFixed(2)}</p>`);
 
-        // $('#reservation-form').empty();
         $('#reservation-form').unbind('submit');
 
         // $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
@@ -59,13 +58,9 @@ const loadTrips = () => {
     // listOfTrips.empty; // this does not work, must use below syntax
     $("#list-of-trips").empty();
     
-    
     // clear details and form sections upon clicking Show Trips button
-    
-    // $('#reservation-form').empty();
-    $("sign-up-form").empty();
-    
-    // not working, creating double calls and after X clicks, not clearing the area
+    $('#trip-details').empty();
+    $("#sign-up-form").hide();
 
     axios.get(BASEURL)
     .then((response) => {
@@ -99,13 +94,10 @@ const loadTrips = () => {
                 console.log(testTrip);
                 getTripDetails(testTrip);
 
-                $('#trip-details').removeAttr('hidden');
-                $('#sign-up-form').removeAttr('hidden');
-                
-                $('#reservation-form').show();
+             
+                $("#sign-up-form").removeAttr('hidden');
+                $("#sign-up-form").show();
             });
-
-
 
         });//END Each loop
 
@@ -114,10 +106,7 @@ const loadTrips = () => {
         // reportStatus(`Error loading trips: ${error.message}`);
         // console.log(error);
         handleApiError(error, "We encountered a problem loading the list of available trips.");
-
-        
     });
-
 };
 
 const readFormData = () => {
@@ -156,7 +145,7 @@ const reserveTrip = (event) => {
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
             const tripIdNum = $('.selected').attr('id'); 
-            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`); //shows age as undefined when using response.data.age; why????
+            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`);
             clearForm();
         })
         .catch((error) => {
