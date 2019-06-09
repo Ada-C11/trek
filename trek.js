@@ -108,12 +108,12 @@ const loadDetails = tripID => {
       tripBody.empty();
       tripDetails.append(tripDetailsHeader);
       tripDetails.append(tripBody);
-      tripBody.append(`<h5>Name: ${trip.name}</h5>`);
-      tripBody.append(`<p>Continent: ${trip.continent}</p>`);
-      tripBody.append(`<p>Category: ${trip.category}</p>`);
-      tripBody.append(`<p>Weeks: ${trip.weeks}</p>`);
-      tripBody.append(`<p>Cost: $${trip.cost.toFixed(2)}</p>`);
-      tripBody.append(`<p>About: ${trip.about}</p>`);
+      tripBody.append(`<p><span>Name</span>: ${trip.name}</p>`);
+      tripBody.append(`<p><span>Continent</span>: ${trip.continent}</p>`);
+      tripBody.append(`<p><span>Category</span>: ${trip.category}</p>`);
+      tripBody.append(`<p><span>Weeks</span>: ${trip.weeks}</p>`);
+      tripBody.append(`<p><span>Cost</span>: $${trip.cost.toFixed(2)}</p>`);
+      tripBody.append(`<p><span>About</span>: ${trip.about}</p>`);
       tripBody.addClass('scroll');
     })
     .catch((error) => {
@@ -140,7 +140,7 @@ let selectedTripID
 const loadReserveForm = tripID => {
   selectedTripID = tripID;
   $('.trip-information').append(reserveForm);
-  reserveHeader.html('Reserve a Spot!')
+  reserveHeader.html('Reserve a Spot')
 }
 
 // post reservation

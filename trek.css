@@ -2,6 +2,7 @@ body {
   height: 100%;
   display: grid;
   grid-template: 1fr 1fr auto / 50% 50%;
+  background-image: url("https://images.pexels.com/photos/60217/pexels-photo-60217.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=2&h=750&w=1260");
 }
 
 .navbar {
@@ -22,7 +23,6 @@ body {
 }
 
 form {
-  /* margin: 20px; */
   text-align: right;
   white-space: nowrap;
   padding: 10px;
@@ -85,7 +85,10 @@ https://stackoverflow.com/questions/49818715/scrollable-card-bootstrap */
   overflow-y: auto;
 }
 
-/* will need to change most likely after reservation is added */
-.card-body {
-  max-height: 350px;
+span {
+  font-weight: bold;
+}
+
+p:first-child {
+  font-size: 1.4rem;
 }
