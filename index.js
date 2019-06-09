@@ -6,7 +6,6 @@ const reportStatus = (message) => {
 
 const handleApiError = (error, customMessage) => {
     // console.log(error);
-    // TODO: politely report this error to the user
 
     console.log(error.response);
     if (error.response.data && error.response.data.errors) {
@@ -71,7 +70,6 @@ const loadTrips = () => {
                 $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
                 $('#reservation-form').append('<div> <label for="age">Age</label> <input type="text" name="age"/> </div>');
                 $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
-                // $('submit-btn').click(makeReservation);
                 $('#reservation-form').submit(reserveTrip);
 
                 // return trip // need this?????
@@ -130,7 +128,6 @@ const reserveTrip = (event) => {
             const tripName = $('.selected').attr('name'); 
             reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age}`); //shows name and age as undefined
             clearForm();
-            console.log("after clear form");
         })
         .catch((error) => {
             handleApiError(error, "We encountered a problem submitting a reservation.");
