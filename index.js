@@ -56,12 +56,12 @@ const loadTrips = () => {
     reportStatus('Loading trips ...');
     const listOfTrips = $('#list-of-trips');
     listOfTrips.empty;
-
+    
+    // clear details and form sections upon clicking Show Trips button
+    $("#trip-details").empty();
+    $('#reservation-form').empty();
+    
     // not working, creating double calls and after X clicks, not clearing the area
-    // want to clear details and form sections upon clicking Show Trips button
-    // $("#trip-details").empty();
-    // $('#reservation-form').empty();
-
 
     axios.get(BASEURL)
     .then((response) => {
@@ -72,7 +72,7 @@ const loadTrips = () => {
 
         response.data.forEach((trip) => {
             listOfTrips.append(`<tr id=${trip.id}><td>${trip.name}</td></tr>`);
-
+            $(`#${trip.id}`).unbind()
             $(`#${trip.id}`).bind('click', {thisTrip:trip}, function(event){
                 // {thisTrip:trip} becomes available as event.data
                 // console.log(event);
