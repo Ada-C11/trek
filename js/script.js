@@ -18,7 +18,7 @@ displayStatus("loading trips...");
     // using closure here
     const showTripDetails = (trip) => {
         const tripName = trip.currentTarget.textContent;
-        let selectedTrip = response.data.filter(o => o.name === tripName);
+        selectedTrip = response.data.filter(o => o.name === tripName);
         const tripId = selectedTrip[0].id;
             (async () => {
                 const tripResponse = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
@@ -54,7 +54,9 @@ const reserveTrip = () => {
                 displayStatus("The trip is reserved");
                 name.val('');
                 email.val('');
-                })().catch(function (error) {
+                })()
+                
+                .catch(function (error) {
                     handleApiError('There is an issue while creating a new reservation');
                 });
         }
