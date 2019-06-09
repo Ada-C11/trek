@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"></html>
+<html>
+  <head>
+      <title>Trek</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link href="index.css" media="screen" rel="stylesheet" type="text/css"/>
+
+  </head>
+
+  <body id='body'>
+
+        <section id="status-message"></section>
+        <h1>Trek</h1>
+        <button id="btn-show-trips"class="btn btn-outline-info">Show All Trips</button>
+
+        <main>
+            <section id='trips-list-area'>
+                <table class='table table-striped table-hover '>
+                    <thead></thead>
+                    <tbody id='list-of-trips'></tbody>
+                </table>
+            </section>
+
+            <section id='details-and-form' >
+                <section id="trip-details" ></section>
+                
+                <section id="sign-up-form" hidden>
+                    <hr>
+                    <h2>Reserve your spot!</h2>
+                    <form id='reservation-form' >
+
+                       <div><label for="guestname">Name</label> <input type="text" name="guestname" required/></div>
+                       <div><label for="email">Email Address</label> <input type="text" name="email" required/></div>
+                       <div><label for="age">Age</label> <input type="number" min="0" name="age"/></div>
+                        <input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>
+
+                    </form>
+                </section>
+            </section>
+        </main>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+      crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+
+
+  </body>
+</html>

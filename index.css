@@ -1,0 +1,37 @@
+body {
+    background-color: #f0f0f0;
+    color: rgb(34, 34, 34);
+    margin: 30px 50px;
+    padding: 10px 10px;
+}
+
+h2 {
+ font-size: 1.5rem;   
+}
+
+main {
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    margin-top: 1.5em;
+    grid-column-gap: 1.5em;
+  }
+  #status-message {
+      margin-bottom: 2em;
+  }
+
+  #trips-list-area {
+    grid-area: 1 / 1 / span 1 / span 1;
+  }
+
+  #trip-details-area {
+    grid-area: 1 / 2 / span 1 / span 1; 
+    display: flex; 
+  }
+
+  #sign-up-form {
+    margin-top: 3rem;
+  }
+
+  .bold {
+      font-weight: bold;
+  }
