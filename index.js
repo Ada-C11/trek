@@ -22,6 +22,36 @@ const handleApiError = (error, customMessage) => {
 
 let allTrips; // not sure this is needed
 
+const getTripDetails = (tripID) => {
+    console.log('****** tripID in getTripDetails: ')
+    console.log(JSON.stringify(tripID));
+
+    axios.get(`${BASEURL}/${tripID}`)
+    .then((response) => {
+        // **** consider building the form once ****
+        // **** hide on page load and unhide when a trip is clicked ****
+        const trip = response.data;
+        $("#trip-details").empty();
+        $("#trip-details").append(`<h2>${trip.name}</h2>`);
+        $("#trip-details").append(`<p>ID: ${trip.id}</p>`);
+        $("#trip-details").append(`<p>Continent: ${trip.continent}</p>`);
+        $("#trip-details").append(`<p>Category: ${trip.category}</p>`);
+        $("#trip-details").append(`<p>${trip.weeks} weeks</p>`);
+        $("#trip-details").append(`<p>Summary: ${trip.about} </p>`);
+        $("#trip-details").append(`<p>Price: $${trip.cost} </p>`);
+
+        $('#reservation-form').empty();
+        $('#reservation-form').unbind('submit');
+
+        $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
+        $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
+        $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
+        $('#reservation-form').append('<div> <label for="age">Age</label> <input type="text" name="age"/> </div>');
+        $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
+        $('#reservation-form').submit(reserveTrip);
+    })
+}
+
 const loadTrips = () => {
     reportStatus('Loading trips ...');
     const listOfTrips = $('#list-of-trips');
@@ -46,10 +76,15 @@ const loadTrips = () => {
             $(`#${trip.id}`).bind('click', {thisTrip:trip}, function(event){
                 // {thisTrip:trip} becomes available as event.data
                 // console.log(event);
-                tripData = JSON.stringify(event.data)
-                console.log("******* trip is: ********");
-                console.log(tripData);
+                // tripData = JSON.stringify(event.data)
+                // console.log("******* trip is: ********");
+                // console.log(tripData);
                 // {"thisTrip":{"id":74,"name":"Best of New Zealand","continent":"Australasia","category":"everything","weeks":3,"cost":1952.77}}
+
+                tripID = JSON.stringify(event.data)
+                console.log("******* trip is: ********");
+                console.log(tripID);
+                // {"thisTrip":"id":74}
 
                 const trip = event.data.thisTrip;
                 //remove class='selected' from any other table row
@@ -59,27 +94,12 @@ const loadTrips = () => {
                 $(`#${trip.id}`).addClass('selected');
                 $('#status-message').empty();
 
-                // **** consider building the form once ****
-                // **** hide on page load and unhide when a trip is clicked ****
+                const testTrip = (`${trip.id}`);
+                console.log('****** thisTripID in loadTrips: ');
+                console.log(testTrip);
+                getTripDetails(testTrip);
 
-                $("#trip-details").empty();
-                $("#trip-details").append(`<h2>${trip.name}</h2>`);
-                $("#trip-details").append(`<p>ID: ${trip.id}</p>`);
-                $("#trip-details").append(`<p>Continent: ${trip.continent}</p>`);
-                $("#trip-details").append(`<p>Category: ${trip.category}</p>`);
-                $("#trip-details").append(`<p>${trip.weeks} weeks</p>`);
-                $("#trip-details").append(`<p>Summary: ${trip.about} </p>`);
-                $("#trip-details").append(`<p>Price: $${trip.cost.toFixed(2)} </p>`);
-
-                $('#reservation-form').empty();
-                $('#reservation-form').unbind('submit');
-
-                $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
-                $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
-                $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
-                $('#reservation-form').append('<div> <label for="age">Age</label> <input type="text" name="age"/> </div>');
-                $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
-                $('#reservation-form').submit(reserveTrip);
+                
 
                 // return trip // need this?????
             });
