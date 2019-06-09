@@ -32,6 +32,7 @@ const getTripDetails = (tripID) => {
         // **** hide on page load and unhide when a trip is clicked ****
         const trip = response.data;
         $("#trip-details").empty();
+        
         $("#trip-details").append(`<h2>${trip.name}</h2>`);
         $("#trip-details").append(`<p><span class="bold">ID:</span> ${trip.id}</p>`);
         $("#trip-details").append(`<p><span class="bold">Continent:</span> ${trip.continent}</p>`);
@@ -40,14 +41,13 @@ const getTripDetails = (tripID) => {
         $("#trip-details").append(`<p><span class="bold">Summary:</span><br> ${trip.about}</p>`);
         $("#trip-details").append(`<p><span class="bold">Price:</span> $${trip.cost.toFixed(2)}</p>`);
 
-        $('#reservation-form').empty();
         $('#reservation-form').unbind('submit');
 
-        $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
-        $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
-        $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
-        $('#reservation-form').append('<div> <label for="age">Age</label> <input type="number" name="age"/> </div>');
-        $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
+        // $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
+        // $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
+        // $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
+        // $('#reservation-form').append('<div> <label for="age">Age</label> <input type="number" name="age"/> </div>');
+        // $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
         $('#reservation-form').submit(reserveTrip);
     })
 }
@@ -59,10 +59,8 @@ const loadTrips = () => {
     $("#list-of-trips").empty();
     
     // clear details and form sections upon clicking Show Trips button
-    $("#trip-details").empty();
-    $('#reservation-form').empty();
-    
-    // not working, creating double calls and after X clicks, not clearing the area
+    $('#trip-details').empty();
+    $("#sign-up-form").hide();
 
     axios.get(BASEURL)
     .then((response) => {
@@ -95,9 +93,11 @@ const loadTrips = () => {
                 console.log('****** thisTripID in loadTrips: ');
                 console.log(testTrip);
                 getTripDetails(testTrip);
+
+             
+                $("#sign-up-form").removeAttr('hidden');
+                $("#sign-up-form").show();
             });
-
-
 
         });//END Each loop
 
@@ -106,10 +106,7 @@ const loadTrips = () => {
         // reportStatus(`Error loading trips: ${error.message}`);
         // console.log(error);
         handleApiError(error, "We encountered a problem loading the list of available trips.");
-
-        
     });
-
 };
 
 const readFormData = () => {
@@ -148,7 +145,7 @@ const reserveTrip = (event) => {
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
             const tripIdNum = $('.selected').attr('id'); 
-            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`); //shows age as undefined when using response.data.age; why????
+            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`);
             clearForm();
         })
         .catch((error) => {
