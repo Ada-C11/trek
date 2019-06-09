@@ -6,6 +6,7 @@ const reportStatus = (message) => {
 
 const handleApiError = (error, customMessage) => {
     // console.log(error);
+    // *** need help with figuring out how to test this is working ***
 
     console.log(error.response);
     if (error.response.data && error.response.data.errors) {
@@ -37,11 +38,12 @@ const loadTrips = () => {
             listOfTrips.append(`<tr id=${trip.id}><td>${trip.name}</td></tr>`);
 
             $(`#${trip.id}`).bind('click', {thisTrip:trip}, function(event){
-                // {trip:trip} becomes available as event.data
+                // {thisTrip:trip} becomes available as event.data
                 // console.log(event);
-                // console.log("******* trip is: ********");
-                // console.log(event.data.trip);
-                // console.log('***********trip***********');
+                tripData = JSON.stringify(event.data)
+                console.log("******* trip is: ********");
+                console.log(tripData);
+                // {"thisTrip":{"id":74,"name":"Best of New Zealand","continent":"Australasia","category":"everything","weeks":3,"cost":1952.77}}
 
                 const trip = event.data.thisTrip;
                 //remove class='selected' from any other table row
@@ -49,6 +51,7 @@ const loadTrips = () => {
 
                 //set class='selected' on this table row
                 $(`#${trip.id}`).addClass('selected');
+                $('#status-message').empty();
 
                 // **** consider building the form once ****
                 // **** hide on page load and unhide when a trip is clicked ****
@@ -126,7 +129,7 @@ const reserveTrip = (event) => {
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
             const tripName = $('.selected').attr('name'); 
-            reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age}`); //shows name and age as undefined
+            reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age})`); //shows name and age as undefined
             clearForm();
         })
         .catch((error) => {
