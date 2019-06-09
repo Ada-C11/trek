@@ -18,32 +18,54 @@ tripDetails.addClass('trip-details card')
 const tripBody = $('<div>');
 tripBody.addClass('card-body');
 
-// const reserveForm = $('<div>');
-// reserveForm.addClass('reservation-card card');
 
-// const reserveHeader = $('<div>');
-// reserveHeader.addClass('reservation-header card-header');
-// reserveForm.append(reserveHeader);
+const reserveForm = $('<div>');
+reserveForm.addClass('reservation-card card');
 
-// const form = $('<form>');
-// form.addClass('reservation-form);
+const reserveHeader = $('<div>');
+reserveHeader.addClass('reservation-header card-header');
+reserveForm.append(reserveHeader);
 
-// const formField = $('<div>');
-// formField.addClass('form-group');
+const form = $('<form>');
+form.attr('id', 'reservation-form');
+reserveForm.append(form);
 
-// const formLabel = $('<label>');
-// formLabel.attr('for', 'name');
+const nameField = $('<div>');
+nameField.addClass('name-field form-group');
+form.append(nameField);
 
-// const formInput = $('<input>');
-// formInput.addClass('type', 'name');
-// formInput.attr('class', 'form-control');
-// formInput.attr('id', 'nameInput')
-// formInput.attr('aria-describedby', 'nameHelp');
-// formInput.attr('placeholder', 'Enter Name');
 
-// const submitButton = $('<button>');
-// submitButton.addClass('btn btn-primary');
-// submitButton.attr('type', 'submit');
+const nameLabel = $('<label>Name</label>');
+nameLabel.attr('for', 'exampleInputName');
+nameField.append(nameLabel);
+
+const nameInput = $('<input>');
+nameInput.attr('type', 'name');
+nameInput.attr('class', 'form-control');
+nameInput.attr('id', 'nameInput')
+nameInput.attr('placeholder', 'Enter Name');
+nameField.append(nameInput);
+
+const emailField = $('<div>');
+emailField.addClass('email-field form-group');
+form.append(emailField);
+
+const emailLabel = $('<label>Email</label>');
+emailLabel.attr('for', 'exampleInputEmail');
+emailField.append(emailLabel);
+
+const emailInput = $('<input>');
+emailInput.attr('type', 'email');
+emailInput.attr('class', 'form-control');
+emailInput.attr('id', 'emailInput')
+emailInput.attr('placeholder', 'Enter Email');
+emailField.append(emailInput);
+
+const submitButton = $('<button>Submit</button>');
+submitButton.attr('type', 'submit');
+submitButton.addClass('btn btn-primary reserve');
+form.append(submitButton);
+
 
 // get request for trips
 const requestTrips = () => {
@@ -61,8 +83,6 @@ const loadTrips = () => {
       trips.forEach((trip) => {
         const listItem = $('<li>');
         listItem.addClass('list-group-item');
-        // jQuery.data(listItem, "id", `${trip.id}`);
-        // console.log( typeof jQuery.data( listItem, "id" ) );
         listItem.attr('id', `${trip.id}`);
         listItem.text(`${trip.name}`);
         tripList.append(listItem);
@@ -80,7 +100,6 @@ const loadTrips = () => {
 const loadDetails = tripID => {
   const tripInfo = $('.trip-information');
   const newTripID = parseInt(tripID);
-  // tripInfo.empty();
   console.log(tripID);
 
   axios.get(TRIP_URL + `${newTripID}`)
@@ -115,17 +134,19 @@ const readReserveForm = () => {
   }
 }
 
+let selectedTripID 
 
 // load reservation form
 const loadReserveForm = tripID => {
-  // $('.name-field').append(reserveName);
+  selectedTripID = tripID;
+  $('.trip-information').append(reserveForm);
+  reserveHeader.html('Reserve a Spot!')
 }
 
 // post reservation
-const addReservation = tripID => {
-  // $('.name-field').append(reserveName);
+const addReservation = () => {
   const reserveData = readReserveForm();
-  axios.post('https://trektravel.herokuapp.com/trips/71/reservations', reserveData)
+  axios.post(`https://trektravel.herokuapp.com/trips/${selectedTripID}/reservations`, reserveData)
     .then((response) => {
       console.log("Yippy bish!", response);
     })
@@ -134,7 +155,7 @@ const addReservation = tripID => {
     })
 };
 
-// doing the things!
+// event listeners
 $(document).ready(function() {
 
   $('#trips-btn').click(loadTrips);
@@ -144,11 +165,9 @@ $(document).ready(function() {
     loadReserveForm(this.id);
   });
 
-  $('#reservation-form').submit((event) => {
+  form.submit((event) => {
     event.preventDefault();
-    readReserveForm();
     addReservation();
-    // addReservation();
   });
 });
 

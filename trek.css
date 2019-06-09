@@ -22,9 +22,14 @@ body {
   margin: 20px 20px 20px 40px;
 }
 
+.reserve {
+  margin-left: 50%;
+  margin-right: 50%;
+}
+
 #current-trips {
   width: 90%;
-  margin: auto;
+  margin: 0px auto auto auto;
 }
 
 .card-header {
@@ -37,15 +42,20 @@ body {
 
 .trip-details {
   width: 95%;
-  height: 350px;
+  height: 300px;
   /* padding: 20px; */
 }
 
-.reservation-form {
+.reservation-card {
+  /* padding: 20px; */
   width: 95%;
   margin-top: 20px;
-  height: 200px;
+  /* height: 200px; */
 }
+
+/* .submit {
+  margin: 0;
+} */
 
 li {
   list-style: none;
