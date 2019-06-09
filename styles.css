@@ -1,0 +1,36 @@
+.hide-reservation {
+    display: none;
+}
+
+.show-reservation {
+    display: block;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 2em;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+.list-trips {
+    grid-column: 1;
+}
+
+.trip { 
+    grid-column: 2;
+}
+
+#trip-details {
+    list-style-type: none;
+}
+
+ul {
+    font-size: 1.25em;
+}
+

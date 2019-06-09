@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trekking</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <section id="status-message"></section>
+  
+    <main>
+      <section id="list-trips" class="current-trips">
+        <h1>Trek</h1>
+        <button id="load" type="button" class="btn btn-primary">See all Trips</button>
+        <ul id="trip-list"></ul>
+      </section>
+
+    <section class="trip">
+        <section class="selected-trip">
+            <h1 id="trip-section" class="hide-reservation">Trip Details</h1>
+            <ul id="trip-details"></ul>
+        </section>
+
+        <section id="new-reservation" class="hide-reservation">
+            <h1>Add reservation to this trip</h1>
+            <form id="reservation-form">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" name="name" />
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="text" name="email" />
+            </div>
+
+            <input type="submit" name="add-reservation" value="Reserve" class="btn btn-primary"/>
+            </form>
+        </section>
+    </section>
+    </main>
+  </body>
+</html>
+
+
+
