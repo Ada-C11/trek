@@ -56,10 +56,12 @@ const getTripDetails = (tripID) => {
 const loadTrips = () => {
     reportStatus('Loading trips ...');
     const listOfTrips = $('#list-of-trips');
-    listOfTrips.empty;
+    // listOfTrips.empty; // this does not work, must use below syntax
+    $("#list-of-trips").empty();
+    
     
     // clear details and form sections upon clicking Show Trips button
-    $("#trip-details").empty();
+    
     // $('#reservation-form').empty();
     $("sign-up-form").empty();
     
