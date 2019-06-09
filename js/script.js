@@ -24,18 +24,18 @@ displayStatus("loading trips...");
 const showTripDetails = (trip) => {
 const tripName = trip.currentTarget.textContent;
 selectedTrip = tripData.filter(o => o.name === tripName);
-if (selectedTrip && selectedTrip.length > 0) {
-    const tripId = selectedTrip[0].id;
-    displayStatus("loading trips...");
-    (async () => {
-        const response = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
-        $("#trip-details")[0].innerHTML = getTripDetails(response.data);
-        displayStatus("");
-        $('#reserve-trip').show();
-        })().catch(function(error) {
-            handleApiError("There is an issue while pulling the trip's details");
-        });
-}
+    if (selectedTrip && selectedTrip.length > 0) {
+        const tripId = selectedTrip[0].id;
+        displayStatus("loading trips...");
+        (async () => {
+            const response = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
+            $("#trip-details")[0].innerHTML = getTripDetails(response.data);
+            displayStatus("");
+            $('#reserve-trip').show();
+            })().catch(function(error) {
+                handleApiError("There is an issue while pulling the trip's details");
+            });
+    }
 }
 
 const reserveTrip = () => {
