@@ -20,7 +20,7 @@ const handleApiError = (error, customMessage) => {
 // data comes back, store response object in a variable
 // loop through the object and display each item on the page
 
-let allTrips; // not sure this is needed
+// let allTrips; // not sure this is needed
 
 const getTripDetails = (tripID) => {
     axios.get(`${BASEURL}/${tripID}`)
@@ -53,13 +53,15 @@ const loadTrips = () => {
 
     axios.get(BASEURL)
     .then((response) => {
-        reportStatus(`There are ${response.data.length} trips available.`);
-        allTrips = response.data;
+        const allTrips = response.data;
+        reportStatus(`There are ${allTrips.length} trips available.`);
 
         $('thead').html('<tr><td><h2>AVAILABLE TRIPS</h2></td></tr>')
 
-        response.data.forEach((trip) => {
+        allTrips.forEach((trip) => {
             listOfTrips.append(`<tr id=${trip.id}><td>${trip.name}</td></tr>`);
+            // onClick(getTripDetails($(`${trip.id}`)); // <-- START HERE FOR REFACTOR TO .ON() INSTEAD OF .BIND()
+
             $(`#${trip.id}`).unbind()
             $(`#${trip.id}`).bind('click', {thisTrip:trip}, function(event){
                 // Chris: I realized when I was just about done with this project that .bind() is deprecated. D: This should be changed to a .on() method instead. I will refactor if I get some more time, or perhaps we could talk through it.
@@ -131,7 +133,9 @@ const reserveTrip = (event) => {
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
             const tripIdNum = $('.selected').attr('id'); 
-            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`);
+            reportStatus(`Successfully reserved your trip. 
+                (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} 
+                Age: ${reservationData.age})`);
             clearForm();
         })
         .catch((error) => {
