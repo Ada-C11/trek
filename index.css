@@ -28,6 +28,11 @@ main {
     display: flex; 
   }
 
-  /* #sign-up-form {
-    grid-area: 2 / 2 / span 1 / span 1;
-  } */
+  #sign-up-form {
+    /* grid-area: 2 / 2 / span 1 / span 1; */
+    margin-top: 3rem;
+  }
+
+  .bold {
+      font-weight: bold;
+  }

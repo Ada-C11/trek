@@ -24,7 +24,7 @@ let allTrips; // not sure this is needed
 
 const getTripDetails = (tripID) => {
     console.log('****** tripID in getTripDetails: ')
-    console.log(JSON.stringify(tripID));
+    console.log(tripID);
 
     axios.get(`${BASEURL}/${tripID}`)
     .then((response) => {
@@ -33,12 +33,12 @@ const getTripDetails = (tripID) => {
         const trip = response.data;
         $("#trip-details").empty();
         $("#trip-details").append(`<h2>${trip.name}</h2>`);
-        $("#trip-details").append(`<p>ID: ${trip.id}</p>`);
-        $("#trip-details").append(`<p>Continent: ${trip.continent}</p>`);
-        $("#trip-details").append(`<p>Category: ${trip.category}</p>`);
-        $("#trip-details").append(`<p>${trip.weeks} weeks</p>`);
-        $("#trip-details").append(`<p>Summary: ${trip.about} </p>`);
-        $("#trip-details").append(`<p>Price: $${trip.cost} </p>`);
+        $("#trip-details").append(`<p><span class="bold">ID:</span> ${trip.id}</p>`);
+        $("#trip-details").append(`<p><span class="bold">Continent:</span> ${trip.continent}</p>`);
+        $("#trip-details").append(`<p><span class="bold">Category:</span> ${trip.category}</p>`);
+        $("#trip-details").append(`<p><span class="bold">Weeks:</span> ${trip.weeks}</p>`);
+        $("#trip-details").append(`<p><span class="bold">Summary:</span><br> ${trip.about}</p>`);
+        $("#trip-details").append(`<p><span class="bold">Price:</span> $${trip.cost.toFixed(2)}</p>`);
 
         $('#reservation-form').empty();
         $('#reservation-form').unbind('submit');
