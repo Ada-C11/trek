@@ -24,6 +24,7 @@ displayStatus("loading trips...");
                 const tripResponse = await axios.get('https://trektravel.herokuapp.com/trips/' + tripId);
                 $("#trip-details")[0].innerHTML = getTripDetails(tripResponse.data);
                 displayStatus("");
+                $("#reserve-title").html(`Reserve a spot on ${selectedTrip[0].name} trip`);
                 $("#reserve-trip").show();
             })()
             .catch(function(error) {
@@ -39,6 +40,7 @@ displayStatus("loading trips...");
 }
 
 const reserveTrip = () => {
+
     if (selectedTrip && selectedTrip.length > 0) {
         const name = $("#txtName");
         const email = $("#txtEmail");
