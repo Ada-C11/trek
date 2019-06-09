@@ -46,7 +46,7 @@ const getTripDetails = (tripID) => {
         $('#reservation-form').prepend('<h2>Reserve your spot!</h2>')
         $('#reservation-form').append('<div> <label for="guestname">Name</label> <input type="text" name="guestname" required/> </div>');
         $('#reservation-form').append('<div> <label for="email">Email Address</label> <input type="text" name="email" required/> </div>');
-        $('#reservation-form').append('<div> <label for="age">Age</label> <input type="text" name="age"/> </div>');
+        $('#reservation-form').append('<div> <label for="age">Age</label> <input type="number" name="age"/> </div>');
         $('#reservation-form').append('<input type="submit" class="btn btn-outline-info" name="make-reservation" value="Make Reservation"/>');
         $('#reservation-form').submit(reserveTrip);
     })
@@ -154,8 +154,8 @@ const reserveTrip = (event) => {
 
     axios.post(`${BASEURL}/${tripID}/reservations`, reservationData)
         .then((response) => {
-            const tripName = $('.selected').attr('name'); 
-            reportStatus(`Successfully reserved your trip ${tripName}. (name: ${response.data.name}  email: ${response.data.email} age: ${response.data.age})`); //shows name and age as undefined
+            const tripIdNum = $('.selected').attr('id'); 
+            reportStatus(`Successfully reserved your trip. (Trip ID: ${tripIdNum}. Your name: ${response.data.name}  Email: ${response.data.email} age: ${reservationData.age})`); //shows age as undefined when using response.data.age; why????
             clearForm();
         })
         .catch((error) => {

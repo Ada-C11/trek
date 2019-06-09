@@ -5,9 +5,6 @@ body {
     padding: 10px 10px;
 }
 
-/* .edge-space {
-} */
-
 h2 {
  font-size: 1.5rem;   
 }
@@ -17,6 +14,9 @@ main {
     grid-template: 1fr 1fr / 1fr 1fr;
     margin-top: 1.5em;
     grid-column-gap: 1.5em;
+  }
+  #status-message {
+      margin-bottom: 2em;
   }
 
   #trips-list-area {
@@ -29,7 +29,6 @@ main {
   }
 
   #sign-up-form {
-    /* grid-area: 2 / 2 / span 1 / span 1; */
     margin-top: 3rem;
   }
 
