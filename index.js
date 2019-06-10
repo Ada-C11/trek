@@ -119,7 +119,7 @@ const getTrip = event => {
       info.append(tripSummary(trip));
       postReservation(trip);
     })
-    .catch(() => {
+    .catch(error => {
       reportStatus(`Encountered an error while loading trip: ${error.message}`);
     });
 };
