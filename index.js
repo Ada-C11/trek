@@ -64,6 +64,7 @@ const onClick = function(action, listener) {
 };
 
 const postReservation = trip => {
+  $('#tripReservation').remove();
   $(`#trekReservation`).append(`<article id="tripReservation">`);
   const reservation = $('#tripReservation');
   reservation.empty();
@@ -72,7 +73,7 @@ const postReservation = trip => {
 };
 
 const handleReservation = trip => {
-  const reservation = $('#trekReservation');
+  const reservation = $('#tripReservation');
   $('form').submit(function(event) {
     event.preventDefault();
     const reservationData = readDataForm(
@@ -113,6 +114,7 @@ const getTrips = () => {
 };
 
 const getTrip = event => {
+  $('#tripInfo').remove();
   $(`#trekInfo`).append(`<article id="tripInfo">`);
   const info = $('#tripInfo');
   info.empty();
