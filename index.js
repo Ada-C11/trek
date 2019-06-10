@@ -17,6 +17,7 @@ const reportApiError = (error) => {
 
 const loadTripForm = (tripName) => {
   const tripForm = $('#trip-form');
+  tripForm.off();
   tripForm.addClass('card');
   tripForm.append(
     `<h4 class="card-header">Reserve a spot on ${tripName}</h4>
