@@ -78,7 +78,6 @@ const reportApiError = (error) => {
 
   const fieldProblems = error.response.data.errors;
 
-  // JavaScript is weird about looping through a hash
   Object.keys(fieldProblems).forEach(field => {
     const problems = fieldProblems[field];
     problems.forEach(problem => {
@@ -89,11 +88,6 @@ const reportApiError = (error) => {
   errorHtml += '</p>';
   reportStatus(errorHtml);
 }
-
-// get request for trips
-// const requestTrips = () => {
-//   return axios.get(TRIPS_URL);
-// }
 
 // load list of current trips  
 const loadTrips = () => {
@@ -154,8 +148,6 @@ const loadDetails = tripID => {
 const readReserveForm = () => {
   const name = $('#reservation-form').find('input[type="name"]').val();
   const email = $('#reservation-form').find('input[type="email"]').val();
-  console.log(name);
-  console.log(email);
   return {
     "name": `${name}`,
     "email": `${email}`

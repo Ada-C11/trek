@@ -12,7 +12,6 @@ body {
   width: fit-content;
   display: inline-block;
   padding: 6px;
-  /* background-color: white; */
   border-radius: 5px;
 }
 
@@ -21,7 +20,6 @@ body {
 }
 
 .navbar, .card, #trips-btn, form {
-  /* background-color: rgba(102, 170, 194, 0.529); */
   background-color: rgba(255, 255, 255, 0.886);
 }
 
