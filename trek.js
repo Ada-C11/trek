@@ -67,18 +67,43 @@ submitButton.addClass('btn btn-light reserve');
 form.append(submitButton);
 
 
-// get request for trips
-const requestTrips = () => {
-  return axios.get(TRIPS_URL);
+const reportStatus = (message) => {
+  $('#status-message').html(message);
+};
+
+const reportApiError = (error) => {
+  console.log("encountered error when posting", error);
+
+  let errorHtml = `<p>${error.message}`;
+
+  const fieldProblems = error.response.data.errors;
+
+  // JavaScript is weird about looping through a hash
+  Object.keys(fieldProblems).forEach(field => {
+    const problems = fieldProblems[field];
+    problems.forEach(problem => {
+      errorHtml += `, <strong>${field}:</strong> ${problem}`;
+    });
+  });
+
+  errorHtml += '</p>';
+  reportStatus(errorHtml);
 }
+
+// get request for trips
+// const requestTrips = () => {
+//   return axios.get(TRIPS_URL);
+// }
 
 // load list of current trips  
 const loadTrips = () => {
+  reportStatus('Loading trips...');
   const currentTrips = $('#current-trips');
   tripList.empty();
 
-  requestTrips()
+  axios.get(TRIPS_URL)
     .then((response) => {
+      reportStatus(`Successfully loaded ${response.data.length} trips`);
       const trips = response.data;
       trips.forEach((trip) => {
         const listItem = $('<li>');
@@ -89,6 +114,7 @@ const loadTrips = () => {
       });
     })
     .catch((error) => {
+      reportApiError(error);
       console.log(error);
     });
 
@@ -105,6 +131,7 @@ const loadDetails = tripID => {
   axios.get(TRIP_URL + `${newTripID}`)
     .then((response) => {
       const trip = response.data;
+      reportStatus(`Successfully loaded ${trip.name} trip`);
       tripBody.empty();
       tripDetails.append(tripDetailsHeader);
       tripDetails.append(tripBody);
@@ -117,6 +144,7 @@ const loadDetails = tripID => {
       tripBody.addClass('scroll');
     })
     .catch((error) => {
+      reportApiError(error);
       console.log(error);
     });
 
@@ -148,12 +176,15 @@ const addReservation = () => {
   const reserveData = readReserveForm();
   axios.post(`https://trektravel.herokuapp.com/trips/${selectedTripID}/reservations`, reserveData)
     .then((response) => {
-      console.log("Yippy bish!", response);
+      reportStatus(`Successfully secured reservation for ${response.data.name}`)
+      console.log("Successfully posted reservation", response);
     })
     .catch((error) => {
+      reportApiError(error);
       console.log(error.message, error);
     })
 };
+
 
 // event listeners
 $(document).ready(function() {
