@@ -94,7 +94,9 @@ const handleReservation = trip => {
 
 const getTrips = () => {
   reportStatus('Loading trips...');
-  $(`#trekList`).append(`<ul id="tripList">`);
+  const list = $(`#trekList`);
+  list.empty();
+  list.append(`<ul id="tripList">`);
   const allTrips = $('#tripList');
   allTrips.append(`<h2>All Trips</h2>`);
   axios

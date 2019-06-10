@@ -1,0 +1,11 @@
+#Trek {
+	display: flex;
+}
+
+#trekInfo{
+	width: 300px;
+}
+
+ul {
+	list-style: none;
+}
