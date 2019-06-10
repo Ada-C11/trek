@@ -31,7 +31,7 @@ const loadTrips = () => {
             })
 
         .catch((error) => {
-            reportStatus(`Error while loading: ${error.message}`);
+            reportStatus(`Error loading: ${error.message}`);
             console.log(error);
         });
   };
