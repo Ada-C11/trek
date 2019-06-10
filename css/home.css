@@ -1,0 +1,110 @@
+.display-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 3rem;
+    border: 1px solid black;
+}
+
+h1 {
+    margin-left: 10px;
+}
+
+section.title {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 10px;
+    border-bottom: solid thin black;
+}
+
+button#load-trips {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#trip-list {
+    width: 450px;
+    padding-top: 10px;
+    margin-left: 10px;
+}
+
+#trip-details {
+    width: 650px;
+    padding-top: 10px;
+    margin-left: 10px;
+}
+
+#trip-list > h4, #trip-details > h4, #reserve-trip > h4 {
+    text-align: center;
+    border: solid thin black;
+    margin: 0px;
+    border-bottom: 0px;
+    padding: 10px 0px;
+}
+
+#reserve-trip > h4 {
+    border-bottom: solid thin black;
+}
+
+#trip-list > div {
+    border: solid thin black;
+    border-bottom: 0;
+    text-align: center;
+    padding: 10px 0px;
+    cursor: pointer;
+}
+
+#trip-details > div {
+    border: solid thin black;
+    border-bottom: 0;
+    text-align: left;
+    padding: 10px 10px;
+}
+
+#reserve-trip > div {
+    border-left: solid thin black;
+    border-right: solid thin black;
+    border-bottom: 0;
+    text-align: left;
+    padding: 10px 10px;
+}
+
+#trip-list > div:last-child, 
+#trip-details > div:last-child, 
+#reserve-trip > div:last-child {
+    border-bottom: solid thin black;
+}
+
+
+label {
+    font-weight: bold;
+}
+
+.display-flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+#reserve-trip {
+    width: 650px;
+    padding-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+div.display-flex > div:first-child {
+    width: 100px;
+}
+
+div.display-flex input {
+    border-radius: 3px;
+    border: solid thin black;
+    font-size: 18px;
+}
+
+#reserve-trip > div:last-child {
+    text-align: right;
+}
