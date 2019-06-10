@@ -1,7 +1,7 @@
-const TRIPS = 'https://trektravel.herokuapp.com/trips';
+const TRIPS = 'https://trektravel.herokuapp.com/trips/';
 
 const reportStatus = (message) => {
-    $('#status-message').html(message);
+    $('#status-message').html(message).removeClass("hide");
   };
 
 const reportError = (message, errors) => {
@@ -18,30 +18,36 @@ const reportError = (message, errors) => {
 const loadTrips = () => {
     reportStatus('Loading all trips...');
   
-    const tripList = $('#trip-list');
+    const tripList = $('#trip-list').removeClass("hide");
         tripList.empty();
   
         axios.get(TRIPS)
             .then((response) => {
             reportStatus(`Loaded ${response.data.length} trips.`);
             response.data.forEach((trip) => {
-            console.log(response);
-            tripList.append(`<li>${trip.name}</li>`);
-            });
+                let item = $(`<li>${trip.name}</li>`);
+                item.click(function() {
+                  $("section").removeClass("hide")
+                  getTripData(trip);
+                  $('#submit-button').off('click');
+                  $('#submit-button').click(function(event) {
+                    createRes(event, trip.id);
+                  });
+                });
+                tripList.append(item);
+              });
             })
-
         .catch((error) => {
-            reportStatus(`Error loading: ${error.message}`);
+            reportStatus(`Error while loading: ${error.message}`);
             console.log(error);
         });
-  };
-  
-  const getTripData = (trip_id) => {
+    };
+
+const getTripData = (trip) => {
     const tripDetails = $(`#trip-details`).removeClass("hide");
     tripDetails.empty();
-    let trip = TRIPS + trip_id;
   
-    axios.get(trip)
+    axios.get(TRIPS + trip.id)
     .then((response) => {
       console.log(response);
       reportStatus(`Loaded details for trip: ${response.data.name}`);
@@ -56,7 +62,9 @@ const loadTrips = () => {
         reportStatus(`Error while loading: ${error.message}`);
         console.log(error);
     });
-    }
+   }
+
+
   
 const FORM = ['name', 'email'];
 const inputField = name => $(`#reservation-form input[name="${name}"]`);
@@ -87,9 +95,9 @@ const createRes = (event, trip_id) => {
     console.log(resData);
     reportStatus('Sending reservation data...');
     
-    let trip_res = URL + trip_id + '/reservations';
+    let trip_res = URL + trip.id + '/reservations';
     console.log(trip_res)
-    axios.post(resURL, resData)
+    axios.post(trip_res, resData)
     .then((response) => {
         reportStatus(`Added a new reservation for ${response.data.name}.`);
         clearForm();
