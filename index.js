@@ -1,0 +1,1 @@
+const TRIPS = 'https://trektravel.herokuapp.com/trips';
