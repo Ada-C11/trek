@@ -1,5 +1,5 @@
 body {
-    background-image: url(https://lh3.googleusercontent.com/vI6Dk-2pmCQfqK2uiZvTP2MDhEcYH40IMjKRUUqdikAowwiKrHL_C_K1q1Sp7SSS77PqXU75eo0J-p3nUG-C1k_CxQnotdBRizZ8ulTomoNBs5uGvg1pPEZW3xFlCQSU458MCtg6bA=w2400);
+    background-image: url(https://lh3.googleusercontent.com/zVZsevuYFlx20AXw0wv0Z8C0xg1PXZhRAhqZnfimGSZ9JuLOZkS-lHM7rE12pPfYE7xtPZ2OdV1m28cBkNpWxRp52MhWRMoIG6lCFubpK6dCfOjIImdbt60e6m_N_lKBLDBLWgvFdw=w2400);
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
@@ -12,7 +12,7 @@ button {
     color: white;
   }
 
-h1 {
+h1, h2 {
     color: rgba(170, 54, 141);
     text-align: center;
     background-color: white;
@@ -23,9 +23,8 @@ h1 {
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    margin-left: 400px;
-    margin-right: 400px;
-    font-size: 40px;
+    margin-left: 33%;
+    margin-right: 33%;
   }
 
 .hide {
@@ -34,7 +33,6 @@ h1 {
 
 #load {
     margin-top: 10px;
-    margin-left: 200px;
   }
 
 main {
