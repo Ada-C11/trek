@@ -52,11 +52,13 @@ const getTripData = (trip) => {
       console.log(response);
       reportStatus(`Loaded details for trip: ${response.data.name}`);
       tripDetails.append(
-        `<li><strong>Trip Name: ${response.data.name}</strong></li>
+        `<li><u><strong>Trip Name: ${response.data.name}</strong></u></li>
+        <li>ID: ${response.data.id}</li>
         <li>Type: ${response.data.category}</li>
         <li>Destination: ${response.data.continent}</li>
         <li>Cost: $${response.data.cost}</li>
-        <li>Travel Time: ${response.data.weeks} weeks </li>`);
+        <li>Travel Time: ${response.data.weeks} weeks </li>
+        <li>Description: ${response.data.about}</li>`);
       })
     .catch((error) => {
         reportStatus(`Error while loading: ${error.message}`);
@@ -64,8 +66,6 @@ const getTripData = (trip) => {
     });
    }
 
-
-  
 const FORM = ['name', 'email'];
 const inputField = name => $(`#reservation-form input[name="${name}"]`);
   
@@ -88,31 +88,22 @@ const clearForm = () => {
       });
     }
   
-const createRes = (event, trip_id) => {
-    event.preventDefault();
-    
-    const resData = readFormData();
-    console.log(resData);
+const createRes = (event, trip) => {
     reportStatus('Sending reservation data...');
     
-    let trip_res = URL + trip.id + '/reservations';
-    console.log(trip_res)
-    axios.post(trip_res, resData)
-    .then((response) => {
-        reportStatus(`Added a new reservation for ${response.data.name}.`);
-        clearForm();
-    })
-    .catch((error) => {
-        console.log(error.response);
-          if (error.response.data && error.response.data.errors) {
-            reportError(
-              `Error: ${error.message}`,
-              error.response.data.errors
-            );
-          } else {
+        event.preventDefault();
+    
+        const resData = readFormData();
+    
+        axios.post(TRIPS + trip + "/reservations", resData)
+        .then((response) => {
+            reportStatus(`Added a new reservation for ${response.data.name}.`);
+            clearForm();
+        })
+        .catch((error) => {
             reportStatus(`Error: ${error.message}`);
           }
-        });
+        )
     };
   
 $(document).ready(() => {

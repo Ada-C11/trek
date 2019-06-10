@@ -3,32 +3,32 @@ body {
     background-repeat: no-repeat;
     background-position: top center;
     background-attachment: fixed;
-  }
-
-button {
-    padding: 15px;
-    border-radius: 10px;
-    background-color: rgb(63, 15, 134);
     color: white;
+    font-family: 'Archivo', sans-serif;
   }
 
 h1, h2 {
-    color: rgba(170, 54, 141);
     text-align: center;
-    background-color: white;
+    background-color: rgba(39, 124, 57, 0.8);
     border-style: solid;
     border-width: medium;
-    border-color: rgb(63, 15, 134);
+    border-color: white;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 33%;
     margin-right: 33%;
+    font-family: 'Carter One', cursive;
   }
 
 .hide {
     display: none;
+  }
+
+li {
+    list-style-type: none;
+    padding: 1px;
   }
 
 #load {
@@ -42,26 +42,21 @@ main {
 
 #status-message {
     text-align: center;
-    background-color: rgba(170, 54, 141, 0.8);
+    background-color: rgba(39, 124, 57, 0.8);
     padding: 10px;
     border-radius: 15px;
   }
 
 #trip-details {
-    background-color: rgba(63, 15, 134, 0.8);
+    background-color: rgba(39, 124, 57, 0.8);
     padding: 10px;
     border-radius: 15px;
     margin: 20px;
     margin-top: 80px;
   }
 
-#trip-details li {
-    list-style-type: none;
-    padding: 1px;
-  }
-
 #trip-list {
-    background-color: rgba(63, 15, 134, 0.8);
+    background-color: rgba(39, 124, 57, 0.8);
     padding: 20px;
     padding-left: 40px;
     border-radius: 15px;
@@ -73,11 +68,11 @@ main {
   }
   
 #trip-list li:hover {
-    color: rgba(170, 54, 141);
+    color: rgb(21, 72, 32);
   }
 
 #reservation-form {
-    background-color: rgba(63, 15, 134, 0.8);
+    background-color: rgba(39, 124, 57, 0.8);
     padding: 5px;
     border-radius: 15px;
     margin: 20px;
