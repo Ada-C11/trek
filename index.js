@@ -36,7 +36,27 @@ const loadTrips = () => {
         });
   };
   
+  const getTripData = (trip_id) => {
+    const tripDetails = $(`#trip-details`).removeClass("hide");
+    tripDetails.empty();
+    let trip = TRIPS + trip_id;
   
+    axios.get(trip)
+    .then((response) => {
+      console.log(response);
+      reportStatus(`Loaded details for trip: ${response.data.name}`);
+      tripDetails.append(
+        `<li><strong>Trip Name: ${response.data.name}</strong></li>
+        <li>Type: ${response.data.category}</li>
+        <li>Destination: ${response.data.continent}</li>
+        <li>Cost: $${response.data.cost}</li>
+        <li>Travel Time: ${response.data.weeks} weeks </li>`);
+      })
+    .catch((error) => {
+        reportStatus(`Error while loading: ${error.message}`);
+        console.log(error);
+    });
+    }
   
   
   
