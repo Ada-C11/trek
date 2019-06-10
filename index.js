@@ -121,7 +121,7 @@ const getTrip = event => {
     })
     .catch(() => {});
 };
-// const getTrip(trip)
+
 $(document).ready(() => {
   onClick(getTrips, $('#tripBtn'));
 });
