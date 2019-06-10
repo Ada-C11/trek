@@ -1,0 +1,13 @@
+#load {
+    margin-left: 200px;
+  }
+
+#status-message {
+    text-align: center;
+    background-color: rgba(170, 54, 141, 0.8);
+  }
+
+#trip-list {
+    background-color: rgba(63, 15, 134, 0.8);
+    padding: 20px;
+  }
