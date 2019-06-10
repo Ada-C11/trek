@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek using Axios</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+    <main class="container">
+        <header>
+            <h1>Treks With Ports</h1>
+        </header> 
+        
+        <section class="trips">
+            <h2>View Our Trips</h2>
+            <button id="load">Get Trips</button>
+            <div id="status-message"></div>
+            <ul id="trip-list"></ul>
+        </section>
+
+    <section hidden id="trip-details">
+        <h2>Trip Details</h2>
+        <ul></ul>
+    </section>
+
+    <section hidden id="reservation">
+        <h2>Reserve This Trip</h3>
+        <form>
+
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="form-name" name="name"/>
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="form-email" name="email"/>
+            </div>
+
+
+            <input type="submit" name="add-reservation" value="Reserve My Spot">
+        </form>
+    </section>
+
+  </main>
+</body>
+</html>
