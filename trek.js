@@ -63,7 +63,7 @@ emailField.append(emailInput);
 
 const submitButton = $('<button>Submit</button>');
 submitButton.attr('type', 'submit');
-submitButton.addClass('btn btn-primary reserve');
+submitButton.addClass('btn btn-light reserve');
 form.append(submitButton);
 
 
