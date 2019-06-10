@@ -175,6 +175,10 @@ const addReservation = () => {
       reportApiError(error);
       console.log(error.message, error);
     })
+
+    // clears form input after submission so less liklihood of booking twice
+    $('#reservation-form').find('input[type="name"]').val('');
+    $('#reservation-form').find('input[type="email"]').val('');
 };
 
 
