@@ -11,7 +11,7 @@ const reservationForm = trip => {
           		<label for="email">Email</label>
           		<input type="email" class="form-control" id="email" placeholder="you@example.com" required>
           	</div>
-          	<button type="submit" class="btn btn-primary">Reserve</button>
+          	<button type="submit" class="btn btn-success">Reserve</button>
           <form>`;
 };
 
@@ -68,7 +68,7 @@ const postReservation = trip => {
   $(`#trekReservation`).append(`<article id="tripReservation">`);
   const reservation = $('#tripReservation');
   reservation.empty();
-  reservation.append(reservationForm);
+  reservation.append(reservationForm(trip));
   handleReservation(trip);
 };
 
@@ -104,7 +104,11 @@ const getTrips = () => {
     .then(response => {
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       response.data.forEach(trip => {
-        allTrips.append(`<li id="${trip.id}">${trip.name}</li>`);
+        allTrips.append(
+          `<li class="card text-white bg-secondary mb-3" id="${trip.id}">${
+            trip.name
+          }</li>`
+        );
         onClick(getTrip, $(`#${trip.id}`));
       });
     })
