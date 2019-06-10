@@ -1,0 +1,8 @@
+main {
+  display: grid;
+  grid-template: 1fr 1fr;
+}
+
+ul {
+  list-style-type: none;
+}
