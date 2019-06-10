@@ -1,0 +1,121 @@
+body {
+  height: 100%;
+  display: grid;
+  grid-template: 1fr 0.75fr 0.5fr auto / 50% 50%;
+  background-image: url("https://images.pexels.com/photos/207216/pexels-photo-207216.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-size: 1500px 900px;
+}
+
+#status-message {
+  grid-column: 1 / 3;
+  margin: 0px 25px 10px 25px;
+  width: fit-content;
+  display: inline-block;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.navbar {
+  grid-column: 1 / 3;
+}
+
+.navbar, .card, #trips-btn, form {
+  background-color: rgba(255, 255, 255, 0.886);
+}
+
+.navbar-brand {
+  font-size: 2.5em;
+  margin-left: 20px;
+  color: black;
+}
+
+#get-trips {
+  grid-column: 1 / 3;
+}
+
+#trips-btn {
+  margin: 20px 20px 0px 26px;
+  border: rgba(255, 255, 255, 0.817);
+  display: inline-block;
+}
+
+#trips-btn:hover {
+  background-color: rgba(255, 255, 255, 0.269);
+}
+
+form {
+  text-align: right;
+  white-space: nowrap;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+}
+
+.form-control {
+  display: inline-block;
+  max-width: 85%;
+  margin: 10px 10px 0px 5px;
+}
+
+.reserve {
+  float: right;
+  margin: 0px 10px 10px 0px;
+  background-color: rgb(102, 170, 194);
+}
+
+.reserve:hover {
+  background-color: rgba(102, 170, 194, 0.571);
+}
+
+#current-trips {
+  width: 90%;
+  margin: 0px auto auto auto;
+}
+
+.card-header {
+  text-align: center;
+}
+
+.card-body {
+  padding: 20px;
+  background-color: white;
+}
+
+.trip-details {
+  width: 95%;
+  height: 280px;
+}
+
+.reservation-card {
+  width: 95%;
+  margin-top: 20px;
+  height: 230px;
+}
+
+li {
+  list-style: none;
+  cursor: pointer;
+  text-align: center;
+  background-color: red;
+}
+
+li:hover {
+  background-color: rgb(102, 170, 194);
+}
+
+/* scroll bar for list of trips, courtesy of:
+https://stackoverflow.com/questions/49818715/scrollable-card-bootstrap */
+.scroll {
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+span {
+  font-weight: bold;
+}
+
+div > p:first-child {
+  font-size: 1.4rem;
+}
