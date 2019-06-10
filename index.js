@@ -58,7 +58,27 @@ const loadTrips = () => {
     });
     }
   
+const FORM = ['name', 'email'];
+const inputField = name => $(`#reservation-form input[name="${name}"]`);
   
+const readFormData = () => {
+    const getInput = name => {
+        const input = inputField(name).val();
+        return input ? input : undefined;
+      };
+    const formData = {};
+      FORM.forEach((field) => {
+        formData[field] = getInput(field);
+      });
+  
+    return formData;
+};
+    
+const clearForm = () => {
+      FORM.forEach((field) => {
+        inputField(field).val('');
+      });
+    }
   
   
   
