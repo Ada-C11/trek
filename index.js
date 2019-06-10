@@ -7,16 +7,16 @@ const reportStatus = (message) => {
   $('#status-message').html(message);
 };
 
-const reportError = (message, errors) => {
-  let info = `<p>${message}</p><ul>`;
-  for (const field in errors) {
-    for (const problem of errors[field]) {
-     content += `<li>${field}: ${problem}</li>`;
-    }
-  }
-  content += "</ul>"
-  reportStatus(info);
-};
+// const reportError = (message, errors) => {
+//   let content = `<p>${message}</p><ul>`;
+//   for (const field in errors) {
+//     for (const problem of errors[field]) {
+//      content += `<li>${field}: ${problem}</li>`;
+//     }
+//   }
+//   content += "</ul>"
+//   reportStatus(info);
+// };
 
 // Gets All Trips - from Ada Pets  
 const loadTrips = () => {
@@ -96,14 +96,14 @@ const reservation = (event) => {
   event.preventDefault();
   console.log('this works')
 
-  // const testData = readTripForm();
+  
   const tripID = event.target.className;
-  let createTripURL = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`
+  let createTripURL = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
   let tripData = readFormData();
   reportStatus('Sending trip data...');
   
   console.log("About to post trip data", tripData)
-
+  // keep getting a 404 not found. The data isn't being read
   axios.post(createTripURL, tripData)
     .then((response) => {
       console.log(response);
