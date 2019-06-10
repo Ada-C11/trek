@@ -1,6 +1,21 @@
+body {
+  background-color: #FFC2AD;
+}
+
 main {
-  display: grid;
-  grid-template: 1fr 1fr;
+  display: flex; 
+}
+
+h2 {
+  color: #CC6D4E;
+}
+
+h3 {
+  color: #FF8960;
+}
+
+li {
+  color: #CC6D4E 
 }
 
 ul {

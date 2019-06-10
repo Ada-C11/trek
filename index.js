@@ -98,7 +98,7 @@ const reservation = (event) => {
 
   
   const tripID = event.target.className;
-  let createTripURL = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
+  const createTripURL = `https://trektravel.herokuapp.com/trips/${tripID}/reservations`;
   let tripData = readFormData();
   reportStatus('Sending trip data...');
   
