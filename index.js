@@ -25,6 +25,7 @@ const tripSummary = trip => {
           <h4>About:</h4><p>${trip.about}</p>`;
 };
 
+// adapted/learned from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
 String.prototype.capitalize = function() {
   return this[0].toUpperCase() + this.slice(1, this.length);
 };
@@ -34,14 +35,17 @@ const confirmation = (tripConfirmation, tripName) => {
   <p>Confirmation ID: ${tripConfirmation.id} for Trek to ${tripName}</p>`;
 };
 
+// adapted from class live code
 const readDataForm = (email, name) => {
   return { email: email, name: name };
 };
 
+// adapted from class live code
 const reportStatus = message => {
   $('#statusMessage').html(message);
 };
 
+// adapted from class live code
 const reportApiError = error => {
   let errorHtml = `<p>${error.message}</p><ul>`;
   const fieldProblems = error.response.data.errors;
