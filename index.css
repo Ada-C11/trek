@@ -19,6 +19,11 @@
     margin-top: 80px;
   }
 
+#trip-details li {
+    list-style-type: none;
+    padding: 1px;
+  }
+
 #trip-list {
     background-color: rgba(63, 15, 134, 0.8);
     padding: 20px;
