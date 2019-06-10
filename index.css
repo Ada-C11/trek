@@ -1,0 +1,37 @@
+
+body {
+  font-family: sans-serif;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+    "list details"
+    "list reserve"
+}
+
+#trips-list {
+  grid-area: list;
+}
+
+#trip-details {
+  grid-area: details;
+}
+
+#reserve-trip {
+  grid-area: reserve;
+}
+
+#status-message {
+
+}
+
+#trips-button {
+
+}
+
+#reservation-form {
+
+}
