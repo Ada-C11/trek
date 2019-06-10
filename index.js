@@ -80,8 +80,33 @@ const clearForm = () => {
       });
     }
   
+const createRes = (event, trip_id) => {
+    event.preventDefault();
+    
+    const resData = readFormData();
+    console.log(resData);
+    reportStatus('Sending reservation data...');
+    
+    let trip_res = URL + trip_id + '/reservations';
+    console.log(trip_res)
+    axios.post(resURL, resData)
+    .then((response) => {
+        reportStatus(`Added a new reservation for ${response.data.name}.`);
+        clearForm();
+    })
+    .catch((error) => {
+        console.log(error.response);
+          if (error.response.data && error.response.data.errors) {
+            reportError(
+              `Error: ${error.message}`,
+              error.response.data.errors
+            );
+          } else {
+            reportStatus(`Error: ${error.message}`);
+          }
+        });
+    };
   
-  
-   $(document).ready(() => {
+$(document).ready(() => {
     $('#load').click(loadTrips);
   });
