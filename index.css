@@ -5,7 +5,7 @@ body {
     background-attachment: fixed;
     color: white;
     font-family: 'Archivo', sans-serif;
-  }
+}
 
 h1, h2 {
     text-align: center;
@@ -20,40 +20,45 @@ h1, h2 {
     margin-left: 33%;
     margin-right: 33%;
     font-family: 'Carter One', cursive;
-  }
+}
+
+h3 {
+    font-family: 'Carter One', cursive;
+}
 
 .hide {
     display: none;
-  }
+}
 
 li {
     list-style-type: none;
     padding: 1px;
-  }
+}
 
 #load {
     margin-top: 10px;
-  }
+}
 
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
-  }
+}
 
 #status-message {
     text-align: center;
     background-color: rgba(39, 124, 57, 0.8);
-    padding: 10px;
+    padding: 20px;
+    padding-left: 40px;
     border-radius: 15px;
-  }
+    margin: 20px;
+}
 
 #trip-details {
     background-color: rgba(39, 124, 57, 0.8);
     padding: 10px;
     border-radius: 15px;
     margin: 20px;
-    margin-top: 80px;
-  }
+}
 
 #trip-list {
     background-color: rgba(39, 124, 57, 0.8);
@@ -61,24 +66,24 @@ main {
     padding-left: 40px;
     border-radius: 15px;
     margin: 20px;
-  }
+}
 
 #trip-list li {
     padding: 5px;
-  }
+}
   
 #trip-list li:hover {
     color: rgb(21, 72, 32);
-  }
+}
 
 #reservation-form {
     background-color: rgba(39, 124, 57, 0.8);
     padding: 5px;
     border-radius: 15px;
     margin: 20px;
-  }
+}
   
 .form-text {
     padding: 2px;
     margin: 3px;
-  }
+}

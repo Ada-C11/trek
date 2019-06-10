@@ -2,7 +2,7 @@ const TRIPS = 'https://trektravel.herokuapp.com/trips/';
 
 const reportStatus = (message) => {
     $('#status-message').html(message).removeClass("hide");
-  };
+};
 
 const reportError = (message, errors) => {
     let content = `<p>${message}</p><ul>`;
@@ -13,7 +13,7 @@ const reportError = (message, errors) => {
         }
     content += "</ul>";
     reportStatus(content);
-  };
+};
 
 const loadTrips = () => {
     reportStatus('Loading all trips...');
@@ -41,7 +41,7 @@ const loadTrips = () => {
             reportStatus(`Error while loading: ${error.message}`);
             console.log(error);
         });
-    };
+};
 
 const getTripData = (trip) => {
     const tripDetails = $(`#trip-details`).removeClass("hide");
@@ -52,7 +52,8 @@ const getTripData = (trip) => {
       console.log(response);
       reportStatus(`Loaded details for trip: ${response.data.name}`);
       tripDetails.append(
-        `<li><u><strong>Trip Name: ${response.data.name}</strong></u></li>
+        `<h3>Trip Details</h3>
+        <li><u><strong>Trip Name: ${response.data.name}</strong></u></li>
         <li>ID: ${response.data.id}</li>
         <li>Type: ${response.data.category}</li>
         <li>Destination: ${response.data.continent}</li>
@@ -64,7 +65,7 @@ const getTripData = (trip) => {
         reportStatus(`Error while loading: ${error.message}`);
         console.log(error);
     });
-   }
+}
 
 const FORM = ['name', 'email'];
 const inputField = name => $(`#reservation-form input[name="${name}"]`);
@@ -86,25 +87,24 @@ const clearForm = () => {
       FORM.forEach((field) => {
         inputField(field).val('');
       });
-    }
+}
   
 const createRes = (event, trip) => {
     reportStatus('Sending reservation data...');
     
-        event.preventDefault();
+    event.preventDefault();
     
-        const resData = readFormData();
+    const resData = readFormData();
     
-        axios.post(TRIPS + trip + "/reservations", resData)
-        .then((response) => {
-            reportStatus(`Added a new reservation for ${response.data.name}.`);
-            clearForm();
-        })
-        .catch((error) => {
-            reportStatus(`Error: ${error.message}`);
-          }
-        )
-    };
+    axios.post(TRIPS + trip + "/reservations", resData)
+    .then((response) => {
+        reportStatus(`Added a new reservation for ${response.data.name}.`);
+        clearForm();
+    })
+    .catch((error) => {
+        reportStatus(`Error: ${error.message}`);
+    })
+};
   
 $(document).ready(() => {
     $('#load').click(loadTrips);
