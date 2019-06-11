@@ -1,49 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   <meta charset="utf-8">
   <title>TREK</title>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script type="text/javascript" src="index2.js"></script>
+
   <link rel="stylesheet" href="index.css">
 </head>
-<body>
-  <section id="status-message"></section>
 
-  <main>
+<body>
+
+  <main id="grid-container">
+    <section id="status-message"></section>
+    <h1 id="title">Ready to Trek?</h1>
     <section class="current-treks">
-      <h1>Ready to Trek?</h1>
       <button id="load">See treks!</button>
       <ul id="trek-list"></ul>
     </section>
 
     <section id="details">
-      <!-- <div class="indiv-trek"></div> -->
-    </section>
-
-    <section id="reservation">
-      <!-- <h1>Make a Reservation</h1>
-      <form id="reservation-form">
-        <div>
-          <label for="name">Name</label>
-          <input type="text" name="name" />
-        </div>
-
-        <div>
-            <label for="email">Email</label>
-            <input type="text" name="email" />
-          </div>
-
-        <div>
-          <label for="age">Age</label>
-          <input type="number" min="0" name="age" />
-        </div>
-
-        <input type="submit" name="make-reservation" value="Reserve!!" />
-      </form> -->
     </section>
   </main>
+
 </body>
+
 </html>
