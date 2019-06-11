@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
+
+body {
+  font-family: Muli;
+  background-image: url("https://tinyurl.com/y4labzbu");
+  background-attachment: fixed;
+  /* background-position: center;  */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+main {
+}
+
+#title {
+  font-family: Bangers;
+  font-weight: 500;
+  font-size: 5rem;
+}
+
+#grid-container {
+  display: grid;
+  grid-template: auto 5em 1em / 50% auto;
+}
+
+#status-message {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 1;
+  border: solid;
+  border-color: orangered;
+  background-color: white;
+  opacity: 0.75;
+}
+
+#title {
+  grid-column: 1 / span 2;
+  grid-row: 2 / span 2;
+
+  justify-self: center;
+}
+
+#load {
+  border: solid;
+  border-color: orangered;
+  justify-self: end;
+  font-family: Muli;
+  font-size: 2em;
+  font-style: bold;
+  margin-top: 20%;
+  opacity: 0.75;
+}
+
+.current-treks {
+  grid-column: 1 / span 1;
+  grid-row: 3 / span 1;
+  justify-self: center;
+  padding-top: 10%
+}
+
+#trek-list {
+  list-style: none;
+  line-height: 30px;
+  text-align: center;
+}
+
+/* ul {
+  opacity: 0.75;
+} */
+
+li {
+  background-color: white;
+  opacity: 0.75;
+}
+
+li:hover { 
+  background-color: orangered;
+  color: white;
+}
+
+#details {
+  grid-column: 2 / span 1;
+  grid-row: 3 / span 1;
+  padding-top: 10%;
+}
+
+#details * {
+  background-color: white;
+  opacity: 0.75;
+}
