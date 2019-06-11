@@ -60,12 +60,12 @@ const readTrip = (tripID) => {
       reportStatus(`Successfully loaded Trip ${tripID}`);
       // add header
       tripAttributes.append(`<h1> Trip Details </h1>`);
-      
+
       // parse through hashy details object
       for (let [detail, value] of Object.entries(response.data)) {
         tripAttributes.append(`<li class='detail'> ${detail.charAt(0).toUpperCase() + detail.slice(1)}: ${value} </li>`);
       }
- 
+
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -81,7 +81,8 @@ const tripForm = (tripID) => {
 
   const tripURL = tripListURL + '/' + tripID;
 
-  const form = `<form id="tripForm">
+
+  const form = `<form id='trip-form' class=${tripID}>
     <div class="name-sec">
       <label for="name">Name</label>
       <input type="name" id="name">
@@ -96,10 +97,10 @@ const tripForm = (tripID) => {
   // sends GET request to endpoint
   axios.get(tripURL)
     .then((response) => {
-      reportStatus(`Successfully loaded Trip ${tripID}`);
+      reportStatus(`Successfully loaded Trip Form ${tripID}`);
       // add header
-      tripFormContainer.append(`<h1> Reserve This Trip </h1>`+ form);
- 
+      tripFormContainer.append(`<h1> Reserve This Trip </h1>` + form);
+
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -107,6 +108,53 @@ const tripForm = (tripID) => {
     });
 };
 
+
+const readFormData = () => {
+  const parsedFormData = {};
+
+  const nameFromForm = $(`#trip-form input[name="name"]`).val();
+  parsedFormData['name'] = nameFromForm ? nameFromForm : undefined;
+
+  const emailFromForm = $(`#trip-form input[name="email"]`).val();
+  parsedFormData['email'] = emailFromForm ? emailFromForm : undefined;
+
+  return parsedFormData;
+};
+
+const clearForm = () => {
+  $(`#trip-form input[name="name"]`).val('');
+  $(`#trip-form input[name="email"]`).val('');
+}
+
+
+const makeReservation = (tripID) => {
+  const tripURL = tripListURL + '/' + tripID;
+
+  event.preventDefault();
+
+  const tripData = readFormData();
+  console.log(tripData);
+
+  reportStatus('Sending trip data...');
+
+  axios.post(tripURL, tripData)
+    .then((response) => {
+      reportStatus(`Successfully added a trip with ID ${tripID}!`);
+      clearForm();
+    })
+    .catch((error) => {
+      console.log(error.response);
+      if (error.response.data && error.response.data.errors) {
+        reportError(
+          `Encountered an error: ${error.message}`,
+          error.response.data.errors
+        );
+      } else {
+        reportStatus(`Encountered an error: ${error.message}`);
+      }
+    });
+
+};
 
 
 //
@@ -116,11 +164,11 @@ $(document).ready(() => {
   $('#load').click(loadTrips);
   $('#trip-list').on('click', '.trip', function () {
     readTrip(this.id);
-  })
-  $('#trip-list').on('click', '.trip', function () {
-    tripForm(this.id);
-  })
-
+    tripForm(this.id)
+  });
+  $('#tripForm').on('submit', 'button', function () {
+    makeReservation(this.class)
+  });
 });
 
 
