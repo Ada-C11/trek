@@ -27,3 +27,15 @@ Details about the trip
 Category of the trip
 Number of weeks duration of the trip
 Cost of the trip
+
+
+Wave 3
+
+1. load form when trip gets clicked -> trigger event, click
+name, email 
+
+2. send a post request when submit gets clicked
+    clear form 
+
+3. create new trip, with some info set 
+

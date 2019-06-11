@@ -30,6 +30,7 @@ const loadTrips = () => {
   // sends GET request to endpoint
   axios.get(tripListURL)
     .then((response) => {
+      tripList.append('<h1> All Trips </h1>')
       reportStatus(`Successfully loaded ${response.data.length} trips`);
       // parses through each response 
       response.data.forEach((trip) => {
@@ -59,15 +60,12 @@ const readTrip = (tripID) => {
       reportStatus(`Successfully loaded Trip ${tripID}`);
       // add header
       tripAttributes.append(`<h1> Trip Details </h1>`);
+      
       // parse through hashy details object
-
       for (let [detail, value] of Object.entries(response.data)) {
-        tripAttributes.append(`<li class='detail'> ${detail}: ${value} </li>`);
+        tripAttributes.append(`<li class='detail'> ${detail.charAt(0).toUpperCase() + detail.slice(1)}: ${value} </li>`);
       }
-      // response.data.forEach((detail) => {
-      //   // adds each trip to list 
-      //   tripAttributes.append(`<li class='detail'> ${detail} </li>`);
-      // });
+ 
     })
     .catch((error) => {
       reportStatus(`Encountered an error while loading trips: ${error.message}`);
@@ -75,7 +73,41 @@ const readTrip = (tripID) => {
     });
 };
 
-// Object.entries documentation 
+const tripForm = (tripID) => {
+  reportStatus('Loading trip form');
+
+  const tripFormContainer = $('#trip-form-container');
+  tripFormContainer.empty();
+
+  const tripURL = tripListURL + '/' + tripID;
+
+  const form = `<form id="tripForm">
+    <div class="name-sec">
+      <label for="name">Name</label>
+      <input type="name" id="name">
+    </div>
+    <div class="email-sec">
+      <label for="email">Email</label>
+      <input type="email" id="email">
+    </div>
+    <button type="submit">Make reservation</button>
+  <form>`;
+
+  // sends GET request to endpoint
+  axios.get(tripURL)
+    .then((response) => {
+      reportStatus(`Successfully loaded Trip ${tripID}`);
+      // add header
+      tripFormContainer.append(`<h1> Reserve This Trip </h1>`+ form);
+ 
+    })
+    .catch((error) => {
+      reportStatus(`Encountered an error while loading trips: ${error.message}`);
+      console.log(error);
+    });
+};
+
+
 
 //
 // OK GO!!!!!
@@ -85,5 +117,12 @@ $(document).ready(() => {
   $('#trip-list').on('click', '.trip', function () {
     readTrip(this.id);
   })
+  $('#trip-list').on('click', '.trip', function () {
+    tripForm(this.id);
+  })
 
 });
+
+
+
+
