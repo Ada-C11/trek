@@ -1,0 +1,8 @@
+ul {
+    list-style: none
+}
+
+.trip {
+    border: 2px solid;
+    display: table 
+}
