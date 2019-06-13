@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Trek API</title>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <section id="status-message"></section>
+  <h1>Trek</h1>
+  <button id="load-all" class="btn btn-primary">See all trips</button>
+  <main>
+    <section id="all-trips", class="card">
+            <div class="card-block">
+
+                <h5 class='card-title'>All Trips</h5>
+            </div>
+            <ul id="trips-list" class="list-group"></ul>
+    </section>
+
+    <section id="details", class="card">
+        <div class="card-body">
+            <h5 class='card-title'>Trip Details</h5>
+            <ul id="trip-details" class="list-unstyled"></ul>
+        </div>
+    </section>
+
+    <section id="reserve" class="card">
+        <div class="card-body">
+        <h5 class="card-title">Reserve a Spot on Trip</h5>
+            <form id = "reservation" class="form-group">
+                    
+                <input type="hidden" id="resId" name="resId" value=""/>
+                    
+                <label for="name">Name</label>
+                <input type="name" class="form-control" id="name" placeholder="Your name here">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                <input type="submit" class="btn btn-primary", value="Make Reservation"/>
+
+            </form>
+        </div>
+    </section>
+  </main>
+</body>
+</html>
+
