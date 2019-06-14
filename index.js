@@ -53,8 +53,9 @@ const tripDetails = (id) => {
     .then((response) => {
       reportStatus(`Successfully loaded details about ${id}.`);
 
+      $('#trip-id').text(id);
       let trip = response.data;
-
+      
       tripInfo.append(`<h3>Name: ${trip.name}</h3>`);
       tripInfo.append(`<p><strong>Continent: </strong>${trip.continent}</p>`);
       tripInfo.append(`<p><strong>Category: </strong>${trip.category}</p>`);
@@ -98,7 +99,7 @@ const reserveTrip = (event) => {
 
   reportStatus('Sending trip data...');
 
-  let tripId = $(this).html();
+  let tripId = $('#trip-id').text();
   console.log(tripId);
 
   const RESERVATION_URL = ALL_TRIPS + '/' + tripId + '/reservations';

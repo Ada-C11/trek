@@ -82,3 +82,7 @@ li{
   padding-top: 1em;
   border-bottom: solid coral;
 }
+
+#trip-id{
+  display: none;
+}
