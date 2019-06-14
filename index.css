@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css?family=Barrio|Fascinate+Inline&display=swap');
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 2em;
+  grid-row-gap: 0;
+  /* background-image: url("https://i.pinimg.com/originals/3d/1e/e8/3d1ee8705f18e287677909f1c548cd42.jpg"); */
+  background-image: url("images/erwan-hesry-166245-unsplash.jpg");
+  font-weight: bold;
+  color: aliceblue;
+  background-size: cover;
+}
+
+ #main {
+  min-height: 20px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  text-align: center;
+}
+
+#title{
+  font-family: 'Fascinate Inline', cursive;
+}
+
+button#load-trips{
+ border: solid;
+ margin: 0 auto 1em auto;
+ font-size: 1em;
+ padding: 5px 30px;
+ background-color: rgb(247, 126, 146);
+ color: whitesmoke;
+}
+
+#trips{
+  grid-column: 1;
+  grid-row: 2 / span 2;
+} 
+
+#trip-details {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+#reservation{
+  grid-column: 2;
+  grid-row: 3;
+  height: auto;
+}
+
+#trips, #trip-details, #reservation{
+  border: dotted burlywood;
+  overflow: scroll;
+  text-align: center;
+}
+
+.details-border{
+  height: auto;
+}
+
+#reservation{
+  padding-bottom: 15px;
+}
+
+.hide-details{
+  display: none;
+}
+
+#list{
+  text-align: center;
+}
+
+.list-name {
+  font-family: 'Barrio', cursive;
+}
+
+#trips-list {
+  list-style: none;
+}
+
+li{
+  padding-top: 1em;
+  border-bottom: solid coral;
+}
+
+#trip-id{
+  display: none;
+}
