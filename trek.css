@@ -1,0 +1,46 @@
+header {
+  padding: 20px 40px;
+}
+
+header {
+  border-bottom: solid 1px black;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+h2 {
+  text-align: center;
+}
+
+#left-side, #right-side {
+  padding: 20px;
+}
+
+#all-trips, #trip-details, #reserve-trip {
+  border: 1px black solid;
+  margin: 20px;
+  padding: 20px;
+}
+
+#trip-details {
+  min-height: 60vh;
+}
+
+#load {
+  margin: 40px 0 0 40px;
+}
+
+#left-side {
+  visibility: hidden;
+}
+
+#right-side {
+  visibility: hidden;
+}
+
+.visible {
+  visibility: visible;
+}
