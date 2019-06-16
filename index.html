@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href=" https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="index.css">
+  <title>Document</title>
+</head>
+<body>
+  <main>
+    <header>
+    <h1> Ada Treks! </h1>
+    <section id="status-message"></section>
+    </header>
+    
+    <section id="show-all-trips">
+      <button type="button" class="btn btn-primary" id="trips-button">Load all trips</button>
+      <div id="all-loc">
+        <ul id="trips-list"></ul>
+      </div>
+  </section>
+    
+    <section id="show-details" class="details hidden">
+      <article>
+        <h2> Trip Details </h2>
+        <ul id="trip-details"> </ul>
+      </article>
+      <section id="trip-form">
+        <h3>Reserve your spot!</h3>
+        <form id="reserveDeets">
+          <label> Name</label>
+          <input name="full-name" type="text">
+          <label> Email </label>
+          <input name="email" type="text">
+          <button id="res-button" type="button">Reserve!</button> 
+        </form>
+      </section>
+    </section>
+    
+  </main>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
